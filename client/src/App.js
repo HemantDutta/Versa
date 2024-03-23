@@ -1,8 +1,14 @@
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Home} from "./pages/Home";
 
 function App() {
   return (
     <>
-      <span>GracePDF</span>
+      <BrowserRouter>
+          <Routes>
+              <Route path={"/"} element={<Home/>}/>
+          </Routes>
+      </BrowserRouter>
     </>
   );
 }
