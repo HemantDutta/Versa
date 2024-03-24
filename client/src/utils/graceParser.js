@@ -19,6 +19,10 @@ This is a paragraph with **bold** and *italic* text.
 | Value 1  | Value 2  |
 
 [Visit Google](https://www.google.com)
+
+> This is a blockquote
+
+~~This is strikethrough text~~
 `;
 
     const headerRegex = /^(#{1,6})\s+(.*)$/gm;
@@ -28,6 +32,8 @@ This is a paragraph with **bold** and *italic* text.
     const linkRegex = /\[([^\]]+)\]\(([^\)]+)\)/g;
     const imageRegex = /!\[([^\]]+)\]\(([^)]+)\s"([^")]+)"\)/g;
     const highlightRegex = /`([^`]+)`/g;
+    const blockquoteRegex = /^>(.*)$/gm;
+    const strikeThroughRegex = /~~(.*?)~~/g;
 
     function convertMarkdownTableToHtml(tableMarkdown) {
         const rows = tableMarkdown.trim().split('\n');
@@ -47,6 +53,8 @@ This is a paragraph with **bold** and *italic* text.
             .replace(linkRegex, '<a href="$2">$1</a>')
             .replace(imageRegex, '<img src="$2" alt="$1" title="$3" />')
             .replace(highlightRegex, '<code>$1</code>')
+            .replace(strikeThroughRegex, '<del>$1</del>')
+            .replace(blockquoteRegex, (match, content) => `<blockquote>${content.trim()}</blockquote>`);
     }
 
     const paragraphs = markFile.split(/\n\s*\n/);
