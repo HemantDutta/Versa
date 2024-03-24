@@ -1,5 +1,5 @@
 export const graceParser = (file) => {
-    let markFile = file || "";
+    let markFile = file || ``;
 
     //remove later
     markFile = `
@@ -51,7 +51,7 @@ This is a paragraph with **bold** and *italic* text.
 
     const paragraphs = markFile.split(/\n\s*\n/);
 
-    return paragraphs.map(paragraph => {
+    let html = paragraphs.map(paragraph => {
 
         if (paragraph.trim().startsWith('|')) {
             return convertMarkdownTableToHtml(paragraph);
@@ -63,4 +63,6 @@ This is a paragraph with **bold** and *italic* text.
 
         return `<p>${convertToHTML(paragraph)}</p>`;
     }).join('');
+
+    return html = `<section style="background: #000; color: white;">` + html + `</section>`;
 }
