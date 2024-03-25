@@ -1,3 +1,5 @@
+import '../styles/Select.css';
+
 export const Select = ({name, setState, children}) => {
     return (
         <div className="select-wrapper rounded overflow-hidden">

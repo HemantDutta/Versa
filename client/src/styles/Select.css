@@ -1,0 +1,30 @@
+/*Select Component Style*/
+
+select {
+    width: 248px;
+    position: relative;
+    height: 95%;
+    outline: none;
+}
+
+select::-webkit-scrollbar {
+    display: none;
+}
+
+.select-wrapper {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 250px;
+    height: 100%;
+}
+
+.select-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 102%;
+    height: 101%;
+    background: linear-gradient(45deg, blueviolet, hotpink);
+    transition: all 0.2s ease;
+}
