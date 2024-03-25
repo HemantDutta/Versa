@@ -65,7 +65,7 @@ export const Editor = () => {
             <section className="editor">
                 <header className="bg-dark p-3 flex gap-x-5 items-center justify-between">
                     <div className="left flex items-center gap-x-5">
-                        <span className="brand user-select-none cursor-pointer text-white font-bold text-2xl">GracePDF</span>
+                        <span className="brand user-select-none cursor-pointer text-white font-bold text-2xl">Versa</span>
                         <div className="tools flex items-center gap-x-5 flex-wrap">
                             <span title="Insert Bold Text" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">B</span>
                             <span title="Insert Italic Text" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white italic active:text-black">I</span>
