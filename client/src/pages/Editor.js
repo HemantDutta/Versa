@@ -61,7 +61,6 @@ export const Editor = () => {
     //Close Mobile Menu on Resize
     useEffect(()=>{
         const closeOnResize = () => {
-            console.log("resize")
             if(window.innerWidth > 1280) {
                 ham.current.classList.remove("active");
                 mobileMenu.current.classList.remove("active");
@@ -71,6 +70,22 @@ export const Editor = () => {
         window.addEventListener("resize", closeOnResize);
 
         return ()=> window.removeEventListener("resize", closeOnResize);
+    },[])
+
+    //Close Mobile Menu on Click Away
+    useEffect(()=>{
+        const closeOnClickAway = (e) => {
+            if(mobileMenu.current.classList.contains("active")) {
+                if(!mobileMenu.current.contains(e.target) && !ham.current.contains(e.target)) {
+                    ham.current.classList.remove("active");
+                    mobileMenu.current.classList.remove("active");
+                }
+            }
+        }
+
+        window.addEventListener("click", closeOnClickAway);
+
+        return ()=> window.removeEventListener("click", closeOnClickAway);
     },[])
 
     //Call Fetch Google Fonts
