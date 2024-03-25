@@ -1,0 +1,46 @@
+/*Editor Page Stylesheet*/
+
+.editor {
+    position: relative;
+}
+
+.editor header select {
+    width: 248px;
+    position: relative;
+    height: 95%;
+    outline: none;
+}
+
+.editor header select::-webkit-scrollbar {
+    display: none;
+}
+
+.editor header .select-wrapper {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 250px;
+    height: 100%;
+}
+
+.editor header .select-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 102%;
+    height: 101%;
+    background: linear-gradient(45deg, blueviolet, hotpink);
+    transition: all 0.2s ease;
+}
+
+@keyframes gradAnim {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
