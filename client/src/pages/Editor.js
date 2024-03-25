@@ -58,6 +58,21 @@ export const Editor = () => {
         }
     }
 
+    //Close Mobile Menu on Resize
+    useEffect(()=>{
+        const closeOnResize = () => {
+            console.log("resize")
+            if(window.innerWidth > 1280) {
+                ham.current.classList.remove("active");
+                mobileMenu.current.classList.remove("active");
+            }
+        }
+
+        window.addEventListener("resize", closeOnResize);
+
+        return ()=> window.removeEventListener("resize", closeOnResize);
+    },[])
+
     //Call Fetch Google Fonts
     useEffect(() => {
         fetchGoogleFonts()
