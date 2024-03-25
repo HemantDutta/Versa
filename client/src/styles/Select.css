@@ -1,7 +1,7 @@
 /*Select Component Style*/
 
 select {
-    width: 248px;
+    width: 99%;
     position: relative;
     height: 95%;
     outline: none;
@@ -27,4 +27,10 @@ select::-webkit-scrollbar {
     height: 101%;
     background: linear-gradient(45deg, blueviolet, hotpink);
     transition: all 0.2s ease;
+}
+
+@media screen and (max-width: 320px) {
+    .select-wrapper {
+        width: 100%;
+    }
 }

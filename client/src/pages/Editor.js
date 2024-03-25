@@ -10,6 +10,8 @@ export const Editor = () => {
 
     //Refs
     const first = useRef(true);
+    const ham = useRef(null);
+    const mobileMenu = useRef(null);
 
     //States
     const [fonts, setFonts] = useState([]);
@@ -43,7 +45,17 @@ export const Editor = () => {
         } catch (err) {
             console.log("This error occurred while changing the font: " + err);
         }
+    }
 
+    //Toggle Mobile Menu
+    function toggleMobileMenu() {
+        if (ham.current.classList.contains("active")) {
+            ham.current.classList.remove("active");
+            mobileMenu.current.classList.remove("active");
+        } else {
+            ham.current.classList.add("active");
+            mobileMenu.current.classList.add("active");
+        }
     }
 
     //Call Fetch Google Fonts
@@ -63,10 +75,60 @@ export const Editor = () => {
     return (
         <>
             <section className="editor">
-                <header className="bg-dark p-3 flex gap-x-5 items-center justify-between">
-                    <div className="left flex items-center gap-x-5">
-                        <span className="brand user-select-none cursor-pointer text-white font-bold text-2xl">Versa</span>
-                        <div className="tools flex items-center gap-x-5 flex-wrap">
+                <nav className="relative">
+                    <header className="bg-dark relative p-3 flex gap-x-5 items-center justify-between z-50">
+                        <div className="left flex items-center gap-x-5">
+                            <span className="brand user-select-none cursor-pointer text-white font-bold text-4xl">Versa</span>
+                            <div className="tools flex items-center gap-x-1 flex-wrap">
+                                <span title="Insert Bold Text" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">B</span>
+                                <span title="Insert Italic Text" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white italic active:text-black">I</span>
+                                <del title="Insert Strike Through Text" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">ST</del>
+                                <span title="Insert Blockquote" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">>_</span>
+                                <span title="Insert Unordered List" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ul"/></span>
+                                <span title="Insert Ordered List" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ol"/></span>
+                                <span title="Insert Code Block" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"> {"</>"} </span>
+                            </div>
+                        </div>
+                        <div className="right flex items-center gap-x-5">
+                            <div className="font-options flex flex-col">
+                                <label htmlFor="fonts" className="text-white">Choose Font</label>
+                                <Select name="fonts" setState={setSelectedFont}>
+                                    {
+                                        fonts.map((value, index) => {
+                                            return (
+                                                <option key={index} value={JSON.stringify(value)}>
+                                                    {value.family}
+                                                </option>
+                                            )
+                                        })
+                                    }
+                                </Select>
+                            </div>
+                            <div className="operations flex gap-x-5 items-end">
+                                <div className="style flex flex-col">
+                                    <label htmlFor="style" className="text-white">Choose Style</label>
+                                    <Select name="style" setState={setSelectedStyle}>
+                                        {
+                                            styles.map((value, index) => {
+                                                return (
+                                                    <option value={value} key={index}>{value}</option>
+                                                )
+                                            })
+                                        }
+                                    </Select>
+                                </div>
+                                <div className="options">
+                                    <button type="button" className="text-white rounded px-5 py-3  click active:text-black">Download <i className="fa-solid fa-download"/></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="ham" ref={ham} onClick={toggleMobileMenu}>
+                            <span></span><span></span><span></span>
+                        </div>
+                    </header>
+                    <div className="mobile-menu absolute bg-dark top-full w-screen left-0 z-40 flex flex-col gap-5" ref={mobileMenu}>
+                        <span className="head text-3xl text-white">Tools</span>
+                        <div className="tools flex flex-wrap gap-x-1">
                             <span title="Insert Bold Text" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">B</span>
                             <span title="Insert Italic Text" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white italic active:text-black">I</span>
                             <del title="Insert Strike Through Text" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">ST</del>
@@ -75,23 +137,8 @@ export const Editor = () => {
                             <span title="Insert Ordered List" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ol"/></span>
                             <span title="Insert Code Block" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"> {"</>"} </span>
                         </div>
-                    </div>
-                    <div className="right flex items-center gap-x-5">
-                        <div className="font-options flex flex-col">
-                            <label htmlFor="fonts" className="text-white">Choose Font</label>
-                            <Select name="fonts" setState={setSelectedFont}>
-                                {
-                                    fonts.map((value, index) => {
-                                        return (
-                                            <option key={index} value={JSON.stringify(value)}>
-                                                {value.family}
-                                            </option>
-                                        )
-                                    })
-                                }
-                            </Select>
-                        </div>
-                        <div className="operations">
+                        <span className="options text-3xl text-white">Options</span>
+                        <div className="options flex flex-wrap gap-5 items-end">
                             <div className="style flex flex-col">
                                 <label htmlFor="style" className="text-white">Choose Style</label>
                                 <Select name="style" setState={setSelectedStyle}>
@@ -104,9 +151,26 @@ export const Editor = () => {
                                     }
                                 </Select>
                             </div>
+                            <div className="font-options flex flex-col">
+                                <label htmlFor="fonts" className="text-white">Choose Font</label>
+                                <Select name="fonts" setState={setSelectedFont}>
+                                    {
+                                        fonts.map((value, index) => {
+                                            return (
+                                                <option key={index} value={JSON.stringify(value)}>
+                                                    {value.family}
+                                                </option>
+                                            )
+                                        })
+                                    }
+                                </Select>
+                            </div>
+                            <div className="download">
+                                <button type="button" className="text-white rounded px-5 py-3  click active:text-black">Download <i className="fa-solid fa-download"/></button>
+                            </div>
                         </div>
                     </div>
-                </header>
+                </nav>
                 {/*  Editor  */}
                 {/*  Editor End  */}
                 {/*  Preview  */}

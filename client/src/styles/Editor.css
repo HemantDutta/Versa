@@ -4,34 +4,95 @@
     position: relative;
 }
 
-.editor header select {
-    width: 248px;
-    position: relative;
-    height: 95%;
-    outline: none;
-}
+/*=====Header=====*/
 
-.editor header select::-webkit-scrollbar {
-    display: none;
-}
-
-.editor header .select-wrapper {
-    position: relative;
+.editor header .left .tools span, .editor header .left .tools del {
+    width: 50px;
     display: grid;
     place-items: center;
-    width: 250px;
-    height: 100%;
-}
-
-.editor header .select-border {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 102%;
-    height: 101%;
-    background: linear-gradient(45deg, blueviolet, hotpink);
     transition: all 0.2s ease;
 }
+
+.editor header .left .tools span:hover, .editor header .left .tools del:hover {
+    background: linear-gradient(45deg, blueviolet, hotpink);
+}
+
+.editor header .right .operations .options button {
+    background: linear-gradient(45deg, blueviolet, hotpink);
+}
+
+.editor header .ham {
+    display: none;
+    gap: 5px;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.editor header .ham span {
+    height: 2px;
+    background-color: #ffffff;
+    width: 20px;
+    transition: all 0.6s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.editor header .ham.active span:nth-child(1) {
+    rotate: 405deg;
+    translate: 0 7px;
+}
+
+.editor header .ham.active span:nth-child(3) {
+    rotate: -405deg;
+    translate: 0 -7px;
+}
+
+.editor header .ham.active span:nth-child(2) {
+    opacity: 0;
+}
+
+@media screen and (max-width: 1280px) {
+    .editor header .ham {
+        display: flex;
+    }
+
+    .editor header .left .tools {
+        display: none;
+    }
+
+    .editor header .right {
+        display: none;
+    }
+}
+
+/*=====Header End=====*/
+
+/*=====Mobile Menu=====*/
+
+.editor nav .mobile-menu {
+    transition: all 0.6s cubic-bezier(0.87, 0, 0.13, 1);
+    transform: translateY(-100%);
+    overflow-y: hidden;
+    padding: 16px;
+}
+
+.editor nav .mobile-menu.active {
+    transform: translateY(0);
+}
+
+.editor nav .mobile-menu .tools span, .editor header .left .tools del {
+    width: 50px;
+    display: grid;
+    place-items: center;
+    transition: all 0.2s ease;
+}
+
+.editor nav .mobile-menu .tools span:hover, .editor header .left .tools del:hover {
+    background: linear-gradient(45deg, blueviolet, hotpink);
+}
+
+.editor nav .mobile-menu .options .download  button {
+    background: linear-gradient(45deg, blueviolet, hotpink);
+}
+/*=====Mobile Menu End=====*/
 
 @keyframes gradAnim {
     0% {
@@ -40,7 +101,7 @@
     50% {
         background-position: 100% 50%;
     }
-    100%{
+    100% {
         background-position: 0 50%;
     }
 }

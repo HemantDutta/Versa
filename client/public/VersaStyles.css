@@ -27,6 +27,14 @@ body {
 
 /*=====Common Styles=====*/
 
+.click {
+    transition: all 0.2s ease;
+}
+
+.click:active {
+    scale: 0.95;
+}
+
 .user-select-none {
     user-select: none;
 }
