@@ -92,8 +92,22 @@ export const Editor = () => {
         return ()=> window.removeEventListener("click", closeOnClickAway);
     },[])
 
+    //Handle Tab Press in TextArea
+    const handleTab = (event) => {
+        if (event.keyCode === 9) {
+            event.preventDefault();
+            const start = event.target.selectionStart;
+            const end = event.target.selectionEnd;
+            const text = event.target.value;
+            const newText = text.substring(0, start) + '    ' + text.substring(end);
+            event.target.value = newText;
+            event.target.selectionStart = event.target.selectionEnd = start + 4;
+        }
+    };
+
     //Download pdf
     function downloadPdf() {
+        console.log("called");
         window.print();
     }
 
@@ -119,7 +133,7 @@ export const Editor = () => {
     return (
         <>
             <section className="editor flex flex-col">
-                <nav className="relative">
+                <nav className="relative no-print">
                     <header className="bg-dark relative p-3 flex gap-x-5 items-center justify-between z-50 no-print">
                         <div className="left flex items-center gap-x-5">
                             <span className="brand user-select-none cursor-pointer text-white font-bold text-4xl">Versa</span>
@@ -210,7 +224,7 @@ export const Editor = () => {
                                 </Select>
                             </div>
                             <div className="download">
-                                <button type="button" className="text-white rounded px-5 py-3  click active:text-black">Download <i className="fa-solid fa-download"/></button>
+                                <button type="button" className="text-white rounded px-5 py-3  click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download"/></button>
                             </div>
                         </div>
                     </div>
@@ -218,12 +232,12 @@ export const Editor = () => {
                 <main className="w-screen flex items-start">
                     {/*  Editor  */}
                     <section className="editor w-1/2 h-full no-print" id="editor">
-                        <textarea name="editor" id="editor" className="w-full h-full outline-0 p-5" onChange={(e)=>{setText(e.target.value)}}/>
+                        <textarea name="editor" id="editor" className="w-full h-full outline-0 p-5" onKeyDown={handleTab} onChange={(e)=>{setText(e.target.value)}}/>
                     </section>
                     {/*  Editor End  */}
                     {/*  Preview  */}
-                    <section className="preview" id="preview">
-                        <span className="preview-span p-5" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
+                    <section className="preview w-1/2 h-full" id="preview">
+                        <span style={{fontFamily: selectedFont.family}} className="preview-span" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
                     </section>
                     {/*  Preview End  */}
                 </main>

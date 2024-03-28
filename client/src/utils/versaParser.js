@@ -1,30 +1,12 @@
 export const versaParser = (file) => {
+
     let markFile = file || ``;
 
-    //remove later
-//     markFile = `
-// # Heading 1
-//
-// ## Heading 2
-//
-// This is a paragraph with **bold** and *italic* text.
-//
-// - Unordered list item 1
-// - Unordered list item 2
-//
-// \`Highlighted text\`
-//
-// | Column 1 | Column 2 |
-// | -------- | -------- |
-// | Value 1  | Value 2  |
-//
-// [Visit Google](https://www.google.com)
-//
-// > This is a blockquote
-//
-// ~~This is strikethrough text~~
-// `;
+    const styles = {
 
+    };
+
+    //Regex variables
     const headerRegex = /^(#{1,6})\s+(.*)$/gm;
     const boldRegex = /\*\*(.*?)\*\*/g;
     const italicRegex = /\*(.*?)\*/g;
@@ -32,6 +14,7 @@ export const versaParser = (file) => {
     const linkRegex = /\[([^\]]+)\]\(([^\)]+)\)/g;
     const imageRegex = /!\[([^\]]+)\]\(([^)]+)\s"([^")]+)"\)/g;
     const highlightRegex = /`([^`]+)`/g;
+    const multiHighlightRegex = /```([\s\S]*?)```/g;
     const blockquoteRegex = /^>(.*)$/gm;
     const strikeThroughRegex = /~~(.*?)~~/g;
 
@@ -52,7 +35,8 @@ export const versaParser = (file) => {
             .replace(unorderedListRegex, (match, item) => `<li>${item}</li>`)
             .replace(linkRegex, '<a href="$2">$1</a>')
             .replace(imageRegex, '<img src="$2" alt="$1" title="$3" />')
-            .replace(highlightRegex, '<code>$1</code>')
+            .replace(highlightRegex, '<pre><code>$1</code></pre>')
+            .replace(multiHighlightRegex, '<pre><code>$1</code></pre>')
             .replace(strikeThroughRegex, '<del>$1</del>')
             .replace(blockquoteRegex, (match, content) => `<blockquote>${content.trim()}</blockquote>`);
     }
@@ -72,5 +56,5 @@ export const versaParser = (file) => {
         return `<p>${convertToHTML(paragraph)}</p>`;
     }).join('');
 
-    return html = `<section class="[&>h1]:mb-4 [&>h1]:text-3xl [&>h1]:font-bold">` + html + `</section>`;
+    return html = `<section id="styledHtml" style="padding: 1.25rem">` + `<style>` + `</style>` + html + `</section>`;
 }
