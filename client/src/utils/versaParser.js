@@ -1,4 +1,4 @@
-export const graceParser = (file) => {
+export const versaParser = (file) => {
     let markFile = file || ``;
 
     //remove later

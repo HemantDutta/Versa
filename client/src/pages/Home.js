@@ -1,5 +1,5 @@
 import {Navbar} from "../components/Navbar";
-import {graceParser} from "../utils/graceParser";
+import {versaParser} from "../utils/versaParser";
 import {IFrame} from "../components/IFrame";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -7,7 +7,7 @@ import {useRef} from "react";
 
 export const Home = () => {
 
-    const text = graceParser("");
+    const text = versaParser("");
 
     const htmlRef = useRef(null);
 
