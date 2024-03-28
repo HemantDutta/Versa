@@ -2,6 +2,15 @@
 
 .editor {
     position: relative;
+    height: 100vh;
+}
+
+.editor nav {
+    flex: 0 1 auto;
+}
+
+.editor main {
+    flex: 1 1 auto;
 }
 
 /*=====Header=====*/
@@ -133,5 +142,15 @@
     }
     100% {
         background-position: 0 50%;
+    }
+}
+
+/*=====Main Section=====*/
+
+/*=====Main Section End=====*/
+
+@media print {
+    .no-print {
+        display: none !important;
     }
 }

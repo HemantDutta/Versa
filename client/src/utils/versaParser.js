@@ -2,28 +2,28 @@ export const versaParser = (file) => {
     let markFile = file || ``;
 
     //remove later
-    markFile = `
-# Heading 1
-
-## Heading 2
-
-This is a paragraph with **bold** and *italic* text.
-
-- Unordered list item 1
-- Unordered list item 2
-
-\`Highlighted text\`
-
-| Column 1 | Column 2 |
-| -------- | -------- |
-| Value 1  | Value 2  |
-
-[Visit Google](https://www.google.com)
-
-> This is a blockquote
-
-~~This is strikethrough text~~
-`;
+//     markFile = `
+// # Heading 1
+//
+// ## Heading 2
+//
+// This is a paragraph with **bold** and *italic* text.
+//
+// - Unordered list item 1
+// - Unordered list item 2
+//
+// \`Highlighted text\`
+//
+// | Column 1 | Column 2 |
+// | -------- | -------- |
+// | Value 1  | Value 2  |
+//
+// [Visit Google](https://www.google.com)
+//
+// > This is a blockquote
+//
+// ~~This is strikethrough text~~
+// `;
 
     const headerRegex = /^(#{1,6})\s+(.*)$/gm;
     const boldRegex = /\*\*(.*?)\*\*/g;
@@ -72,5 +72,5 @@ This is a paragraph with **bold** and *italic* text.
         return `<p>${convertToHTML(paragraph)}</p>`;
     }).join('');
 
-    return html = `<section style="background: #000; color: white;">` + html + `</section>`;
+    return html = `<section class="[&>h1]:mb-4 [&>h1]:text-3xl [&>h1]:font-bold">` + html + `</section>`;
 }

@@ -2,6 +2,7 @@ import axios from "axios";
 import {useEffect, useRef, useState} from "react";
 import '../styles/Editor.css';
 import {Select} from "../components/Select";
+import {versaParser} from "../utils/versaParser";
 
 export const Editor = () => {
 
@@ -12,8 +13,11 @@ export const Editor = () => {
     const first = useRef(true);
     const ham = useRef(null);
     const mobileMenu = useRef(null);
+    const previewSpan = useRef(null);
 
     //States
+    const [text, setText] = useState("");
+    const [preview, setPreview] = useState("");
     const [fonts, setFonts] = useState([]);
     const [selectedFont, setSelectedFont] = useState({});
     const [selectedStyle, setSelectedStyle] = useState("");
@@ -88,6 +92,11 @@ export const Editor = () => {
         return ()=> window.removeEventListener("click", closeOnClickAway);
     },[])
 
+    //Download pdf
+    function downloadPdf() {
+        window.print();
+    }
+
     //Call Fetch Google Fonts
     useEffect(() => {
         fetchGoogleFonts()
@@ -102,11 +111,16 @@ export const Editor = () => {
         }
     }, [selectedFont])
 
+    //Call Versa Parser
+    useEffect(()=>{
+        setPreview(versaParser(text));
+    },[text])
+
     return (
         <>
-            <section className="editor">
+            <section className="editor flex flex-col">
                 <nav className="relative">
-                    <header className="bg-dark relative p-3 flex gap-x-5 items-center justify-between z-50">
+                    <header className="bg-dark relative p-3 flex gap-x-5 items-center justify-between z-50 no-print">
                         <div className="left flex items-center gap-x-5">
                             <span className="brand user-select-none cursor-pointer text-white font-bold text-4xl">Versa</span>
                             <div className="tools flex items-center gap-x-1 flex-wrap">
@@ -148,7 +162,7 @@ export const Editor = () => {
                                     </Select>
                                 </div>
                                 <div className="options">
-                                    <button type="button" className="text-white rounded px-5 py-3  click active:text-black">Download <i className="fa-solid fa-download"/></button>
+                                    <button type="button" className="text-white rounded px-5 py-3  click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download"/></button>
                                 </div>
                             </div>
                         </div>
@@ -201,11 +215,18 @@ export const Editor = () => {
                         </div>
                     </div>
                 </nav>
-                {/*  Editor  */}
-                {/*  Editor End  */}
-                {/*  Preview  */}
-                <span style={{fontFamily: selectedFont.family}}>Hello</span>
-                {/*  Preview End  */}
+                <main className="w-screen flex items-start">
+                    {/*  Editor  */}
+                    <section className="editor w-1/2 h-full no-print" id="editor">
+                        <textarea name="editor" id="editor" className="w-full h-full outline-0 p-5" onChange={(e)=>{setText(e.target.value)}}/>
+                    </section>
+                    {/*  Editor End  */}
+                    {/*  Preview  */}
+                    <section className="preview" id="preview">
+                        <span className="preview-span p-5" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
+                    </section>
+                    {/*  Preview End  */}
+                </main>
             </section>
         </>
     )
