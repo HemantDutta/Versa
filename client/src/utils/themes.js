@@ -381,7 +381,7 @@ export const themes = {
         "    padding: 0 5px;\n" +
         "    background-color: #181818;\n" +
         "    font-family: monospace;\n" +
-        "    color: #fcaf17;\n" +
+        "    color: #ffffff;\n" +
         "}\n" +
         "\n" +
         "#styledHtml strong {\n" +
@@ -393,7 +393,8 @@ export const themes = {
         "}\n" +
         "\n" +
         "#styledHtml table tr:first-child td {\n" +
-        "    color: #fcaf17;\n" +
+        "    color: #ffffff;\n" +
+        "    font-weight: bold;\n" +
         "}\n" +
         "\n" +
         "#styledHtml table td {\n" +
@@ -419,7 +420,7 @@ export const themes = {
         "#styledHtml img {\n" +
         "    display: block;\n" +
         "    margin: 16px 0 0;\n" +
-        "    box-shadow: 10px 15px 0 2px #f30100;\n" +
+        "    box-shadow: 10px 10px 0 2px #f30100;\n" +
         "}\n" +
         "\n" +
         "#styledHtml p {\n" +

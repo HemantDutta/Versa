@@ -268,7 +268,7 @@ export const Editor = () => {
                 <main className="w-screen flex items-start">
                     {/*  Editor  */}
                     <section className="editor-area w-1/2 h-full no-print overflow-y-scroll" id="editor">
-                        <textarea name="editor" id="editor" ref={editorArea} className="w-full h-full outline-0 p-5 resize-none" defaultValue={text} onKeyDown={handleTab} onChange={(e) => {
+                        <textarea name="editor" id="editor" ref={editorArea} className="w-full h-full overflow-y-scroll outline-0 p-5 resize-none" defaultValue={text} onKeyDown={handleTab} onChange={(e) => {
                             setText(e.target.value)
                         }}/>
                     </section>

@@ -177,6 +177,14 @@
     max-height: max-content;
 }
 
+.editor main .editor-area textarea {
+    height: 1000%;
+}
+
+.editor main .editor-area textarea::-webkit-scrollbar {
+    display: none;
+}
+
 @keyframes gradAnim {
     0% {
         background-position: 0 50%;
