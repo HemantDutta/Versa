@@ -143,8 +143,11 @@ export const Editor = () => {
         };
     }, [])
 
-    //Handle Preview Scroll
-
+    //Handle Preview Scroll Top
+    function previewScrollTop() {
+        previewSpan.current.scrollTop = 0;
+        document.getElementById("preview").scrollTop = 0;
+    }
 
     return (
         <>
@@ -255,7 +258,7 @@ export const Editor = () => {
                     {/*  Editor End  */}
                     {/*  Preview  */}
                     <section className="preview w-1/2 h-full overflow-scroll relative" id="preview">
-                        <span title="Back to the Top!" className="fixed right-5 aspect-square text-white bottom-5 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print"><i className="fa-solid fa-arrow-up"/></span>
+                        <span title="Back to the Top!" onClick={previewScrollTop} className="fixed right-5 aspect-square text-white bottom-5 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print"><i className="fa-solid fa-arrow-up"/></span>
                         <div style={{fontFamily: selectedFont.family}} className="preview-span h-max" id="previewSpan" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
                     </section>
                     {/*  Preview End  */}

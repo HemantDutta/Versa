@@ -1,5 +1,11 @@
 /*Editor Page Stylesheet*/
 
+@media (prefers-reduced-motion: no-preference) {
+    * {
+        scroll-behavior: smooth;
+    }
+}
+
 .editor {
     position: relative;
     height: 100vh;
