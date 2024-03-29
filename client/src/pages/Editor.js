@@ -114,9 +114,9 @@ export const Editor = () => {
     }
 
     //Call Download But Check if view is active or not
-    useEffect(()=>{
+    useEffect(() => {
 
-    },[])
+    }, [])
 
     //Call Fetch Google Fonts
     useEffect(() => {
@@ -172,29 +172,52 @@ export const Editor = () => {
 
     //Active Panel Switcher
     function activePanelSwitcher() {
-        if(activePanel === "edit") {
+        if (activePanel === "edit") {
             setActivePanel("view");
             editorPanel.current.classList.remove("active");
-            setTimeout(()=>{
+            setTimeout(() => {
                 editorPanel.current.style.display = "none";
                 previewPanel.current.style.display = "initial";
-                setTimeout(()=>{
+                setTimeout(() => {
                     previewPanel.current.classList.add("active");
-                },50)
-            },900)
-        }
-        else {
+                }, 50)
+            }, 900)
+        } else {
             setActivePanel("edit");
             previewPanel.current.classList.remove("active");
-            setTimeout(()=>{
+            setTimeout(() => {
                 previewPanel.current.style.display = "none";
                 editorPanel.current.style.display = "initial";
-                setTimeout(()=>{
+                setTimeout(() => {
                     editorPanel.current.classList.add("active");
-                },50)
-            },900)
+                }, 50)
+            }, 900)
         }
     }
+
+    //Reset Panels on Resize
+    useEffect(() => {
+        const resetPanel = () => {
+            if(window.innerWidth > 991) {
+                editorPanel.current.style.display = "initial";
+                previewPanel.current.style.display = "initial";
+            }
+            else {
+                if(activePanel === "edit") {
+                    editorPanel.current.style.display = "initial";
+                    previewPanel.current.style.display = "none";
+                }
+                else {
+                    editorPanel.current.style.display = "none";
+                    previewPanel.current.style.display = "initial";
+                }
+            }
+        }
+
+        window.addEventListener("resize", resetPanel);
+
+        return ()=> window.removeEventListener("resize", resetPanel);
+    }, [])
 
     return (
         <>
@@ -338,7 +361,7 @@ export const Editor = () => {
                         </div>
                     </div>
                 </nav>
-                <main className="w-screen flex items-start">
+                <main className="w-screen flex items-start relative">
                     {/*  Editor  */}
                     <section ref={editorPanel} className={`editor-area ${activePanel === "edit" ? "active" : ""} w-1/2 h-full no-print overflow-y-scroll`} id="editor">
                         <textarea name="editor" id="editor" ref={editorArea} className="w-full h-full overflow-y-scroll outline-0 p-5 resize-none" defaultValue={text} onKeyDown={handleTab} onChange={(e) => {
@@ -348,10 +371,10 @@ export const Editor = () => {
                     {/*  Editor End  */}
                     {/*  Preview  */}
                     <section ref={previewPanel} className={`preview ${activePanel === "view" ? "active" : ""} w-1/2 h-full overflow-scroll relative`} id="preview">
-                        <span title="Back to the Top!" onClick={previewScrollTop} className="fixed right-5 aspect-square text-white bottom-5 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print"><i className="fa-solid fa-arrow-up"/></span>
                         <div style={{fontFamily: selectedFont.family}} className="preview-span h-max" id="previewSpan" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
                     </section>
                     {/*  Preview End  */}
+                    <span title="Back to the Top!" onClick={previewScrollTop} className="fixed right-5 aspect-square text-white bottom-5 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print"><i className="fa-solid fa-arrow-up"/></span>
                 </main>
             </section>
         </>

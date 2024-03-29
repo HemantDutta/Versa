@@ -205,12 +205,17 @@
     display: none;
 }
 
+.editor main .editor-area, .editor main .preview {
+    display: initial;
+}
+
 @media screen and (max-width: 991px) {
     .editor main .editor-area, .editor main .preview  {
         transition: all 0.8s cubic-bezier(0.87, 0, 0.13, 1);
         transform: translateY(100%);
         scale: 0.8;
         width: 100%;
+        display: none;
     }
 
     .editor main .editor-area.active, .editor main .preview.active {
