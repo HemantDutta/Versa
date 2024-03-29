@@ -1,18 +1,17 @@
-export const versaParser = (file) => {
+//themes
+import {themes} from "./themes";
+
+export const versaParser = (file, theme) => {
 
     let markFile = file || ``;
-
-    const styles = {
-
-    };
 
     //Regex variables
     const headerRegex = /^(#{1,6})\s+(.*)$/gm;
     const boldRegex = /\*\*(.*?)\*\*/g;
     const italicRegex = /\*(.*?)\*/g;
     const unorderedListRegex = /(?:^|\n)(?:\*|-|\+)\s+(.*)/g;
-    const linkRegex = /\[([^\]]+)\]\(([^\)]+)\)/g;
-    const imageRegex = /!\[([^\]]+)\]\(([^)]+)\s"([^")]+)"\)/g;
+    const linkRegex = /\[([^\]]+)\]\(([^"\)]+)\)/g;
+    const imageRegex =  /!\[([^\]]*)]\(([^"\)]+)\)/g;
     const highlightRegex = /`([^`]+)`/g;
     const multiHighlightRegex = /```([\s\S]*?)```/g;
     const blockquoteRegex = /^>(.*)$/gm;
@@ -34,8 +33,8 @@ export const versaParser = (file) => {
             .replace(italicRegex, '<em>$1</em>')
             .replace(unorderedListRegex, (match, item) => `<li>${item}</li>`)
             .replace(linkRegex, '<a href="$2">$1</a>')
-            .replace(imageRegex, '<img src="$2" alt="$1" title="$3" />')
-            .replace(highlightRegex, '<pre><code>$1</code></pre>')
+            .replace(imageRegex, '<img src="$2" alt="$1"/>')
+            .replace(highlightRegex, '<code>$1</code>')
             .replace(multiHighlightRegex, '<pre><code>$1</code></pre>')
             .replace(strikeThroughRegex, '<del>$1</del>')
             .replace(blockquoteRegex, (match, content) => `<blockquote>${content.trim()}</blockquote>`);
@@ -56,5 +55,5 @@ export const versaParser = (file) => {
         return `<p>${convertToHTML(paragraph)}</p>`;
     }).join('');
 
-    return html = `<section id="styledHtml" style="padding: 1.25rem">` + `<style>` + `</style>` + html + `</section>`;
+    return html = `<section id="styledHtml" style="padding: 1.25rem">` + `<style>` + themes[theme] + `</style>` + html + `</section>`;
 }

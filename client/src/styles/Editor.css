@@ -131,6 +131,11 @@
 .editor nav .mobile-menu .options .download  button {
     background: linear-gradient(45deg, blueviolet, hotpink);
 }
+
+.editor main .preview::-webkit-scrollbar {
+    display: none;
+}
+
 /*=====Mobile Menu End=====*/
 
 @keyframes gradAnim {
@@ -152,5 +157,9 @@
 @media print {
     .no-print {
         display: none !important;
+    }
+
+    .preview {
+        width: 100% !important;
     }
 }

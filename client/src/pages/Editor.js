@@ -3,11 +3,9 @@ import {useEffect, useRef, useState} from "react";
 import '../styles/Editor.css';
 import {Select} from "../components/Select";
 import {versaParser} from "../utils/versaParser";
+import {themes} from "../utils/themes";
 
 export const Editor = () => {
-
-    //Temp Static
-    const styles = ["Dracula", "PoopCard", "ChipStick", "DickWaggler", "MakeBread", "FuckBitches"];
 
     //Refs
     const first = useRef(true);
@@ -20,7 +18,7 @@ export const Editor = () => {
     const [preview, setPreview] = useState("");
     const [fonts, setFonts] = useState([]);
     const [selectedFont, setSelectedFont] = useState({});
-    const [selectedStyle, setSelectedStyle] = useState("");
+    const [selectedTheme, setSelectedTheme] = useState("Classic");
 
     //Fetch Google Fonts
     function fetchGoogleFonts() {
@@ -127,12 +125,12 @@ export const Editor = () => {
 
     //Call Versa Parser
     useEffect(()=>{
-        setPreview(versaParser(text));
+        setPreview(versaParser(text, selectedTheme));
     },[text])
 
     return (
         <>
-            <section className="editor flex flex-col">
+            <section className="editor flex flex-col overflow-y-hidden">
                 <nav className="relative no-print">
                     <header className="bg-dark relative p-3 flex gap-x-5 items-center justify-between z-50 no-print">
                         <div className="left flex items-center gap-x-5">
@@ -164,12 +162,12 @@ export const Editor = () => {
                             </div>
                             <div className="operations flex gap-x-5 items-end">
                                 <div className="style flex flex-col">
-                                    <label htmlFor="style" className="text-white">Choose Style</label>
-                                    <Select name="style" setState={setSelectedStyle}>
+                                    <label htmlFor="theme" className="text-white">Choose Theme</label>
+                                    <Select name="theme" setState={setSelectedTheme}>
                                         {
-                                            styles.map((value, index) => {
+                                            Object.keys(themes).map((theme, index) => {
                                                 return (
-                                                    <option value={value} key={index}>{value}</option>
+                                                    <option value={theme} key={index}>{theme}</option>
                                                 )
                                             })
                                         }
@@ -199,11 +197,11 @@ export const Editor = () => {
                         <div className="options flex flex-wrap gap-5 items-end">
                             <div className="style flex flex-col">
                                 <label htmlFor="style" className="text-white">Choose Style</label>
-                                <Select name="style" setState={setSelectedStyle}>
+                                <Select name="style" setState={setSelectedTheme}>
                                     {
-                                        styles.map((value, index) => {
+                                        Object.keys(themes).map((theme, index) => {
                                             return (
-                                                <option value={value} key={index}>{value}</option>
+                                                <option value={theme} key={index}>{theme}</option>
                                             )
                                         })
                                     }
@@ -231,12 +229,12 @@ export const Editor = () => {
                 </nav>
                 <main className="w-screen flex items-start">
                     {/*  Editor  */}
-                    <section className="editor w-1/2 h-full no-print" id="editor">
-                        <textarea name="editor" id="editor" className="w-full h-full outline-0 p-5" onKeyDown={handleTab} onChange={(e)=>{setText(e.target.value)}}/>
+                    <section className="editor-area w-1/2 h-full no-print" id="editor">
+                        <textarea name="editor" id="editor" className="w-full h-full outline-0 p-5 resize-none" onKeyDown={handleTab} onChange={(e)=>{setText(e.target.value)}}/>
                     </section>
                     {/*  Editor End  */}
                     {/*  Preview  */}
-                    <section className="preview w-1/2 h-full" id="preview">
+                    <section className="preview w-1/2 h-full overflow-y-scroll" id="preview">
                         <span style={{fontFamily: selectedFont.family}} className="preview-span" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
                     </section>
                     {/*  Preview End  */}
