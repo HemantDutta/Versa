@@ -12,6 +12,7 @@ export const Editor = () => {
     const ham = useRef(null);
     const mobileMenu = useRef(null);
     const previewSpan = useRef(null);
+    const editorArea = useRef(null);
 
     //States
     const [text, setText] = useState("");
@@ -61,9 +62,9 @@ export const Editor = () => {
     }
 
     //Close Mobile Menu on Resize
-    useEffect(()=>{
+    useEffect(() => {
         const closeOnResize = () => {
-            if(window.innerWidth > 1280) {
+            if (window.innerWidth > 1280) {
                 ham.current.classList.remove("active");
                 mobileMenu.current.classList.remove("active");
             }
@@ -71,14 +72,14 @@ export const Editor = () => {
 
         window.addEventListener("resize", closeOnResize);
 
-        return ()=> window.removeEventListener("resize", closeOnResize);
-    },[])
+        return () => window.removeEventListener("resize", closeOnResize);
+    }, [])
 
     //Close Mobile Menu on Click Away
-    useEffect(()=>{
+    useEffect(() => {
         const closeOnClickAway = (e) => {
-            if(mobileMenu.current.classList.contains("active")) {
-                if(!mobileMenu.current.contains(e.target) && !ham.current.contains(e.target)) {
+            if (mobileMenu.current.classList.contains("active")) {
+                if (!mobileMenu.current.contains(e.target) && !ham.current.contains(e.target)) {
                     ham.current.classList.remove("active");
                     mobileMenu.current.classList.remove("active");
                 }
@@ -87,8 +88,8 @@ export const Editor = () => {
 
         window.addEventListener("click", closeOnClickAway);
 
-        return ()=> window.removeEventListener("click", closeOnClickAway);
-    },[])
+        return () => window.removeEventListener("click", closeOnClickAway);
+    }, [])
 
     //Handle Tab Press in TextArea
     const handleTab = (event) => {
@@ -97,15 +98,13 @@ export const Editor = () => {
             const start = event.target.selectionStart;
             const end = event.target.selectionEnd;
             const text = event.target.value;
-            const newText = text.substring(0, start) + '    ' + text.substring(end);
-            event.target.value = newText;
+            event.target.value = text.substring(0, start) + '    ' + text.substring(end);
             event.target.selectionStart = event.target.selectionEnd = start + 4;
         }
     };
 
     //Download pdf
     function downloadPdf() {
-        console.log("called");
         window.print();
     }
 
@@ -114,9 +113,11 @@ export const Editor = () => {
         fetchGoogleFonts()
     }, [])
 
-    //Call Font Face Setup on Change
+    //Call Font Face Setup on Change & Fetch Local Storage content
     useEffect(() => {
         if (first.current) {
+            let temp = localStorage.getItem('editorContent') || '';
+            if(!text) setText(temp);
             first.current = false;
         } else {
             setupFontFace()
@@ -124,9 +125,23 @@ export const Editor = () => {
     }, [selectedFont])
 
     //Call Versa Parser
-    useEffect(()=>{
+    useEffect(() => {
         setPreview(versaParser(text, selectedTheme));
-    },[text])
+    }, [text])
+
+    //Store editor content in localstorage before unload
+    useEffect(() => {
+        //Unload Function
+        const unloadMethod = () => {
+            localStorage.setItem('editorContent', editorArea.current.value);
+        }
+        window.addEventListener("beforeunload", unloadMethod, {capture: true});
+        window.addEventListener("unload", unloadMethod, {capture: true});
+        return () => {
+            window.removeEventListener("beforeunload", unloadMethod);
+            window.removeEventListener("unload", unloadMethod);
+        };
+    }, [])
 
     return (
         <>
@@ -230,7 +245,9 @@ export const Editor = () => {
                 <main className="w-screen flex items-start">
                     {/*  Editor  */}
                     <section className="editor-area w-1/2 h-full no-print overflow-y-scroll" id="editor">
-                        <textarea name="editor" id="editor" className="w-full h-full outline-0 p-5 resize-none" onKeyDown={handleTab} onChange={(e)=>{setText(e.target.value)}}/>
+                        <textarea name="editor" id="editor" ref={editorArea} className="w-full h-full outline-0 p-5 resize-none" defaultValue={text} onKeyDown={handleTab} onChange={(e) => {
+                            setText(e.target.value)
+                        }}/>
                     </section>
                     {/*  Editor End  */}
                     {/*  Preview  */}
