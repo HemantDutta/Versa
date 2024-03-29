@@ -427,4 +427,150 @@ export const themes = {
         "    font-size: 20px;\n" +
         "    margin: 18px 0 10px;\n" +
         "}",
+    "Mellow": "#styledHtml {\n" +
+        "    width: 100%;\n" +
+        "    height: 100%;\n" +
+        "    background-color: #2d2c31;\n" +
+        "    color: white;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h1, #styledHtml h2, #styledHtml h3, #styledHtml h4, #styledHtml h5, #styledHtml h6 {\n" +
+        "    margin: 32px 0 0;\n" +
+        "    font-weight: bold;\n" +
+        "    text-wrap: normal;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h1 {\n" +
+        "    position: relative;\n" +
+        "    font-size: 42px;\n" +
+        "    margin: 50px 0 32px;\n" +
+        "    z-index: 100;\n" +
+        "    width: max-content;\n" +
+        "    max-width: 100%;\n" +
+        "    color: #eda06b;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h2 {\n" +
+        "    font-size: 24px;\n" +
+        "    margin: 42px 0 0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h3 {\n" +
+        "    font-size: 22px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h4 {\n" +
+        "    font-size: 20px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h5 {\n" +
+        "    font-size: 18px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h6 {\n" +
+        "    font-size: 16px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml ul {\n" +
+        "    list-style: disc;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml ol {\n" +
+        "    list-style: decimal;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml ul, #styledHtml ol {\n" +
+        "    padding-left: 32px;\n" +
+        "    display: flex;\n" +
+        "    flex-direction: column;\n" +
+        "    gap: 10px;\n" +
+        "    margin: 16px 0 0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml .blockquote {\n" +
+        "    margin: 32px 0;\n" +
+        "    border-left: 3px solid #eda06b;\n" +
+        "    padding-left: 23px;\n" +
+        "    font-size: 20px;\n" +
+        "    padding-top: 5px;\n" +
+        "    padding-bottom: 5px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml pre {\n" +
+        "    margin: 56px 0 0;\n" +
+        "    padding: 32px;\n" +
+        "    border-right: 4px solid #eda06b;\n" +
+        "    border-left: 4px solid #eda06b;\n" +
+        "    background:\n" +
+        "            conic-gradient(at 10% 50%,#0000 75%,#302f35 0),\n" +
+        "            conic-gradient(at 10% 50%,#0000 75%,#302f35 0) calc(1*32px) calc(3*32px),\n" +
+        "            conic-gradient(at 10% 50%,#0000 75%,#302f35 0) calc(2*32px) calc(1*32px),\n" +
+        "            conic-gradient(at 10% 50%,#0000 75%,#302f35 0) calc(3*32px) calc(4*32px),\n" +
+        "            conic-gradient(at 10% 50%,#0000 75%,#302f35 0) calc(4*32px) calc(2*32px),\n" +
+        "            conic-gradient(at 50% 10%,#0000 75%,#302f35 0) 0 calc(4*32px),\n" +
+        "            conic-gradient(at 50% 10%,#0000 75%,#302f35 0) calc(1*32px) calc(2*32px),\n" +
+        "            conic-gradient(at 50% 10%,#0000 75%,#302f35 0) calc(2*32px) 0,\n" +
+        "            conic-gradient(at 50% 10%,#0000 75%,#302f35 0) calc(3*32px) calc(3*32px),\n" +
+        "            conic-gradient(at 50% 10%,#0000 75%,#302f35 0) calc(4*32px) calc(1*32px),\n" +
+        "            #2d2c31;\n" +
+        "    background-size: 160px 160px;\n" +
+        "    font-family: monospace;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml pre code {\n" +
+        "    padding: 0;\n" +
+        "    background-color: transparent;\n" +
+        "    color: white;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml code {\n" +
+        "    padding: 0 5px;\n" +
+        "    background-color: #3b3a41;\n" +
+        "    font-family: monospace;\n" +
+        "    color: #ffffff;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml strong {\n" +
+        "    font-weight: bold;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml table {\n" +
+        "    margin: 32px 0 0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml table tr:first-child td {\n" +
+        "    color: #ffffff;\n" +
+        "    font-weight: bold;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml table td {\n" +
+        "    padding: 16px;\n" +
+        "    border: 1px solid #eda06b;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml em {\n" +
+        "    font-style: italic;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml a {\n" +
+        "    color: #ffffff;\n" +
+        "    text-decoration: underline;\n" +
+        "    -webkit-tap-highlight-color: transparent;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml > a {\n" +
+        "    display: inline-block;\n" +
+        "    margin: 32px 0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml img {\n" +
+        "    display: block;\n" +
+        "    margin: 16px 0 0;\n" +
+        "    box-shadow: 0 10px 0 0 #eda06b;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml p {\n" +
+        "    font-size: 20px;\n" +
+        "    margin: 18px 0 10px;\n" +
+        "}",
 };
