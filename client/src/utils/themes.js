@@ -366,7 +366,7 @@ export const themes = {
         "#styledHtml pre {\n" +
         "    margin: 56px 0 0;\n" +
         "    padding: 32px;\n" +
-        "    border: 4px solid #f30100;\n" +
+        "    border-bottom: 4px solid #f30100;\n" +
         "    background: #000000;\n" +
         "    font-family: monospace;\n" +
         "}\n" +

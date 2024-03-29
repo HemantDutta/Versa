@@ -14,11 +14,14 @@ export const Editor = () => {
     const mobileMenu = useRef(null);
     const previewSpan = useRef(null);
     const editorArea = useRef(null);
+    const previewPanel = useRef(null);
+    const editorPanel = useRef(null);
 
     //States
     const [text, setText] = useState("");
     const [preview, setPreview] = useState("");
     const [fonts, setFonts] = useState([]);
+    const [activePanel, setActivePanel] = useState("edit");
     const [selectedFont, setSelectedFont] = useState({});
     const [selectedTheme, setSelectedTheme] = useState("Classic");
 
@@ -65,7 +68,7 @@ export const Editor = () => {
     //Close Mobile Menu on Resize
     useEffect(() => {
         const closeOnResize = () => {
-            if (window.innerWidth > 1280) {
+            if (window.innerWidth > 1425) {
                 ham.current.classList.remove("active");
                 mobileMenu.current.classList.remove("active");
             }
@@ -106,8 +109,14 @@ export const Editor = () => {
 
     //Download pdf
     function downloadPdf() {
+        setActivePanel("view");
         window.print();
     }
+
+    //Call Download But Check if view is active or not
+    useEffect(()=>{
+
+    },[])
 
     //Call Fetch Google Fonts
     useEffect(() => {
@@ -127,7 +136,6 @@ export const Editor = () => {
 
     //Call Versa Parser
     useEffect(() => {
-        console.log(selectedTheme);
         setPreview(versaParser(text, selectedTheme));
     }, [text, selectedTheme])
 
@@ -160,7 +168,33 @@ export const Editor = () => {
         editorArea.current.value = before + tools[type] + after;
         setText(editorArea.current.value);
         editorArea.current.selectionStart = editorArea.current.selectionEnd = position + text.length;
-    };
+    }
+
+    //Active Panel Switcher
+    function activePanelSwitcher() {
+        if(activePanel === "edit") {
+            setActivePanel("view");
+            editorPanel.current.classList.remove("active");
+            setTimeout(()=>{
+                editorPanel.current.style.display = "none";
+                previewPanel.current.style.display = "initial";
+                setTimeout(()=>{
+                    previewPanel.current.classList.add("active");
+                },50)
+            },900)
+        }
+        else {
+            setActivePanel("edit");
+            previewPanel.current.classList.remove("active");
+            setTimeout(()=>{
+                previewPanel.current.style.display = "none";
+                editorPanel.current.style.display = "initial";
+                setTimeout(()=>{
+                    editorPanel.current.classList.add("active");
+                },50)
+            },900)
+        }
+    }
 
     return (
         <>
@@ -170,15 +204,32 @@ export const Editor = () => {
                         <div className="left flex items-center gap-x-5">
                             <span className="brand user-select-none cursor-pointer text-white font-bold text-4xl">Versa</span>
                             <div className="tools flex items-center gap-x-1 flex-wrap">
-                                <span title="Insert Bold Text" onClick={()=>{insertText("bold")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">B</span>
-                                <span title="Insert Italic Text" onClick={()=>{insertText("italic")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white italic active:text-black">I</span>
-                                <del title="Insert Strike Through Text" onClick={()=>{insertText("strike")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">ST</del>
-                                <span title="Insert Blockquote" onClick={()=>{insertText("block")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">>_</span>
-                                <span title="Insert Unordered List" onClick={()=>{insertText("ul")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ul"/></span>
+                                <span title="Insert Bold Text" onClick={() => {
+                                    insertText("bold")
+                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">B</span>
+                                <span title="Insert Italic Text" onClick={() => {
+                                    insertText("italic")
+                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white italic active:text-black">I</span>
+                                <del title="Insert Strike Through Text" onClick={() => {
+                                    insertText("strike")
+                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">ST
+                                </del>
+                                <span title="Insert Blockquote" onClick={() => {
+                                    insertText("block")
+                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">>_</span>
+                                <span title="Insert Unordered List" onClick={() => {
+                                    insertText("ul")
+                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ul"/></span>
                                 {/*<span title="Insert Ordered List" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ol"/></span>*/}
-                                <span title="Insert Code Block" onClick={()=>{insertText("code")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"> {"</>"} </span>
-                                <span title="Insert Highlight Text" onClick={()=>{insertText("highlight")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">HL</span>
-                                <span title="Insert Table" onClick={()=>{insertText("table")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-table"/></span>
+                                <span title="Insert Code Block" onClick={() => {
+                                    insertText("code")
+                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"> {"</>"} </span>
+                                <span title="Insert Highlight Text" onClick={() => {
+                                    insertText("highlight")
+                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">HL</span>
+                                <span title="Insert Table" onClick={() => {
+                                    insertText("table")
+                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-table"/></span>
                             </div>
                         </div>
                         <div className="right flex items-center gap-x-5">
@@ -214,22 +265,44 @@ export const Editor = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="ham" ref={ham} onClick={toggleMobileMenu}>
-                            <span></span><span></span><span></span>
+                        <div className="mobile-options flex items-center gap-x-5">
+                            <div className="view-edit rounded">
+                                <button type="button" className="text-white bg-black px-3 py-2 rounded" onClick={activePanelSwitcher} dangerouslySetInnerHTML={{__html: activePanel === "view" ? "Edit&nbsp;&nbsp;<i class=\"fa-solid fa-pen-to-square\"/>" : "View&nbsp;&nbsp;<i class=\"fa-solid fa-eye\"/>"}}/>
+                            </div>
+                            <div className="ham" ref={ham} onClick={toggleMobileMenu}>
+                                <span></span><span></span><span></span>
+                            </div>
                         </div>
                     </header>
                     <div className="mobile-menu absolute bg-dark top-full w-screen left-0 z-40 flex flex-col gap-5" ref={mobileMenu}>
                         <span className="head text-3xl text-white">Tools</span>
                         <div className="tools flex flex-wrap gap-x-1">
-                            <span title="Insert Bold Text" onClick={()=>{insertText("bold")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">B</span>
-                            <span title="Insert Italic Text" onClick={()=>{insertText("italic")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white italic active:text-black">I</span>
-                            <del title="Insert Strike Through Text" onClick={()=>{insertText("strike")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">ST</del>
-                            <span title="Insert Blockquote" onClick={()=>{insertText("block")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">>_</span>
-                            <span title="Insert Unordered List" onClick={()=>{insertText("ul")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ul"/></span>
+                            <span title="Insert Bold Text" onClick={() => {
+                                insertText("bold")
+                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">B</span>
+                            <span title="Insert Italic Text" onClick={() => {
+                                insertText("italic")
+                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white italic active:text-black">I</span>
+                            <del title="Insert Strike Through Text" onClick={() => {
+                                insertText("strike")
+                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">ST
+                            </del>
+                            <span title="Insert Blockquote" onClick={() => {
+                                insertText("block")
+                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">>_</span>
+                            <span title="Insert Unordered List" onClick={() => {
+                                insertText("ul")
+                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ul"/></span>
                             {/*<span title="Insert Ordered List" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ol"/></span>*/}
-                            <span title="Insert Code Block" onClick={()=>{insertText("code")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"> {"</>"} </span>
-                            <span title="Insert Highlight Text" onClick={()=>{insertText("highlight")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">HL</span>
-                            <span title="Insert Table" onClick={()=>{insertText("table")}} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-table"/></span>
+                            <span title="Insert Code Block" onClick={() => {
+                                insertText("code")
+                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"> {"</>"} </span>
+                            <span title="Insert Highlight Text" onClick={() => {
+                                insertText("highlight")
+                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">HL</span>
+                            <span title="Insert Table" onClick={() => {
+                                insertText("table")
+                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-table"/></span>
                         </div>
                         <span className="options text-3xl text-white">Options</span>
                         <div className="options flex flex-wrap gap-5 items-end">
@@ -267,14 +340,14 @@ export const Editor = () => {
                 </nav>
                 <main className="w-screen flex items-start">
                     {/*  Editor  */}
-                    <section className="editor-area w-1/2 h-full no-print overflow-y-scroll" id="editor">
+                    <section ref={editorPanel} className={`editor-area ${activePanel === "edit" ? "active" : ""} w-1/2 h-full no-print overflow-y-scroll`} id="editor">
                         <textarea name="editor" id="editor" ref={editorArea} className="w-full h-full overflow-y-scroll outline-0 p-5 resize-none" defaultValue={text} onKeyDown={handleTab} onChange={(e) => {
                             setText(e.target.value)
                         }}/>
                     </section>
                     {/*  Editor End  */}
                     {/*  Preview  */}
-                    <section className="preview w-1/2 h-full overflow-scroll relative" id="preview">
+                    <section ref={previewPanel} className={`preview ${activePanel === "view" ? "active" : ""} w-1/2 h-full overflow-scroll relative`} id="preview">
                         <span title="Back to the Top!" onClick={previewScrollTop} className="fixed right-5 aspect-square text-white bottom-5 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print"><i className="fa-solid fa-arrow-up"/></span>
                         <div style={{fontFamily: selectedFont.family}} className="preview-span h-max" id="previewSpan" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
                     </section>

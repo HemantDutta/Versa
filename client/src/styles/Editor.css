@@ -46,6 +46,16 @@
     background: linear-gradient(45deg, blueviolet, hotpink);
 }
 
+.editor header .mobile-options {
+    display: none;
+}
+
+.editor header .view-edit {
+    display: none;
+    padding: 2px;
+    background: linear-gradient(to right, blueviolet, hotpink);
+}
+
 .editor header .ham {
     display: none;
     gap: 5px;
@@ -96,7 +106,7 @@
     width: 20px;
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1425px) {
     .editor header {
         padding: 24px 16px;
     }
@@ -115,6 +125,16 @@
 
     .editor nav header {
         border-bottom: 1px solid white;
+    }
+
+    .editor header .mobile-options {
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .editor header .view-edit {
+        display: initial;
     }
 }
 
@@ -183,6 +203,20 @@
 
 .editor main .editor-area textarea::-webkit-scrollbar {
     display: none;
+}
+
+@media screen and (max-width: 991px) {
+    .editor main .editor-area, .editor main .preview  {
+        transition: all 0.8s cubic-bezier(0.87, 0, 0.13, 1);
+        transform: translateY(100%);
+        scale: 0.8;
+        width: 100%;
+    }
+
+    .editor main .editor-area.active, .editor main .preview.active {
+        transform: translateY(0);
+        scale: 1;
+    }
 }
 
 @keyframes gradAnim {
