@@ -13,7 +13,6 @@ export const themes = {
         "#styledHtml {\n" +
         "    width: 100%;\n" +
         "    height: 100%;\n" +
-        "    padding: 1.25rem;\n" +
         "    color: #242424;\n" +
         "}\n" +
         "\n" +
@@ -81,8 +80,8 @@ export const themes = {
         "    font-family: monospace;\n" +
         "}\n" +
         "\n" +
-        "#styledHtml blockquote {\n" +
-        "    box-shadow: rgb(36, 36, 36) 3px 0 0 0 inset;\n" +
+        "#styledHtml .blockquote {\n" +
+        "    border-left: 3px solid rgb(36,36,36);\n" +
         "    padding-left: 23px;\n" +
         "    font-size: 20px;\n" +
         "}\n" +
@@ -105,6 +104,14 @@ export const themes = {
         "#styledHtml img {\n" +
         "    display: block;\n" +
         "    margin: 16px 0 0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml ul {\n" +
+        "    list-style: disc;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml ol {\n" +
+        "    list-style: decimal;\n" +
         "}\n" +
         "\n" +
         "#styledHtml ul, #styledHtml ol {\n" +

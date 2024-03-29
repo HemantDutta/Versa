@@ -32,12 +32,12 @@ export const versaParser = (file, theme) => {
             .replace(boldRegex, '<strong>$1</strong>')
             .replace(italicRegex, '<em>$1</em>')
             .replace(unorderedListRegex, (match, item) => `<li>${item}</li>`)
-            .replace(linkRegex, '<a href="$2">$1</a>')
             .replace(imageRegex, '<img src="$2" alt="$1"/>')
+            .replace(linkRegex, '<a href="$2">$1</a>')
             .replace(highlightRegex, '<code>$1</code>')
-            .replace(multiHighlightRegex, '<pre><code>$1</code></pre>')
+            .replace(multiHighlightRegex, '<pre>$1</pre>')
             .replace(strikeThroughRegex, '<del>$1</del>')
-            .replace(blockquoteRegex, (match, content) => `<blockquote>${content.trim()}</blockquote>`);
+            .replace(blockquoteRegex, (match, content) => `<blockquote class="blockquote">${content.trim()}</blockquote>`);
     }
 
     const paragraphs = markFile.split(/\n\s*\n/);
@@ -55,5 +55,5 @@ export const versaParser = (file, theme) => {
         return `<p>${convertToHTML(paragraph)}</p>`;
     }).join('');
 
-    return html = `<section id="styledHtml" style="padding: 1.25rem">` + `<style>` + themes[theme] + `</style>` + html + `</section>`;
+    return `<section id="styledHtml" style="padding: 1.25rem">` + `<style>` + themes[theme] + `</style>` + html + `</section>`;
 }

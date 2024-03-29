@@ -130,8 +130,8 @@ export const Editor = () => {
 
     return (
         <>
-            <section className="editor flex flex-col overflow-y-hidden">
-                <nav className="relative no-print">
+            <section className="editor flex flex-col">
+                <nav className="no-print relative">
                     <header className="bg-dark relative p-3 flex gap-x-5 items-center justify-between z-50 no-print">
                         <div className="left flex items-center gap-x-5">
                             <span className="brand user-select-none cursor-pointer text-white font-bold text-4xl">Versa</span>
@@ -229,13 +229,13 @@ export const Editor = () => {
                 </nav>
                 <main className="w-screen flex items-start">
                     {/*  Editor  */}
-                    <section className="editor-area w-1/2 h-full no-print" id="editor">
+                    <section className="editor-area w-1/2 h-full no-print overflow-y-scroll" id="editor">
                         <textarea name="editor" id="editor" className="w-full h-full outline-0 p-5 resize-none" onKeyDown={handleTab} onChange={(e)=>{setText(e.target.value)}}/>
                     </section>
                     {/*  Editor End  */}
                     {/*  Preview  */}
-                    <section className="preview w-1/2 h-full overflow-y-scroll" id="preview">
-                        <span style={{fontFamily: selectedFont.family}} className="preview-span" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
+                    <section className="preview w-1/2 h-full overflow-scroll" id="preview">
+                        <div style={{fontFamily: selectedFont.family}} className="preview-span h-max" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
                     </section>
                     {/*  Preview End  */}
                 </main>
