@@ -126,8 +126,9 @@ export const Editor = () => {
 
     //Call Versa Parser
     useEffect(() => {
+        console.log(selectedTheme);
         setPreview(versaParser(text, selectedTheme));
-    }, [text])
+    }, [text, selectedTheme])
 
     //Store editor content in localstorage before unload
     useEffect(() => {
@@ -136,18 +137,14 @@ export const Editor = () => {
         }
         const unloadInterval = setInterval(unloadMethod, 60000);
         window.addEventListener("beforeunload", unloadMethod, {capture: true});
-        window.addEventListener("unload", unloadMethod, {capture: true});
         return () => {
             window.removeEventListener("beforeunload", unloadMethod);
-            window.removeEventListener("unload", unloadMethod);
             clearInterval(unloadInterval);
         };
     }, [])
 
     //Handle Preview Scroll
-    useEffect(() => {
 
-    }, [])
 
     return (
         <>
@@ -258,8 +255,8 @@ export const Editor = () => {
                     {/*  Editor End  */}
                     {/*  Preview  */}
                     <section className="preview w-1/2 h-full overflow-scroll relative" id="preview">
-                        <span title="Back to the Top!" className="fixed right-5 aspect-square text-white bottom-5 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer"><i className="fa-solid fa-arrow-up"/></span>
-                        <div style={{fontFamily: selectedFont.family}} className="preview-span h-max" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
+                        <span title="Back to the Top!" className="fixed right-5 aspect-square text-white bottom-5 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print"><i className="fa-solid fa-arrow-up"/></span>
+                        <div style={{fontFamily: selectedFont.family}} className="preview-span h-max" id="previewSpan" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
                     </section>
                     {/*  Preview End  */}
                 </main>
