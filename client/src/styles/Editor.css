@@ -27,6 +27,10 @@
 
 /*=====Header=====*/
 
+.editor header {
+    z-index: 1000;
+}
+
 .editor header .left .tools span, .editor header .left .tools del {
     width: 50px;
     display: grid;
@@ -123,6 +127,7 @@
     transform: translateY(-100%);
     overflow-y: hidden;
     padding: 16px;
+    z-index: 999;
 }
 
 .editor nav .mobile-menu.active {
