@@ -123,9 +123,10 @@ export const Editor = () => {
         fetchGoogleFonts()
     }, [])
 
-    //Call Font Face Setup on Change & Fetch Local Storage content
+    //Call Font Face Setup on Change & Fetch Local Storage content & Set Active Panel at startup
     useEffect(() => {
         if (first.current) {
+            activePanelStartup();
             let temp = localStorage.getItem('editorContent') || '';
             if (!text) setText(temp);
             first.current = false;
@@ -203,14 +204,7 @@ export const Editor = () => {
                 previewPanel.current.style.display = "initial";
             }
             else {
-                if(activePanel === "edit") {
-                    editorPanel.current.style.display = "initial";
-                    previewPanel.current.style.display = "none";
-                }
-                else {
-                    editorPanel.current.style.display = "none";
-                    previewPanel.current.style.display = "initial";
-                }
+                activePanelStartup();
             }
         }
 
@@ -218,6 +212,23 @@ export const Editor = () => {
 
         return ()=> window.removeEventListener("resize", resetPanel);
     }, [])
+
+    //Active Panel Startup Setter
+    function activePanelStartup() {
+        if(activePanel === "edit") {
+            editorPanel.current.classList.add("active");
+            previewPanel.current.classList.remove("active");
+            editorPanel.current.style.display = "initial";
+            previewPanel.current.style.display = "none";
+        }
+        else {
+            editorPanel.current.classList.remove("active");
+            previewPanel.current.classList.add("active");
+            editorPanel.current.style.display = "none";
+            previewPanel.current.style.display = "initial";
+
+        }
+    }
 
     return (
         <>
@@ -363,14 +374,14 @@ export const Editor = () => {
                 </nav>
                 <main className="w-screen flex items-start relative">
                     {/*  Editor  */}
-                    <section ref={editorPanel} className={`editor-area ${activePanel === "edit" ? "active" : ""} w-1/2 h-full no-print overflow-y-scroll`} id="editor">
+                    <section ref={editorPanel} className={`editor-area w-1/2 h-full no-print overflow-y-scroll`} id="editor">
                         <textarea name="editor" id="editor" ref={editorArea} className="w-full h-full overflow-y-scroll outline-0 p-5 resize-none" defaultValue={text} onKeyDown={handleTab} onChange={(e) => {
                             setText(e.target.value)
                         }}/>
                     </section>
                     {/*  Editor End  */}
                     {/*  Preview  */}
-                    <section ref={previewPanel} className={`preview ${activePanel === "view" ? "active" : ""} w-1/2 h-full overflow-scroll relative`} id="preview">
+                    <section ref={previewPanel} className={`preview w-1/2 h-full overflow-scroll relative`} id="preview">
                         <div style={{fontFamily: selectedFont.family}} className="preview-span h-max" id="previewSpan" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
                     </section>
                     {/*  Preview End  */}
