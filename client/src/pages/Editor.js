@@ -3,7 +3,7 @@ import {useEffect, useRef, useState} from "react";
 import '../styles/Editor.css';
 import {Select} from "../components/Select";
 import {versaParser} from "../utils/versaParser";
-import {themes} from "../utils/themes";
+import {themes, themeColors} from "../utils/themes";
 import {tools} from "../utils/tools";
 
 export const Editor = () => {
@@ -381,7 +381,7 @@ export const Editor = () => {
                     </section>
                     {/*  Editor End  */}
                     {/*  Preview  */}
-                    <section ref={previewPanel} className={`preview w-1/2 h-full overflow-scroll relative`} id="preview">
+                    <section ref={previewPanel} style={{backgroundColor: themeColors[selectedTheme]}} className={`preview w-1/2 h-full overflow-scroll relative`} id="preview">
                         <div style={{fontFamily: selectedFont.family}} className="preview-span h-max" id="previewSpan" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
                     </section>
                     {/*  Preview End  */}

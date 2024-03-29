@@ -256,10 +256,14 @@
         display: none !important;
     }
 
-    .preview, .preview .preview-span, body, html, #root {
+    .preview, .preview, .preview-span, body, html, #root {
         height: 100% !important;
         width: 100% !important;
         display: inline-block;
+    }
+
+    .preview {
+        padding-bottom: 2000px;
     }
 
     .editor {

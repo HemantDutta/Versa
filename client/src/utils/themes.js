@@ -1,4 +1,11 @@
 //Themes for the parser
+export const themeColors = {
+    "Classic": "#ffffff",
+    "Vega": "#131313",
+    "Payne": "#0b0b0b",
+    "Mellow": "#2d2c31",
+}
+
 export const themes = {
     "Classic": "*,\n" +
         "*:after,\n" +
