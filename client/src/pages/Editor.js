@@ -24,6 +24,9 @@ export const Editor = () => {
     const [activePanel, setActivePanel] = useState("edit");
     const [selectedFont, setSelectedFont] = useState({});
     const [selectedTheme, setSelectedTheme] = useState("Classic");
+    const [saveLoader, setSaveLoader] = useState(false);
+    const [unsaved, setUnsaved] = useState(false);
+    const [downloadOn, setDownloadOn] = useState(false);
 
     //Fetch Google Fonts
     function fetchGoogleFonts() {
@@ -109,14 +112,17 @@ export const Editor = () => {
 
     //Download pdf
     function downloadPdf() {
+        setDownloadOn(true);
         setActivePanel("view");
-        window.print();
     }
 
     //Call Download But Check if view is active or not
     useEffect(() => {
-
-    }, [])
+        if(downloadOn && activePanel === "view") {
+            setDownloadOn(false);
+            window.print();
+        }
+    }, [activePanel])
 
     //Call Fetch Google Fonts
     useEffect(() => {
@@ -173,62 +179,86 @@ export const Editor = () => {
 
     //Active Panel Switcher
     function activePanelSwitcher() {
-        if (activePanel === "edit") {
-            setActivePanel("view");
-            editorPanel.current.classList.remove("active");
-            setTimeout(() => {
-                editorPanel.current.style.display = "none";
-                previewPanel.current.style.display = "initial";
+        if (window.innerWidth < 991) {
+            if (activePanel === "edit") {
+                setActivePanel("view");
+                editorPanel.current.classList.remove("active");
                 setTimeout(() => {
-                    previewPanel.current.classList.add("active");
-                }, 50)
-            }, 900)
-        } else {
-            setActivePanel("edit");
-            previewPanel.current.classList.remove("active");
-            setTimeout(() => {
-                previewPanel.current.style.display = "none";
-                editorPanel.current.style.display = "initial";
+                    editorPanel.current.style.display = "none";
+                    previewPanel.current.style.display = "initial";
+                    setTimeout(() => {
+                        previewPanel.current.classList.add("active");
+                    }, 50)
+                }, 900)
+            } else {
+                setActivePanel("edit");
+                previewPanel.current.classList.remove("active");
                 setTimeout(() => {
-                    editorPanel.current.classList.add("active");
-                }, 50)
-            }, 900)
+                    previewPanel.current.style.display = "none";
+                    editorPanel.current.style.display = "initial";
+                    setTimeout(() => {
+                        editorPanel.current.classList.add("active");
+                    }, 50)
+                }, 900)
+            }
         }
     }
 
     //Reset Panels on Resize
     useEffect(() => {
         const resetPanel = () => {
-            if(window.innerWidth > 991) {
+            if (window.innerWidth > 991) {
                 editorPanel.current.style.display = "initial";
                 previewPanel.current.style.display = "initial";
-            }
-            else {
+            } else {
                 activePanelStartup();
             }
         }
 
         window.addEventListener("resize", resetPanel);
-
-        return ()=> window.removeEventListener("resize", resetPanel);
+        return () => window.removeEventListener("resize", resetPanel);
     }, [])
 
     //Active Panel Startup Setter
     function activePanelStartup() {
-        if(activePanel === "edit") {
-            editorPanel.current.classList.add("active");
-            previewPanel.current.classList.remove("active");
-            editorPanel.current.style.display = "initial";
-            previewPanel.current.style.display = "none";
-        }
-        else {
-            editorPanel.current.classList.remove("active");
-            previewPanel.current.classList.add("active");
-            editorPanel.current.style.display = "none";
-            previewPanel.current.style.display = "initial";
+        if (window.innerWidth < 991) {
+            if (activePanel === "edit") {
+                editorPanel.current.classList.add("active");
+                previewPanel.current.classList.remove("active");
+                editorPanel.current.style.display = "initial";
+                previewPanel.current.style.display = "none";
+            } else {
+                editorPanel.current.classList.remove("active");
+                previewPanel.current.classList.add("active");
+                editorPanel.current.style.display = "none";
+                previewPanel.current.style.display = "initial";
 
+            }
         }
     }
+
+    //Activate Save Loader
+
+
+    //Editor Functionality
+    useEffect(() => {
+
+        const initializeFunctionality = (e) => {
+            if (e.ctrlKey && e.key === "s") {
+                e.preventDefault();
+                save();
+            }
+        }
+
+        const save = () => {
+            localStorage.setItem('editorContent', editorArea.current.value);
+            console.log('Editor content saved to local storage.');
+        }
+
+        window.addEventListener("keydown", initializeFunctionality);
+
+        return () => window.removeEventListener("keydown", initializeFunctionality);
+    }, [])
 
     return (
         <>
