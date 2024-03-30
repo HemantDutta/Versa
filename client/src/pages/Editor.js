@@ -26,6 +26,9 @@ export const Editor = () => {
     const [selectedTheme, setSelectedTheme] = useState("Classic");
     const [saveLoader, setSaveLoader] = useState(false);
     const [unsaved, setUnsaved] = useState(false);
+    const [words, setWords] = useState(0);
+    const [chars, setChars] = useState(0);
+    const [prevSaved, setPrevSaved] = useState("");
 
     //Fetch Google Fonts
     function fetchGoogleFonts() {
@@ -134,14 +137,24 @@ export const Editor = () => {
     //Call Versa Parser
     useEffect(() => {
         setPreview(versaParser(text, selectedTheme));
+        if(prevSaved !== text) {
+            setUnsaved(true);
+        }
+        else {
+            setUnsaved(false);
+        }
     }, [text, selectedTheme])
 
     //Store editor content in localstorage before unload
     useEffect(() => {
         const unloadMethod = () => {
+            activateSaveLoader();
             localStorage.setItem('editorContent', editorArea.current.value);
         }
-        const unloadInterval = setInterval(unloadMethod, 60000);
+        const unloadInterval = setInterval(()=>{
+            unloadMethod();
+            setPrevSaved(editorArea.current.value);
+        }, 60000);
         window.addEventListener("beforeunload", unloadMethod, {capture: true});
         return () => {
             window.removeEventListener("beforeunload", unloadMethod);
@@ -229,7 +242,12 @@ export const Editor = () => {
     }
 
     //Activate Save Loader
-
+    function activateSaveLoader() {
+        setSaveLoader(true);
+        setTimeout(()=>{
+            setSaveLoader(false);
+        },2000)
+    }
 
     //Editor Functionality
     useEffect(() => {
@@ -241,7 +259,10 @@ export const Editor = () => {
         }
 
         const save = () => {
-            localStorage.setItem('editorContent', editorArea.current.value);
+            activateSaveLoader();
+            let currentContent = editorArea.current.value;
+            setPrevSaved(currentContent)
+            localStorage.setItem('editorContent', currentContent);
         }
 
         window.addEventListener("keydown", initializeFunctionality);
@@ -399,7 +420,7 @@ export const Editor = () => {
                 </nav>
                 <main className="w-screen flex items-start relative">
                     {/*  Editor  */}
-                    <section ref={editorPanel} className={`editor-area w-1/2 h-full no-print overflow-y-scroll`} id="editor">
+                    <section ref={editorPanel} className={`editor-area w-1/2 h-full no-print overflow-y-scroll relative`} id="editor">
                         <textarea name="editor" id="editor" ref={editorArea} className="w-full h-full overflow-y-scroll outline-0 p-5 resize-none" defaultValue={text} onKeyDown={handleTab} onChange={(e) => {
                             setText(e.target.value)
                         }}/>
@@ -410,7 +431,53 @@ export const Editor = () => {
                         <div style={{fontFamily: selectedFont.family}} className="preview-span h-max" id="previewSpan" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
                     </section>
                     {/*  Preview End  */}
-                    <span title="Back to the Top!" onClick={previewScrollTop} className="fixed right-5 aspect-square text-white bottom-5 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print"><i className="fa-solid fa-arrow-up"/></span>
+                    {
+                        activePanel === "edit" &&
+                        <div className="content-details fixed bottom-0 left-0 py-1 px-2 bg-black text-white flex items-center justify-between">
+                            <div className="left flex items-center gap-x-5">
+                                <div className="word-count">
+                                    <span className="title">Words: </span>
+                                    <span className="value">{words}</span>
+                                </div>
+                                <div className="char-count">
+                                    <span className="title">Characters: </span>
+                                    <span className="value">{chars}</span>
+                                </div>
+                            </div>
+                            <div className="right">
+                                <div className="save-details">
+                                    {
+                                        saveLoader &&
+                                        <>
+                                            <div className="save-loader flex items-center gap-x-2">
+                                                <span>Saving</span>
+                                                <img src="/assets/editor/vrs_loader.svg" className="h-5" alt="Loading..."/>
+                                            </div>
+                                        </>
+                                    }
+                                    {
+                                        unsaved && !saveLoader &&
+                                        <>
+                                            <div className="unsaved-content flex items-center gap-x-2">
+                                                <span className="blob h-2 aspect-square rounded-full bg-amber-300"/>
+                                                <span className="title">Unsaved Changes</span>
+                                            </div>
+                                        </>
+                                    }
+                                    {
+                                        !unsaved && !saveLoader &&
+                                        <>
+                                            <div className="saved-content flex items-center gap-x-2">
+                                                <span className="blob h-2 aspect-square rounded-full bg-green-400"/>
+                                                <span className="title">All Changes Saved</span>
+                                            </div>
+                                        </>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <span title="Back to the Top!" onClick={previewScrollTop} className="fixed right-5 aspect-square text-white bottom-14 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print"><i className="fa-solid fa-arrow-up"/></span>
                 </main>
             </section>
         </>

@@ -219,6 +219,10 @@
     display: initial;
 }
 
+.editor main .content-details {
+    width: 50%;
+}
+
 @media screen and (max-width: 991px) {
     .editor main .editor-area, .editor main .preview  {
         transition: translate 0.8s cubic-bezier(0.87, 0, 0.13, 1), scale 0.4s cubic-bezier(0.87, 0, 0.13, 1);
@@ -232,6 +236,10 @@
         transition: translate 0.4s cubic-bezier(0.87, 0, 0.13, 1), scale 0.8s cubic-bezier(0.87, 0, 0.13, 1);
         translate: 0 0;
         scale: 1;
+    }
+
+    .editor main .content-details {
+        width: 100%;
     }
 }
 
