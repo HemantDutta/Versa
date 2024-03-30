@@ -137,12 +137,7 @@ export const Editor = () => {
     //Call Versa Parser
     useEffect(() => {
         setPreview(versaParser(text, selectedTheme));
-        if(prevSaved !== text) {
-            setUnsaved(true);
-        }
-        else {
-            setUnsaved(false);
-        }
+        verifySaveStatus();
     }, [text, selectedTheme])
 
     //Store editor content in localstorage before unload
@@ -151,7 +146,7 @@ export const Editor = () => {
             activateSaveLoader();
             localStorage.setItem('editorContent', editorArea.current.value);
         }
-        const unloadInterval = setInterval(()=>{
+        const unloadInterval = setInterval(() => {
             unloadMethod();
             setPrevSaved(editorArea.current.value);
         }, 60000);
@@ -244,9 +239,9 @@ export const Editor = () => {
     //Activate Save Loader
     function activateSaveLoader() {
         setSaveLoader(true);
-        setTimeout(()=>{
+        setTimeout(() => {
             setSaveLoader(false);
-        },2000)
+        }, 1000)
     }
 
     //Editor Functionality
@@ -261,7 +256,8 @@ export const Editor = () => {
         const save = () => {
             activateSaveLoader();
             let currentContent = editorArea.current.value;
-            setPrevSaved(currentContent)
+            setPrevSaved(currentContent);
+            verifySaveStatus();
             localStorage.setItem('editorContent', currentContent);
         }
 
@@ -269,6 +265,15 @@ export const Editor = () => {
 
         return () => window.removeEventListener("keydown", initializeFunctionality);
     }, [])
+
+    //Verify Save Status
+    function verifySaveStatus() {
+        if (prevSaved !== text) {
+            setUnsaved(true);
+        } else {
+            setUnsaved(false);
+        }
+    }
 
     return (
         <>
