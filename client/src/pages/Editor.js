@@ -30,11 +30,6 @@ export const Editor = () => {
     const [words, setWords] = useState(0);
     const [chars, setChars] = useState(0);
     const [prevSaved, setPrevSaved] = useState("");
-    const [history, setHistory] = useState([]);
-    const [prevContent, setPrevContent] = useState("");
-
-    //Variables
-    let position = 0;
 
     //Fetch Google Fonts
     function fetchGoogleFonts() {
@@ -134,8 +129,6 @@ export const Editor = () => {
             activePanelStartup();
             let temp = localStorage.getItem('editorContent') || '';
             setPrevSaved(temp);
-            setPrevContent(temp);
-            setHistory(prevState => [...prevState, temp]);
             if (!text) setText(temp);
             first.current = false;
         } else {
@@ -265,10 +258,6 @@ export const Editor = () => {
                 e.preventDefault();
                 duplicateCurrentLine();
             }
-            if (e.ctrlKey && e.key === 'z') {
-                e.preventDefault();
-                undo();
-            }
         }
 
         const save = () => {
@@ -297,27 +286,10 @@ export const Editor = () => {
             setText(editorArea.current.value);
         }
 
-        const undo = () => {
-            if (position > 0) {
-                --position;
-                editorArea.current.value = history[position];
-            }
-        }
-
         window.addEventListener("keydown", initializeFunctionality);
 
         return () => window.removeEventListener("keydown", initializeFunctionality);
     }, [])
-
-    //Set Undo History
-    const setUndoText = () => {
-        let currContent = editorArea.current.value;
-        if(currContent !== prevContent) {
-            setPrevContent(currContent);
-            setHistory(prevState => [...prevState, currContent]);
-            position = history.length - 1;
-        }
-    }
 
     //Verify Save Status
     function verifySaveStatus() {
