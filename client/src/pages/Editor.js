@@ -3,7 +3,7 @@ import {useEffect, useRef, useState} from "react";
 import '../styles/Editor.css';
 import {Select} from "../components/Select";
 import {versaParser} from "../utils/versaParser";
-import {themes, themeColors} from "../utils/themes";
+import {themeColors, themes} from "../utils/themes";
 import {tools} from "../utils/tools";
 import {Toolbar} from "../components/Toolbar";
 
@@ -30,6 +30,11 @@ export const Editor = () => {
     const [words, setWords] = useState(0);
     const [chars, setChars] = useState(0);
     const [prevSaved, setPrevSaved] = useState("");
+    const [history, setHistory] = useState([]);
+    const [prevContent, setPrevContent] = useState("");
+
+    //Variables
+    let position = 0;
 
     //Fetch Google Fonts
     function fetchGoogleFonts() {
@@ -128,6 +133,9 @@ export const Editor = () => {
         if (first.current) {
             activePanelStartup();
             let temp = localStorage.getItem('editorContent') || '';
+            setPrevSaved(temp);
+            setPrevContent(temp);
+            setHistory(prevState => [...prevState, temp]);
             if (!text) setText(temp);
             first.current = false;
         } else {
@@ -253,6 +261,14 @@ export const Editor = () => {
                 e.preventDefault();
                 save();
             }
+            if (e.ctrlKey && e.key === 'd') {
+                e.preventDefault();
+                duplicateCurrentLine();
+            }
+            if (e.ctrlKey && e.key === 'z') {
+                e.preventDefault();
+                undo();
+            }
         }
 
         const save = () => {
@@ -263,10 +279,45 @@ export const Editor = () => {
             localStorage.setItem('editorContent', currentContent);
         }
 
+        const duplicateCurrentLine = () => {
+            let startPos = editorArea.current.selectionStart;
+            let endPos = editorArea.current.selectionEnd;
+            let text = editorArea.current.value;
+
+            let lineStart = text.lastIndexOf('\n', startPos - 1) + 1;
+            let lineEnd = text.indexOf('\n', endPos);
+
+            let currentLine = text.substring(lineStart, lineEnd !== -1 ? lineEnd : undefined);
+
+            editorArea.current.value = text.substring(0, lineEnd) + '\n' + currentLine + text.substring(lineEnd);
+
+            editorArea.current.selectionStart = startPos + currentLine.length + 1;
+            editorArea.current.selectionEnd = startPos + currentLine.length + 1;
+
+            setText(editorArea.current.value);
+        }
+
+        const undo = () => {
+            if (position > 0) {
+                --position;
+                editorArea.current.value = history[position];
+            }
+        }
+
         window.addEventListener("keydown", initializeFunctionality);
 
         return () => window.removeEventListener("keydown", initializeFunctionality);
     }, [])
+
+    //Set Undo History
+    const setUndoText = () => {
+        let currContent = editorArea.current.value;
+        if(currContent !== prevContent) {
+            setPrevContent(currContent);
+            setHistory(prevState => [...prevState, currContent]);
+            position = history.length - 1;
+        }
+    }
 
     //Verify Save Status
     function verifySaveStatus() {
@@ -387,7 +438,7 @@ export const Editor = () => {
                 <main className="w-screen flex items-start relative">
                     {/*  Editor  */}
                     <section ref={editorPanel} className={`editor-area w-1/2 h-full no-print overflow-y-scroll relative`} id="editor">
-                        <textarea name="editor" id="editor" ref={editorArea} className="w-full h-full overflow-y-scroll outline-0 p-5 resize-none" defaultValue={text} onKeyDown={handleTab} onChange={(e) => {
+                        <textarea name="editor" id="editor" ref={editorArea} className="w-full h-full overflow-y-scroll outline-0 p-5 resize-none" defaultValue={text} onInput={setUndoText} onKeyDown={handleTab} onChange={(e) => {
                             setText(e.target.value)
                         }}/>
                     </section>
