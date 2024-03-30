@@ -5,6 +5,7 @@ import {Select} from "../components/Select";
 import {versaParser} from "../utils/versaParser";
 import {themes, themeColors} from "../utils/themes";
 import {tools} from "../utils/tools";
+import {Toolbar} from "../components/Toolbar";
 
 export const Editor = () => {
 
@@ -138,6 +139,7 @@ export const Editor = () => {
     useEffect(() => {
         setPreview(versaParser(text, selectedTheme));
         verifySaveStatus();
+        setWordCharCount();
     }, [text, selectedTheme])
 
     //Store editor content in localstorage before unload
@@ -275,6 +277,15 @@ export const Editor = () => {
         }
     }
 
+    //Set Word and Char Count
+    function setWordCharCount() {
+        let charLength = editorArea.current.value.length;
+        setChars(charLength);
+
+        let wordCount = editorArea.current.value.trim().split(/\s+/).filter(word => /\w+/.test(word)).length;
+        setWords(wordCount);
+    }
+
     return (
         <>
             <section className="editor flex flex-col">
@@ -283,32 +294,7 @@ export const Editor = () => {
                         <div className="left flex items-center gap-x-5">
                             <span className="brand user-select-none cursor-pointer text-white font-bold text-4xl">Versa</span>
                             <div className="tools flex items-center gap-x-1 flex-wrap">
-                                <span title="Insert Bold Text" onClick={() => {
-                                    insertText("bold")
-                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">B</span>
-                                <span title="Insert Italic Text" onClick={() => {
-                                    insertText("italic")
-                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white italic active:text-black">I</span>
-                                <del title="Insert Strike Through Text" onClick={() => {
-                                    insertText("strike")
-                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">ST
-                                </del>
-                                <span title="Insert Blockquote" onClick={() => {
-                                    insertText("block")
-                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">>_</span>
-                                <span title="Insert Unordered List" onClick={() => {
-                                    insertText("ul")
-                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ul"/></span>
-                                {/*<span title="Insert Ordered List" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ol"/></span>*/}
-                                <span title="Insert Code Block" onClick={() => {
-                                    insertText("code")
-                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"> {"</>"} </span>
-                                <span title="Insert Highlight Text" onClick={() => {
-                                    insertText("highlight")
-                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">HL</span>
-                                <span title="Insert Table" onClick={() => {
-                                    insertText("table")
-                                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-table"/></span>
+                                <Toolbar insertText={insertText}/>
                             </div>
                         </div>
                         <div className="right flex items-center gap-x-5">
@@ -356,32 +342,7 @@ export const Editor = () => {
                     <div className="mobile-menu absolute bg-dark top-full w-screen left-0 z-40 flex flex-col gap-5" ref={mobileMenu}>
                         <span className="head text-3xl text-white">Tools</span>
                         <div className="tools flex flex-wrap gap-x-1">
-                            <span title="Insert Bold Text" onClick={() => {
-                                insertText("bold")
-                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">B</span>
-                            <span title="Insert Italic Text" onClick={() => {
-                                insertText("italic")
-                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white italic active:text-black">I</span>
-                            <del title="Insert Strike Through Text" onClick={() => {
-                                insertText("strike")
-                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">ST
-                            </del>
-                            <span title="Insert Blockquote" onClick={() => {
-                                insertText("block")
-                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">>_</span>
-                            <span title="Insert Unordered List" onClick={() => {
-                                insertText("ul")
-                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ul"/></span>
-                            {/*<span title="Insert Ordered List" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ol"/></span>*/}
-                            <span title="Insert Code Block" onClick={() => {
-                                insertText("code")
-                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"> {"</>"} </span>
-                            <span title="Insert Highlight Text" onClick={() => {
-                                insertText("highlight")
-                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">HL</span>
-                            <span title="Insert Table" onClick={() => {
-                                insertText("table")
-                            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-table"/></span>
+                            <Toolbar insertText={insertText}/>
                         </div>
                         <span className="options text-3xl text-white">Options</span>
                         <div className="options flex flex-wrap gap-5 items-end">
