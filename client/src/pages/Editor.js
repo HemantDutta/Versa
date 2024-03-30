@@ -151,8 +151,8 @@ export const Editor = () => {
 
     //Handle Preview Scroll Top
     function previewScrollTop() {
-        previewSpan.current.scrollTop = 0;
         document.getElementById("preview").scrollTop = 0;
+        document.getElementById("editor").scrollTop = 0;
     }
 
     //Insert Stuff into Textarea
@@ -198,6 +198,7 @@ export const Editor = () => {
     useEffect(() => {
         const resetPanel = () => {
             if (window.innerWidth > 991) {
+                setActivePanel("edit");
                 editorPanel.current.style.display = "initial";
                 previewPanel.current.style.display = "initial";
             } else {
