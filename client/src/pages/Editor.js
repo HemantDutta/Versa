@@ -26,7 +26,6 @@ export const Editor = () => {
     const [selectedTheme, setSelectedTheme] = useState("Classic");
     const [saveLoader, setSaveLoader] = useState(false);
     const [unsaved, setUnsaved] = useState(false);
-    const [downloadOn, setDownloadOn] = useState(false);
 
     //Fetch Google Fonts
     function fetchGoogleFonts() {
@@ -112,17 +111,8 @@ export const Editor = () => {
 
     //Download pdf
     function downloadPdf() {
-        setDownloadOn(true);
-        setActivePanel("view");
+        window.print();
     }
-
-    //Call Download But Check if view is active or not
-    useEffect(() => {
-        if(downloadOn && activePanel === "view") {
-            setDownloadOn(false);
-            window.print();
-        }
-    }, [activePanel])
 
     //Call Fetch Google Fonts
     useEffect(() => {
@@ -242,7 +232,6 @@ export const Editor = () => {
 
     //Editor Functionality
     useEffect(() => {
-
         const initializeFunctionality = (e) => {
             if (e.ctrlKey && e.key === "s") {
                 e.preventDefault();
@@ -252,7 +241,6 @@ export const Editor = () => {
 
         const save = () => {
             localStorage.setItem('editorContent', editorArea.current.value);
-            console.log('Editor content saved to local storage.');
         }
 
         window.addEventListener("keydown", initializeFunctionality);
@@ -396,8 +384,14 @@ export const Editor = () => {
                                     }
                                 </Select>
                             </div>
+                            <div className="view-edit rounded">
+                                <button type="button" className="text-white bg-black px-3 py-2 rounded" onClick={activePanelSwitcher} dangerouslySetInnerHTML={{__html: activePanel === "view" ? "Edit&nbsp;&nbsp;<i class=\"fa-solid fa-pen-to-square\"/>" : "View&nbsp;&nbsp;<i class=\"fa-solid fa-eye\"/>"}}/>
+                            </div>
                             <div className="download">
-                                <button type="button" className="text-white rounded px-5 py-3  click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download"/></button>
+                                {
+                                    activePanel === "view" &&
+                                    <button type="button" className="text-white rounded px-5 py-3  click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download"/></button>
+                                }
                             </div>
                         </div>
                     </div>

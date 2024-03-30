@@ -60,7 +60,7 @@
     display: none;
 }
 
-.editor header .view-edit {
+.editor .view-edit {
     display: none;
     padding: 2px;
     background: linear-gradient(to right, blueviolet, hotpink);
@@ -143,7 +143,7 @@
 }
 
 @media screen and (max-width: 991px) {
-    .editor header .view-edit {
+    .editor .view-edit {
         display: initial;
     }
 }
