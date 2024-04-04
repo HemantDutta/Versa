@@ -119,6 +119,12 @@
 .editor header .tools .tool-drop-down-container {
     background: linear-gradient(to right, blueviolet, hotpink);
     left: -25%;
+    transition: all 0.2s ease;
+    opacity: 0;
+}
+
+.editor header .tools .tool-drop-down-container.active {
+    opacity: 1;
 }
 
 .editor header .tools .tool-drop-down-container .tool-drop-down {

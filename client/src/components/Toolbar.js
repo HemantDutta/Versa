@@ -1,4 +1,25 @@
+import { useRef } from "react";
+
 export const Toolbar = ({ insertText }) => {
+
+    //Refs
+    const moreDropDown = useRef(null);
+
+    //More Tools Drop Down Toggle
+    function openDropDown() {
+        moreDropDown.current.style.display = "initial";
+        setTimeout(()=>{
+            moreDropDown.current.classList.add("active");
+        },0)
+    }
+
+    function closeDropDown() {
+        moreDropDown.current.classList.remove("active");
+        setTimeout(()=>{
+            moreDropDown.current.style.display = "none";
+        },400)
+    }
+
     return (
         <>
             <span title="Insert Bold Text" onClick={() => {
@@ -31,8 +52,8 @@ export const Toolbar = ({ insertText }) => {
                 insertText("img")
             }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-image" /></span>
             <div className="more-tools-wrapper relative">
-                <span title="More" className="p-2 aspect-square user-select-none text-white font-bold text-xl cursor-pointer hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-chevron-down" /></span>
-                <div className="tool-drop-down-container absolute top-full rounded p-1">
+                <span title="More" onMouseEnter={openDropDown} className="p-2 aspect-square user-select-none text-white font-bold text-xl cursor-pointer hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-chevron-down" /></span>
+                <div ref={moreDropDown} onMouseLeave={closeDropDown} className="tool-drop-down-container absolute top-full rounded p-1">
                     <div className="tool-drop-down flex flex-col p-2 rounded gap-2">
                         <span title="Insert Link" onClick={() => {
                             insertText("link")
@@ -40,7 +61,6 @@ export const Toolbar = ({ insertText }) => {
                         <span title="Insert Line Break" onClick={() => {
                             insertText("br")
                         }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">BR</span>
-
                     </div>
                 </div>
             </div>
