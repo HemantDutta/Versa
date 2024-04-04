@@ -6,5 +6,6 @@ export const tools = {
     "ul": "\n\n- List Item 1 \n- List Item 2 \n- List Item 3",
     "code": "\n\n```` \n Insert Code Here \n ````\n",
     "highlight": "`Insert Text Here`",
-    "table": "\n\n| Header | Header | Header |\n| Data | Data | Data|\n| Data | Data | Data|\n"
+    "table": "\n\n| Header | Header | Header |\n| Data | Data | Data|\n| Data | Data | Data|\n",
+    "img": "\n\n ![alt text here]()"
 }

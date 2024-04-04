@@ -13,7 +13,7 @@ export const Toolbar = ({insertText}) => {
             </del>
             <span title="Insert Blockquote" onClick={() => {
                 insertText("block")
-            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">>_</span>
+            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">&gt;_</span>
             <span title="Insert Unordered List" onClick={() => {
                 insertText("ul")
             }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ul"/></span>
@@ -27,6 +27,9 @@ export const Toolbar = ({insertText}) => {
             <span title="Insert Table" onClick={() => {
                 insertText("table")
             }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-table"/></span>
+            <span title="Insert Image" onClick={() => {
+                insertText("img")
+            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-image"/></span>
         </>
     )
 }
