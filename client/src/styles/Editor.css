@@ -7,9 +7,12 @@
 }
 
 * {
-    -webkit-print-color-adjust: exact !important;   /* Chrome, Safari 6 – 15.3, Edge */
-    color-adjust: exact !important;                 /* Firefox 48 – 96 */
-    print-color-adjust: exact !important;           /* Firefox 97+, Safari 15.4+ */
+    -webkit-print-color-adjust: exact !important;
+    /* Chrome, Safari 6 – 15.3, Edge */
+    color-adjust: exact !important;
+    /* Firefox 48 – 96 */
+    print-color-adjust: exact !important;
+    /* Firefox 97+, Safari 15.4+ */
 }
 
 @page {
@@ -41,14 +44,16 @@
     z-index: 1000;
 }
 
-.editor header .left .tools span, .editor header .left .tools del {
+.editor header .left .tools span,
+.editor header .left .tools del {
     width: 50px;
     display: grid;
     place-items: center;
     transition: all 0.2s ease;
 }
 
-.editor header .left .tools span:hover, .editor header .left .tools del:hover {
+.editor header .left .tools span:hover,
+.editor header .left .tools del:hover {
     background: linear-gradient(45deg, blueviolet, hotpink);
 }
 
@@ -179,18 +184,20 @@
     transform: translateY(0);
 }
 
-.editor nav .mobile-menu .tools span, .editor header .left .tools del {
+.editor nav .mobile-menu .tools span,
+.editor header .left .tools del {
     width: 50px;
     display: grid;
     place-items: center;
     transition: all 0.2s ease;
 }
 
-.editor nav .mobile-menu .tools span:hover, .editor header .left .tools del:hover {
+.editor nav .mobile-menu .tools span:hover,
+.editor header .left .tools del:hover {
     background: linear-gradient(45deg, blueviolet, hotpink);
 }
 
-.editor nav .mobile-menu .options .download  button {
+.editor nav .mobile-menu .options .download button {
     background: linear-gradient(45deg, blueviolet, hotpink);
 }
 
@@ -230,7 +237,8 @@
     display: none;
 }
 
-.editor main .editor-area, .editor main .preview {
+.editor main .editor-area,
+.editor main .preview {
     display: initial;
 }
 
@@ -239,7 +247,9 @@
 }
 
 @media screen and (max-width: 991px) {
-    .editor main .editor-area, .editor main .preview  {
+
+    .editor main .editor-area,
+    .editor main .preview {
         transition: translate 0.8s cubic-bezier(0.87, 0, 0.13, 1), scale 0.4s cubic-bezier(0.87, 0, 0.13, 1);
         translate: 0 100%;
         scale: 0.8;
@@ -247,7 +257,8 @@
         display: none;
     }
 
-    .editor main .editor-area.active, .editor main .preview.active {
+    .editor main .editor-area.active,
+    .editor main .preview.active {
         transition: translate 0.4s cubic-bezier(0.87, 0, 0.13, 1), scale 0.8s cubic-bezier(0.87, 0, 0.13, 1);
         translate: 0 0;
         scale: 1;
@@ -262,9 +273,11 @@
     0% {
         background-position: 0 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0 50%;
     }
@@ -279,7 +292,12 @@
         display: none !important;
     }
 
-    .preview, .preview, .preview-span, body, html, #root {
+    .preview,
+    .preview,
+    .preview-span,
+    body,
+    html,
+    #root {
         height: 100% !important;
         width: 100% !important;
         display: inline-block;
@@ -294,3 +312,22 @@
         height: max-content;
     }
 }
+
+/*=====Upload Popup=====*/
+
+.editor .upload-popup-overlay {
+    z-index: 1000;
+}
+
+.editor .upload-popup-container {
+    inset: 0;
+    margin: auto;
+    z-index: 1001;
+    height: max-content;
+    width: 650px;
+}
+
+.editor .upload-popup-container .upload-popup .input-wrapper .label-wrapper{
+    background: linear-gradient(45deg, blueviolet, hotpink);
+}
+/*=====Upload Popup End=====*/
