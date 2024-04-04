@@ -152,6 +152,7 @@ export const Editor = () => {
         const unloadInterval = setInterval(() => {
             unloadMethod();
             setPrevSaved(editorArea.current.value);
+            verifySaveStatus();
         }, 60000);
         window.addEventListener("beforeunload", unloadMethod, {capture: true});
         return () => {
