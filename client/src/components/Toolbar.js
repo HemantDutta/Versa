@@ -1,5 +1,5 @@
-export const Toolbar = ({insertText}) => {
-    return(
+export const Toolbar = ({ insertText }) => {
+    return (
         <>
             <span title="Insert Bold Text" onClick={() => {
                 insertText("bold")
@@ -16,7 +16,7 @@ export const Toolbar = ({insertText}) => {
             }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">&gt;_</span>
             <span title="Insert Unordered List" onClick={() => {
                 insertText("ul")
-            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ul"/></span>
+            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ul" /></span>
             {/*<span title="Insert Ordered List" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-list-ol"/></span>*/}
             <span title="Insert Code Block" onClick={() => {
                 insertText("code")
@@ -26,10 +26,24 @@ export const Toolbar = ({insertText}) => {
             }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">HL</span>
             <span title="Insert Table" onClick={() => {
                 insertText("table")
-            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-table"/></span>
+            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-table" /></span>
             <span title="Insert Image" onClick={() => {
                 insertText("img")
-            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-image"/></span>
+            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-image" /></span>
+            <div className="more-tools-wrapper relative">
+                <span title="More" className="p-2 aspect-square user-select-none text-white font-bold text-xl cursor-pointer hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-chevron-down" /></span>
+                <div className="tool-drop-down-container absolute top-full rounded p-1">
+                    <div className="tool-drop-down flex flex-col p-2 rounded gap-2">
+                        <span title="Insert Link" onClick={() => {
+                            insertText("link")
+                        }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-link"></i></span>
+                        <span title="Insert Line Break" onClick={() => {
+                            insertText("br")
+                        }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">BR</span>
+
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

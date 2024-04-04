@@ -116,6 +116,15 @@
     width: 20px;
 }
 
+.editor header .tools .tool-drop-down-container {
+    background: linear-gradient(to right, blueviolet, hotpink);
+    left: -25%;
+}
+
+.editor header .tools .tool-drop-down-container .tool-drop-down {
+    background: #101010;
+}
+
 @media screen and (max-width: 1425px) {
     .editor header {
         padding: 24px 16px;
