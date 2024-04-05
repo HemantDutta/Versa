@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-export const Toolbar = ({ insertText }) => {
+export const Toolbar = ({ insertText, toolbarExpand }) => {
 
     //Refs
     const moreDropDown = useRef(null);
@@ -22,7 +22,7 @@ export const Toolbar = ({ insertText }) => {
 
     return (
         <>
-            <span title="Upload Markdown File" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-upload"/></span>
+            <span title="Upload Markdown File" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-upload" /></span>
             <span title="Insert Bold Text" onClick={() => {
                 insertText("bold")
             }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">B</span>
@@ -63,6 +63,20 @@ export const Toolbar = ({ insertText }) => {
                         }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">BR</span>
                     </div>
                 </div>
+            </div>
+            <div className="tools-expanded flex items-center gap-x-1 flex-wrap">
+                <span title="Insert Table" onClick={() => {
+                    insertText("table")
+                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-table" /></span>
+                <span title="Insert Image" onClick={() => {
+                    insertText("img")
+                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-image" /></span>
+                <span title="Insert Link" onClick={() => {
+                    insertText("link")
+                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-link"></i></span>
+                <span title="Insert Line Break" onClick={() => {
+                    insertText("br")
+                }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">BR</span>
             </div>
         </>
     )

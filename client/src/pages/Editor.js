@@ -332,7 +332,7 @@ export const Editor = () => {
                         <div className="left flex items-center gap-x-5">
                             <span className="brand user-select-none cursor-pointer text-white font-bold text-4xl">Versa</span>
                             <div className="tools flex items-center gap-x-1 flex-wrap">
-                                <Toolbar insertText={insertText} />
+                                <Toolbar insertText={insertText}/>
                             </div>
                         </div>
                         <div className="right flex items-center gap-x-5">
