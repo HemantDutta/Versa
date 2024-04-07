@@ -129,10 +129,9 @@ export const Editor = () => {
             activePanelStartup();
             let temp = localStorage.getItem('editorContent') || '';
             let tempTheme = localStorage.getItem('theme') || 'Classic';
-            let tempFont = localStorage.getItem('font') || '';
+            console.log(tempTheme)
             setPrevSaved(temp);
             setSelectedTheme(tempTheme);
-            setSelectedFont(tempFont);
             if (!text) setText(temp);
             first.current = false;
         } else {
@@ -143,6 +142,7 @@ export const Editor = () => {
     //Call Versa Parser
     useEffect(() => {
         setPreview(versaParser(text, selectedTheme));
+        localStorage.setItem('theme', selectedTheme);
         verifySaveStatus();
         setWordCharCount();
     }, [text, selectedTheme])
@@ -153,7 +153,6 @@ export const Editor = () => {
             activateSaveLoader();
             localStorage.setItem('editorContent', editorArea.current.value);
             localStorage.setItem('theme', selectedTheme);
-            localStorage.setItem('font', selectedFont.family);
         }
         const unloadInterval = setInterval(() => {
             unloadMethod();
