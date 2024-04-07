@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import '../styles/Editor.css';
-import { Select } from "../components/Select";
-import { versaParser } from "../utils/versaParser";
-import { themeColors, themes } from "../utils/themes";
-import { tools } from "../utils/tools";
-import { Toolbar } from "../components/Toolbar";
+import {Select} from "../components/Select";
+import {versaParser} from "../utils/versaParser";
+import {themeColors, themes} from "../utils/themes";
+import {tools} from "../utils/tools";
+import {Toolbar} from "../components/Toolbar";
 
 export const Editor = () => {
 
@@ -128,7 +128,11 @@ export const Editor = () => {
         if (first.current) {
             activePanelStartup();
             let temp = localStorage.getItem('editorContent') || '';
+            let tempTheme = localStorage.getItem('theme') || 'Classic';
+            let tempFont = localStorage.getItem('font') || '';
             setPrevSaved(temp);
+            setSelectedTheme(tempTheme);
+            setSelectedFont(tempFont);
             if (!text) setText(temp);
             first.current = false;
         } else {
@@ -148,13 +152,15 @@ export const Editor = () => {
         const unloadMethod = () => {
             activateSaveLoader();
             localStorage.setItem('editorContent', editorArea.current.value);
+            localStorage.setItem('theme', selectedTheme);
+            localStorage.setItem('font', selectedFont.family);
         }
         const unloadInterval = setInterval(() => {
             unloadMethod();
             setPrevSaved(editorArea.current.value);
             verifySaveStatus();
         }, 60000);
-        window.addEventListener("beforeunload", unloadMethod, { capture: true });
+        window.addEventListener("beforeunload", unloadMethod, {capture: true});
         return () => {
             window.removeEventListener("beforeunload", unloadMethod);
             clearInterval(unloadInterval);
@@ -364,13 +370,13 @@ export const Editor = () => {
                                     </Select>
                                 </div>
                                 <div className="options">
-                                    <button type="button" className="text-white rounded px-5 py-3  click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download" /></button>
+                                    <button type="button" className="text-white rounded px-5 py-3  click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download"/></button>
                                 </div>
                             </div>
                         </div>
                         <div className="mobile-options flex items-center gap-x-5">
                             <div className="view-edit rounded">
-                                <button type="button" className="text-white bg-black px-3 py-2 rounded" onClick={activePanelSwitcher} dangerouslySetInnerHTML={{ __html: activePanel === "view" ? "Edit&nbsp;&nbsp;<i class=\"fa-solid fa-pen-to-square\"/>" : "View&nbsp;&nbsp;<i class=\"fa-solid fa-eye\"/>" }} />
+                                <button type="button" className="text-white bg-black px-3 py-2 rounded" onClick={activePanelSwitcher} dangerouslySetInnerHTML={{__html: activePanel === "view" ? "Edit&nbsp;&nbsp;<i class=\"fa-solid fa-pen-to-square\"/>" : "View&nbsp;&nbsp;<i class=\"fa-solid fa-eye\"/>"}}/>
                             </div>
                             <div className="ham" ref={ham} onClick={toggleMobileMenu}>
                                 <span></span><span></span><span></span>
@@ -380,7 +386,7 @@ export const Editor = () => {
                     <div className="mobile-menu absolute bg-dark top-full w-screen left-0 z-40 flex flex-col gap-5" ref={mobileMenu}>
                         <span className="head text-3xl text-white">Tools</span>
                         <div className="tools flex flex-wrap gap-x-1">
-                            <Toolbar insertText={insertText} />
+                            <Toolbar insertText={insertText}/>
                         </div>
                         <span className="options text-3xl text-white">Options</span>
                         <div className="options flex flex-wrap gap-5 items-end">
@@ -411,12 +417,12 @@ export const Editor = () => {
                                 </Select>
                             </div>
                             <div className="view-edit rounded">
-                                <button type="button" className="text-white bg-black px-3 py-2 rounded" onClick={activePanelSwitcher} dangerouslySetInnerHTML={{ __html: activePanel === "view" ? "Edit&nbsp;&nbsp;<i class=\"fa-solid fa-pen-to-square\"/>" : "View&nbsp;&nbsp;<i class=\"fa-solid fa-eye\"/>" }} />
+                                <button type="button" className="text-white bg-black px-3 py-2 rounded" onClick={activePanelSwitcher} dangerouslySetInnerHTML={{__html: activePanel === "view" ? "Edit&nbsp;&nbsp;<i class=\"fa-solid fa-pen-to-square\"/>" : "View&nbsp;&nbsp;<i class=\"fa-solid fa-eye\"/>"}}/>
                             </div>
                             <div className="download">
                                 {
                                     activePanel === "view" &&
-                                    <button type="button" className="text-white rounded px-5 py-3  click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download" /></button>
+                                    <button type="button" className="text-white rounded px-5 py-3  click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download"/></button>
                                 }
                             </div>
                         </div>
@@ -429,12 +435,12 @@ export const Editor = () => {
                     <section ref={editorPanel} className={`editor-area w-1/2 h-full no-print overflow-y-scroll relative`} id="editor">
                         <textarea name="editor" id="editor" ref={editorArea} className="w-full h-full overflow-y-scroll outline-0 p-5 resize-none" defaultValue={text} onKeyDown={handleTab} onChange={(e) => {
                             setText(e.target.value)
-                        }} />
+                        }}/>
                     </section>
                     {/*  Editor End  */}
                     {/*  Preview  */}
-                    <section ref={previewPanel} style={{ backgroundColor: themeColors[selectedTheme] }} className={`preview w-1/2 h-full overflow-scroll relative`} id="preview">
-                        <div style={{ fontFamily: selectedFont.family }} className="preview-span h-max" id="previewSpan" ref={previewSpan} dangerouslySetInnerHTML={{ __html: preview }} />
+                    <section ref={previewPanel} style={{backgroundColor: themeColors[selectedTheme]}} className={`preview w-1/2 h-full overflow-scroll relative`} id="preview">
+                        <div style={{fontFamily: selectedFont.family}} className="preview-span h-max" id="previewSpan" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
                     </section>
                     {/*  Preview End  */}
                     {
@@ -457,7 +463,7 @@ export const Editor = () => {
                                         <>
                                             <div className="save-loader flex items-center gap-x-2">
                                                 <span>Saving</span>
-                                                <img src="/assets/editor/vrs_loader.svg" className="h-5" alt="Loading..." />
+                                                <img src="/assets/editor/vrs_loader.svg" className="h-5" alt="Loading..."/>
                                             </div>
                                         </>
                                     }
@@ -465,7 +471,7 @@ export const Editor = () => {
                                         unsaved && !saveLoader &&
                                         <>
                                             <div className="unsaved-content flex items-center gap-x-2">
-                                                <span className="blob h-2 aspect-square rounded-full bg-amber-300" />
+                                                <span className="blob h-2 aspect-square rounded-full bg-amber-300"/>
                                                 <span className="title">Unsaved Changes</span>
                                             </div>
                                         </>
@@ -474,7 +480,7 @@ export const Editor = () => {
                                         !unsaved && !saveLoader &&
                                         <>
                                             <div className="saved-content flex items-center gap-x-2">
-                                                <span className="blob h-2 aspect-square rounded-full bg-green-400" />
+                                                <span className="blob h-2 aspect-square rounded-full bg-green-400"/>
                                                 <span className="title">All Changes Saved</span>
                                             </div>
                                         </>
@@ -483,7 +489,7 @@ export const Editor = () => {
                             </div>
                         </div>
                     }
-                    <span title="Back to the Top!" onClick={previewScrollTop} className="fixed right-5 aspect-square text-white bottom-14 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print"><i className="fa-solid fa-arrow-up" /></span>
+                    <span title="Back to the Top!" onClick={previewScrollTop} className="fixed right-5 aspect-square text-white bottom-14 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print"><i className="fa-solid fa-arrow-up"/></span>
                 </main>
                 {/* Main Section End*/}
             </section>
