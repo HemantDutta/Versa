@@ -1,22 +1,26 @@
 import axios from "axios";
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import '../styles/Editor.css';
-import {Select} from "../components/Select";
-import {versaParser} from "../utils/versaParser";
-import {themeColors, themes} from "../utils/themes";
-import {tools} from "../utils/tools";
-import {Toolbar} from "../components/Toolbar";
+import { Select } from "../components/Select";
+import { versaParser } from "../utils/versaParser";
+import { themeColors, themes } from "../utils/themes";
+import { tools } from "../utils/tools";
+import { Toolbar } from "../components/Toolbar";
 
 export const Editor = () => {
 
     //Refs
     const first = useRef(true);
+    const firstUpload = useRef(true);
     const ham = useRef(null);
     const mobileMenu = useRef(null);
     const previewSpan = useRef(null);
     const editorArea = useRef(null);
     const previewPanel = useRef(null);
     const editorPanel = useRef(null);
+    const drageArea = useRef(null);
+    const uploadCont = useRef(null);
+    const uploadOverlay = useRef(null);
 
     //States
     const [text, setText] = useState("");
@@ -30,16 +34,26 @@ export const Editor = () => {
     const [words, setWords] = useState(0);
     const [chars, setChars] = useState(0);
     const [prevSaved, setPrevSaved] = useState("");
+    const [isDragging, setIsDragging] = useState(false);
+    const [fileUpload, setFileUpload] = useState(null);
+    const [fileLoading, setFileLoading] = useState(false);
+    const [fileStatus, setFileStatus] = useState("init");
+    const [tempContent, setTempContent] = useState("");
 
     //Fetch Google Fonts
     function fetchGoogleFonts() {
-        axios.get(`https://www.googleapis.com/webfonts/v1/webfonts?key=${process.env.REACT_APP_FONT_API}`)
-            .then((res) => {
-                setFonts(res.data.items);
-            })
-            .catch(err => {
-                console.log("The following error occurred while fetching fonts: " + err);
-            })
+        try {
+            axios.get(`https://www.googleapis.com/webfonts/v1/webfonts?key=${process.env.REACT_APP_FONT_API}`)
+                .then((res) => {
+                    setFonts(res.data.items);
+                })
+                .catch(err => {
+                    console.log("The following error occurred while fetching fonts: " + err);
+                })
+        }
+        catch (err) {
+            console.log("The following error occured while fetching fonts from Google Fonts API: " + err);
+        }
     }
 
     //Setup Font Face
@@ -56,7 +70,7 @@ export const Editor = () => {
             style.appendChild(document.createTextNode(fontFaceRule));
             document.head.appendChild(style);
         } catch (err) {
-            console.log("This error occurred while changing the font: " + err);
+            console.log("The following error occured while creating a new font face: " + err);
         }
     }
 
@@ -103,19 +117,29 @@ export const Editor = () => {
 
     //Handle Tab Press in TextArea
     const handleTab = (event) => {
-        if (event.keyCode === 9) {
-            event.preventDefault();
-            const start = event.target.selectionStart;
-            const end = event.target.selectionEnd;
-            const text = event.target.value;
-            event.target.value = text.substring(0, start) + '    ' + text.substring(end);
-            event.target.selectionStart = event.target.selectionEnd = start + 4;
+        try {
+            if (event.keyCode === 9) {
+                event.preventDefault();
+                const start = event.target.selectionStart;
+                const end = event.target.selectionEnd;
+                const text = event.target.value;
+                event.target.value = text.substring(0, start) + '    ' + text.substring(end);
+                event.target.selectionStart = event.target.selectionEnd = start + 4;
+            }
+        }
+        catch (err) {
+            console.log("The following error occured while handling tab press: " + err);
         }
     };
 
     //Download pdf
     function downloadPdf() {
-        window.print();
+        try {
+            window.print();
+        }
+        catch (err) {
+            console.log("The following error occured while printing PDF: " + err);
+        }
     }
 
     //Call Fetch Google Fonts
@@ -125,45 +149,60 @@ export const Editor = () => {
 
     //Call Font Face Setup on Change & Fetch Local Storage content & Set Active Panel at startup
     useEffect(() => {
-        if (first.current) {
-            activePanelStartup();
-            let temp = localStorage.getItem('editorContent') || '';
-            let tempTheme = localStorage.getItem('theme') || 'Classic';
-            console.log(tempTheme)
-            setPrevSaved(temp);
-            setSelectedTheme(tempTheme);
-            if (!text) setText(temp);
-            first.current = false;
-        } else {
-            setupFontFace()
+        try {
+            if (first.current) {
+                activePanelStartup();
+                let temp = localStorage.getItem('editorContent') || '';
+                let tempTheme = localStorage.getItem('theme') || 'Classic';
+                setPrevSaved(temp);
+                setSelectedTheme(tempTheme);
+                if (!text) setText(temp);
+                first.current = false;
+            } else {
+                setupFontFace()
+            }
+        }
+        catch (err) {
+            console.log("The following error occured while performing startup activities: " + err);
         }
     }, [selectedFont])
 
     //Call Versa Parser
     useEffect(() => {
-        setPreview(versaParser(text, selectedTheme));
-        localStorage.setItem('theme', selectedTheme);
-        verifySaveStatus();
-        setWordCharCount();
+        try {
+            setPreview(versaParser(text, selectedTheme));
+            localStorage.setItem('theme', selectedTheme);
+            verifySaveStatus();
+            setWordCharCount();
+        }
+        catch (err) {
+            console.log("The following error occured while updating preview: " + err);
+        }
     }, [text, selectedTheme])
 
     //Store editor content in localstorage before unload
     useEffect(() => {
-        const unloadMethod = () => {
-            activateSaveLoader();
-            localStorage.setItem('editorContent', editorArea.current.value);
-            localStorage.setItem('theme', selectedTheme);
+        try {
+            const unloadMethod = () => {
+                activateSaveLoader();
+                localStorage.setItem('editorContent', editorArea.current.value);
+                localStorage.setItem('theme', selectedTheme);
+            }
+            const unloadInterval = setInterval(() => {
+                unloadMethod();
+                setPrevSaved(editorArea.current.value);
+                verifySaveStatus();
+            }, 60000);
+            window.addEventListener("beforeunload", unloadMethod, { capture: true });
+
+            return () => {
+                window.removeEventListener("beforeunload", unloadMethod);
+                clearInterval(unloadInterval);
+            };
         }
-        const unloadInterval = setInterval(() => {
-            unloadMethod();
-            setPrevSaved(editorArea.current.value);
-            verifySaveStatus();
-        }, 60000);
-        window.addEventListener("beforeunload", unloadMethod, {capture: true});
-        return () => {
-            window.removeEventListener("beforeunload", unloadMethod);
-            clearInterval(unloadInterval);
-        };
+        catch (err) {
+            console.log("The following error occured while unloading data: " + err);
+        }
     }, [])
 
     //Handle Preview Scroll Top
@@ -315,18 +354,175 @@ export const Editor = () => {
         setWords(wordCount);
     }
 
+    //Upload Section
+    //Upload Pop-up toggle
+    function uploadPopupToggle() {
+        if (uploadCont.current.classList.contains("active") && fileStatus !== "process") {
+            uploadCont.current.classList.remove("active");
+            uploadOverlay.current.classList.remove("active");
+            setTimeout(() => {
+                uploadCont.current.style.display = "none";
+                uploadOverlay.current.style.display = "none";
+            }, 400)
+        }
+        else {
+            uploadCont.current.style.display = "initial";
+            uploadOverlay.current.style.display = "initial";
+            setTimeout(() => {
+                uploadCont.current.classList.add("active");
+                uploadOverlay.current.classList.add("active");
+            }, [])
+        }
+    }
+
+    //Upload Drag Enter Handler
+    function uploadDragEnterHandle() {
+        if (fileStatus !== "ready") {
+            setIsDragging(true);
+        }
+    }
+
+    //Upload Drag Leave Handler
+    function uploadDragLeaveHandle() {
+        if (fileStatus !== "ready") {
+            setIsDragging(false);
+        }
+    }
+
+    //Upload Drag Over Handler
+    function uploadDrageOver(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    //Upload Drop Handler
+    function uploadDropHandle(e) {
+        e.preventDefault();
+        setIsDragging(false);
+        if (fileStatus !== "ready") {
+            setFileUpload(e.dataTransfer.files[0]);
+        }
+    }
+
+    //Upload Input Handler
+    function uploadInputHandler(e) {
+        setFileUpload(e.target.files[0]);
+    }
+
+    //File Processor
+    function fileProcessor() {
+        if (fileUpload !== null) {
+            setFileLoading(true);
+            let nameCheck = fileUpload.name.slice(-3);
+            let typeCheck = fileUpload.type;
+
+            if (nameCheck === ".md" || typeCheck === "text/plain") {
+                setFileStatus("process");
+                const fileReader = new FileReader();
+                fileReader.readAsText(fileUpload);
+                fileReader.addEventListener("load", () => {
+                    if (!fileReader.result) {
+                        setFileStatus("no_data");
+                        setFileLoading(false);
+                    }
+                    else {
+                        setFileStatus("ready");
+                        setFileLoading(false);
+                        let tempFileContent = "\n\n" + fileReader.result;
+                        setTempContent(tempFileContent);
+                    }
+                })
+            }
+            else {
+                setFileLoading(false);
+                setFileStatus("wrong_format");
+            }
+        }
+    }
+
+    //Call File Processor
+    useEffect(() => {
+        if (firstUpload.current) {
+            firstUpload.current = false;
+        }
+        else {
+            fileProcessor();
+        }
+    }, [fileUpload])
+
+    //On Upload Cancel
+    function uploadCancel() {
+        setFileLoading(false);
+        setFileStatus("init");
+        setFileUpload(null);
+        setIsDragging(false);
+        uploadPopupToggle();
+    }
+
+    //On Upload Submit
+    function uploadSubmit() {
+        setText(prev => prev + tempContent);
+        setFileLoading(false);
+        setFileStatus("init");
+        setFileUpload(null);
+        setIsDragging(false);
+        uploadPopupToggle();
+    }
+
     return (
         <>
             <section className="editor flex flex-col">
                 {/* Upload Popup */}
-                <div className="upload-popup-overlay fixed top-0 left-0 h-screen w-screen bg-black opacity-40"/>
-                <div className="upload-popup-container fixed p-2 rounded bg-white">
+                <div onClick={uploadPopupToggle} ref={uploadOverlay} className="upload-popup-overlay fixed top-0 left-0 h-screen w-screen bg-black" />
+                <div ref={uploadCont} className="upload-popup-container fixed p-2 rounded bg-white">
                     <div className="upload-popup">
-                        <div className="input-wrapper w-full text-center">
-                            <div className="label-wrapper w-max rounded p-1">
-                                <label htmlFor="file-upload" className="font-bold rounded text-white cursor-pointer">Upload File Here</label>
-                            </div>
-                            <input type="file" id="file-upload" className="hidden" required/>
+                        <div className={`upload-content flex flex-col items-center py-5 gap-5 border-sm border-dashed border-gray-200 rounded ${isDragging ? "dragged" : ""}`} ref={drageArea} onDragOver={uploadDrageOver} onDragEnter={uploadDragEnterHandle} onDragLeave={uploadDragLeaveHandle} onDrop={uploadDropHandle} >
+                            {
+                                fileStatus !== "process" && fileStatus !== "ready" &&
+                                <>
+                                    <span className="drag-text pointer-events-none text-center font-bold text-gray-400">Drag & Drop your file here...</span>
+                                    <span className="or text-xl pointer-events-none text-gray-400">or</span>
+                                    <div className="input-wrapper pointer-events-none w-max text-center">
+                                        <div className="label-wrapper bg-gradient w-max rounded p-1">
+                                            <label htmlFor="file-upload" className="rounded text-white cursor-pointer px-2">Upload File Here</label>
+                                        </div>
+                                        <input type="file" id="file-upload" className="hidden" onInput={uploadInputHandler} required />
+                                    </div>
+                                </>
+                            }
+                            {
+                                !fileLoading && fileStatus !== "ready" &&
+                                <span className="file-msg text-sm pointer-events-none text-gray-400 text-center">Please upload a file in Markdown(.md) or Text(.txt) format.</span>
+                            }
+                            {
+                                !fileLoading && fileStatus === "wrong_format" &&
+                                <span className="file-msg text-sm pointer-events-none text-gray-400 text-center"><span className="text-red-500">Invalid File Uploaded: {fileUpload.name}.</span> <br /> Please upload a file in Markdown(.md) or Text(.txt) format.</span>
+                            }
+                            {
+                                fileLoading && fileStatus === "process" &&
+                                <div className="flex gap-2 flex-wrap">
+                                    <img src="/assets/editor/vrs_loader.svg" className="h-5 bg-gradient rounded-full" alt="Loading..." />
+                                    <span className="file-msg text-sm pointer-events-none text-gray-400 text-center">Processing File: {fileUpload.name}</span>
+                                </div>
+                            }
+                            {
+                                !fileLoading && fileStatus === "no_data" &&
+                                <span className="file-msg text-sm pointer-events-none text-gray-400 text-center">No data found in the file: {fileUpload.name}</span>
+                            }
+                            {
+                                !fileLoading && fileStatus === "ready" &&
+                                <div className="flex flex-col gap-4 items-center">
+                                    <span className="file-msg text-sm pointer-events-none text-gray-400 text-center">File Ready for Upload: <span className="text-gradient font-bold">{fileUpload.name}</span></span>
+                                    <div className="file-details flex flex-wrap gap-3">
+                                        <span className="text-sm text-gray-400">Type: {fileUpload.type === "" ? "MarkDown" : "Text"}</span>
+                                        <span className="text-sm text-gray-400">Size: {Math.round(fileUpload.size / 1024)} KB</span>
+                                    </div>
+                                    <div className="button-div flex gap-2 flex-wrap">
+                                        <button type="button" onClick={uploadSubmit} className="bg-gradient px-4 py-1 rounded text-white">Submit</button>
+                                        <button onClick={uploadCancel} type="button" className="bg-black px-4 py-1 rounded text-white">Cancel</button>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -337,7 +533,7 @@ export const Editor = () => {
                         <div className="left flex items-center gap-x-5">
                             <span className="brand user-select-none cursor-pointer text-white font-bold text-4xl">Versa</span>
                             <div className="tools flex items-center gap-x-1 flex-wrap">
-                                <Toolbar insertText={insertText}/>
+                                <Toolbar insertText={insertText} uploadPopupToggle={uploadPopupToggle} />
                             </div>
                         </div>
                         <div className="right flex items-center gap-x-5">
@@ -369,13 +565,13 @@ export const Editor = () => {
                                     </Select>
                                 </div>
                                 <div className="options">
-                                    <button type="button" className="text-white rounded px-5 py-3  click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download"/></button>
+                                    <button type="button" className="text-white rounded px-5 py-3 bg-gradient click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download" /></button>
                                 </div>
                             </div>
                         </div>
                         <div className="mobile-options flex items-center gap-x-5">
-                            <div className="view-edit rounded">
-                                <button type="button" className="text-white bg-black px-3 py-2 rounded" onClick={activePanelSwitcher} dangerouslySetInnerHTML={{__html: activePanel === "view" ? "Edit&nbsp;&nbsp;<i class=\"fa-solid fa-pen-to-square\"/>" : "View&nbsp;&nbsp;<i class=\"fa-solid fa-eye\"/>"}}/>
+                            <div className="view-edit bg-gradient rounded">
+                                <button type="button" className="text-white bg-black px-3 py-2 rounded" onClick={activePanelSwitcher} dangerouslySetInnerHTML={{ __html: activePanel === "view" ? "Edit&nbsp;&nbsp;<i class=\"fa-solid fa-pen-to-square\"/>" : "View&nbsp;&nbsp;<i class=\"fa-solid fa-eye\"/>" }} />
                             </div>
                             <div className="ham" ref={ham} onClick={toggleMobileMenu}>
                                 <span></span><span></span><span></span>
@@ -385,7 +581,7 @@ export const Editor = () => {
                     <div className="mobile-menu absolute bg-dark top-full w-screen left-0 z-40 flex flex-col gap-5" ref={mobileMenu}>
                         <span className="head text-3xl text-white">Tools</span>
                         <div className="tools flex flex-wrap gap-x-1">
-                            <Toolbar insertText={insertText}/>
+                            <Toolbar insertText={insertText} uploadPopupToggle={uploadPopupToggle} />
                         </div>
                         <span className="options text-3xl text-white">Options</span>
                         <div className="options flex flex-wrap gap-5 items-end">
@@ -415,13 +611,13 @@ export const Editor = () => {
                                     }
                                 </Select>
                             </div>
-                            <div className="view-edit rounded">
-                                <button type="button" className="text-white bg-black px-3 py-2 rounded" onClick={activePanelSwitcher} dangerouslySetInnerHTML={{__html: activePanel === "view" ? "Edit&nbsp;&nbsp;<i class=\"fa-solid fa-pen-to-square\"/>" : "View&nbsp;&nbsp;<i class=\"fa-solid fa-eye\"/>"}}/>
+                            <div className="view-edit bg-gradient rounded">
+                                <button type="button" className="text-white bg-black px-3 py-2 rounded" onClick={activePanelSwitcher} dangerouslySetInnerHTML={{ __html: activePanel === "view" ? "Edit&nbsp;&nbsp;<i class=\"fa-solid fa-pen-to-square\"/>" : "View&nbsp;&nbsp;<i class=\"fa-solid fa-eye\"/>" }} />
                             </div>
                             <div className="download">
                                 {
                                     activePanel === "view" &&
-                                    <button type="button" className="text-white rounded px-5 py-3  click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download"/></button>
+                                    <button type="button" className="text-white rounded px-5 py-3  click active:text-black bg-gradient" onClick={downloadPdf}>Download <i className="fa-solid fa-download" /></button>
                                 }
                             </div>
                         </div>
@@ -434,12 +630,12 @@ export const Editor = () => {
                     <section ref={editorPanel} className={`editor-area w-1/2 h-full no-print overflow-y-scroll relative`} id="editor">
                         <textarea name="editor" id="editor" ref={editorArea} className="w-full h-full overflow-y-scroll outline-0 p-5 resize-none" defaultValue={text} onKeyDown={handleTab} onChange={(e) => {
                             setText(e.target.value)
-                        }}/>
+                        }} />
                     </section>
                     {/*  Editor End  */}
                     {/*  Preview  */}
-                    <section ref={previewPanel} style={{backgroundColor: themeColors[selectedTheme]}} className={`preview w-1/2 h-full overflow-scroll relative`} id="preview">
-                        <div style={{fontFamily: selectedFont.family}} className="preview-span h-max" id="previewSpan" ref={previewSpan} dangerouslySetInnerHTML={{__html: preview}}/>
+                    <section ref={previewPanel} style={{ backgroundColor: themeColors[selectedTheme] }} className={`preview w-1/2 h-full overflow-scroll relative`} id="preview">
+                        <div style={{ fontFamily: selectedFont.family }} className="preview-span h-max" id="previewSpan" ref={previewSpan} dangerouslySetInnerHTML={{ __html: preview }} />
                     </section>
                     {/*  Preview End  */}
                     {
@@ -462,7 +658,7 @@ export const Editor = () => {
                                         <>
                                             <div className="save-loader flex items-center gap-x-2">
                                                 <span>Saving</span>
-                                                <img src="/assets/editor/vrs_loader.svg" className="h-5" alt="Loading..."/>
+                                                <img src="/assets/editor/vrs_loader.svg" className="h-5" alt="Loading..." />
                                             </div>
                                         </>
                                     }
@@ -470,7 +666,7 @@ export const Editor = () => {
                                         unsaved && !saveLoader &&
                                         <>
                                             <div className="unsaved-content flex items-center gap-x-2">
-                                                <span className="blob h-2 aspect-square rounded-full bg-amber-300"/>
+                                                <span className="blob h-2 aspect-square rounded-full bg-amber-300" />
                                                 <span className="title">Unsaved Changes</span>
                                             </div>
                                         </>
@@ -479,7 +675,7 @@ export const Editor = () => {
                                         !unsaved && !saveLoader &&
                                         <>
                                             <div className="saved-content flex items-center gap-x-2">
-                                                <span className="blob h-2 aspect-square rounded-full bg-green-400"/>
+                                                <span className="blob h-2 aspect-square rounded-full bg-green-400" />
                                                 <span className="title">All Changes Saved</span>
                                             </div>
                                         </>
@@ -488,7 +684,7 @@ export const Editor = () => {
                             </div>
                         </div>
                     }
-                    <span title="Back to the Top!" onClick={previewScrollTop} className="fixed right-5 aspect-square text-white bottom-14 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print"><i className="fa-solid fa-arrow-up"/></span>
+                    <span title="Back to the Top!" onClick={previewScrollTop} className="fixed right-5 aspect-square text-white bottom-14 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print"><i className="fa-solid fa-arrow-up" /></span>
                 </main>
                 {/* Main Section End*/}
             </section>
