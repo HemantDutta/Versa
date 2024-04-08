@@ -196,6 +196,7 @@ export const Editor = () => {
             window.addEventListener("beforeunload", unloadMethod, { capture: true });
 
             return () => {
+                unloadMethod();
                 window.removeEventListener("beforeunload", unloadMethod);
                 clearInterval(unloadInterval);
             };
@@ -371,7 +372,7 @@ export const Editor = () => {
             setTimeout(() => {
                 uploadCont.current.classList.add("active");
                 uploadOverlay.current.classList.add("active");
-            }, [])
+            }, 0)
         }
     }
 
