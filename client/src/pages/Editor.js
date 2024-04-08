@@ -36,6 +36,9 @@ export const Editor = () => {
     const [prevSaved, setPrevSaved] = useState("");
     const [isDragging, setIsDragging] = useState(false);
     const [fileUpload, setFileUpload] = useState(null);
+    const [fileLoading, setFileLoading] = useState(false);
+    const [fileStatus, setFileStatus] = useState("init");
+    const [tempContent, setTempContent] = useState("");
 
     //Fetch Google Fonts
     function fetchGoogleFonts() {
@@ -323,7 +326,7 @@ export const Editor = () => {
     //Upload Section
     //Upload Pop-up toggle
     function uploadPopupToggle() {
-        if (uploadCont.current.classList.contains("active")) {
+        if (uploadCont.current.classList.contains("active") && fileStatus !== "process") {
             uploadCont.current.classList.remove("active");
             uploadOverlay.current.classList.remove("active");
             setTimeout(() => {
@@ -343,12 +346,16 @@ export const Editor = () => {
 
     //Upload Drag Enter Handler
     function uploadDragEnterHandle() {
-        setIsDragging(true);
+        if (fileStatus !== "ready") {
+            setIsDragging(true);
+        }
     }
 
     //Upload Drag Leave Handler
     function uploadDragLeaveHandle() {
-        setIsDragging(false);
+        if (fileStatus !== "ready") {
+            setIsDragging(false);
+        }
     }
 
     //Upload Drag Over Handler
@@ -361,7 +368,9 @@ export const Editor = () => {
     function uploadDropHandle(e) {
         e.preventDefault();
         setIsDragging(false);
-        setFileUpload(e.dataTransfer.files[0]);
+        if (fileStatus !== "ready") {
+            setFileUpload(e.dataTransfer.files[0]);
+        }
     }
 
     //Upload Input Handler
@@ -371,18 +380,63 @@ export const Editor = () => {
 
     //File Processor
     function fileProcessor() {
-        console.log(fileUpload);
+        if (fileUpload !== null) {
+            setFileLoading(true);
+            let nameCheck = fileUpload.name.slice(-3);
+            let typeCheck = fileUpload.type;
+
+            if (nameCheck === ".md" || typeCheck === "text/plain") {
+                setFileStatus("process");
+                const fileReader = new FileReader();
+                fileReader.readAsText(fileUpload);
+                fileReader.addEventListener("load", () => {
+                    if (!fileReader.result) {
+                        setFileStatus("no_data");
+                        setFileLoading(false);
+                    }
+                    else {
+                        setFileStatus("ready");
+                        setFileLoading(false);
+                        let tempFileContent = "\n\n" + fileReader.result;
+                        setTempContent(tempFileContent);
+                    }
+                })
+            }
+            else {
+                setFileLoading(false);
+                setFileStatus("wrong_format");
+            }
+        }
     }
 
     //Call File Processor
-    useEffect(()=>{
-        if(firstUpload.current) {
+    useEffect(() => {
+        if (firstUpload.current) {
             firstUpload.current = false;
         }
         else {
             fileProcessor();
         }
-    },[fileUpload])
+    }, [fileUpload])
+
+    //On Upload Cancel
+    function uploadCancel() {
+        setFileLoading(false);
+        setFileStatus("init");
+        setFileUpload(null);
+        setIsDragging(false);
+        uploadPopupToggle();
+    }
+
+    //On Upload Submit
+    function uploadSubmit() {
+        setText(prev => prev + tempContent);
+        setFileLoading(false);
+        setFileStatus("init");
+        setFileUpload(null);
+        setIsDragging(false);
+        uploadPopupToggle();
+    }
 
     return (
         <>
@@ -392,14 +446,52 @@ export const Editor = () => {
                 <div ref={uploadCont} className="upload-popup-container fixed p-2 rounded bg-white">
                     <div className="upload-popup">
                         <div className={`upload-content flex flex-col items-center py-5 gap-5 border-sm border-dashed border-gray-200 rounded ${isDragging ? "dragged" : ""}`} ref={drageArea} onDragOver={uploadDrageOver} onDragEnter={uploadDragEnterHandle} onDragLeave={uploadDragLeaveHandle} onDrop={uploadDropHandle} >
-                            <span className="drag-text font-bold text-gray-400">Drag & Drop your file here...</span>
-                            <span className="or text-xl text-gray-400">or</span>
-                            <div className="input-wrapper w-max text-center">
-                                <div className="label-wrapper bg-gradient w-max rounded p-1">
-                                    <label htmlFor="file-upload" className="rounded text-white cursor-pointer px-2">Upload File Here</label>
+                            {
+                                fileStatus !== "process" && fileStatus !== "ready" &&
+                                <>
+                                    <span className="drag-text pointer-events-none text-center font-bold text-gray-400">Drag & Drop your file here...</span>
+                                    <span className="or text-xl pointer-events-none text-gray-400">or</span>
+                                    <div className="input-wrapper pointer-events-none w-max text-center">
+                                        <div className="label-wrapper bg-gradient w-max rounded p-1">
+                                            <label htmlFor="file-upload" className="rounded text-white cursor-pointer px-2">Upload File Here</label>
+                                        </div>
+                                        <input type="file" id="file-upload" className="hidden" onInput={uploadInputHandler} required />
+                                    </div>
+                                </>
+                            }
+                            {
+                                !fileLoading && fileStatus !== "ready" &&
+                                <span className="file-msg text-sm pointer-events-none text-gray-400 text-center">Please upload a file in Markdown(.md) or Text(.txt) format.</span>
+                            }
+                            {
+                                !fileLoading && fileStatus === "wrong_format" &&
+                                <span className="file-msg text-sm pointer-events-none text-gray-400 text-center"><span className="text-red-500">Invalid File Uploaded: {fileUpload.name}.</span> <br /> Please upload a file in Markdown(.md) or Text(.txt) format.</span>
+                            }
+                            {
+                                fileLoading && fileStatus === "process" &&
+                                <div className="flex gap-2 flex-wrap">
+                                    <img src="/assets/editor/vrs_loader.svg" className="h-5 bg-gradient rounded-full" alt="Loading..." />
+                                    <span className="file-msg text-sm pointer-events-none text-gray-400 text-center">Processing File: {fileUpload.name}</span>
                                 </div>
-                                <input type="file" id="file-upload" className="hidden" onInput={uploadInputHandler} required />
-                            </div>
+                            }
+                            {
+                                !fileLoading && fileStatus === "no_data" &&
+                                <span className="file-msg text-sm pointer-events-none text-gray-400 text-center">No data found in the file: {fileUpload.name}</span>
+                            }
+                            {
+                                !fileLoading && fileStatus === "ready" &&
+                                <div className="flex flex-col gap-4 items-center">
+                                    <span className="file-msg text-sm pointer-events-none text-gray-400 text-center">File Ready for Upload: <span className="text-gradient font-bold">{fileUpload.name}</span></span>
+                                    <div className="file-details flex flex-wrap gap-3">
+                                        <span className="text-sm text-gray-400">Type: {fileUpload.type === "" ? "MarkDown" : "Text"}</span>
+                                        <span className="text-sm text-gray-400">Size: {Math.round(fileUpload.size / 1024)} KB</span>
+                                    </div>
+                                    <div className="button-div flex gap-2 flex-wrap">
+                                        <button type="button" onClick={uploadSubmit} className="bg-gradient px-4 py-1 rounded text-white">Submit</button>
+                                        <button onClick={uploadCancel} type="button" className="bg-black px-4 py-1 rounded text-white">Cancel</button>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

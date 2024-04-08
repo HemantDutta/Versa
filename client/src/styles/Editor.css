@@ -25,6 +25,13 @@
     background: linear-gradient(45deg, var(--root-clr-1), var(--rootclr-2)) !important;
 }
 
+.text-gradient {
+    -webkit-background-clip: text !important;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(45deg, var(--root-clr-1), var(--rootclr-2));
+}
+
 .editor {
     position: relative;
     height: 100vh;
@@ -342,6 +349,10 @@
     transform: scale(1);
     opacity: 1;
     transition: all 0.2s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.editor .upload-popup-container .upload-popup .upload-content {
+    transition: background-color 0.2s ease;
 }
 
 .editor .upload-popup-container .upload-popup .upload-content.dragged {
