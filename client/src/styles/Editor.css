@@ -8,15 +8,16 @@
 
 * {
     -webkit-print-color-adjust: exact !important;
-    /* Chrome, Safari 6 – 15.3, Edge */
     color-adjust: exact !important;
-    /* Firefox 48 – 96 */
     print-color-adjust: exact !important;
-    /* Firefox 97+, Safari 15.4+ */
 }
 
 @page {
     margin: 0;
+}
+
+.bg-gradient {
+    background: linear-gradient(45deg, blueviolet, hotpink) !important;
 }
 
 .editor {
@@ -52,15 +53,6 @@
     transition: all 0.2s ease;
 }
 
-.editor header .left .tools span:hover,
-.editor header .left .tools del:hover {
-    background: linear-gradient(45deg, blueviolet, hotpink);
-}
-
-.editor header .right .operations .options button {
-    background: linear-gradient(45deg, blueviolet, hotpink);
-}
-
 .editor header .tools-expanded {
     display: none;
 }
@@ -72,7 +64,6 @@
 .editor .view-edit {
     display: none;
     padding: 2px;
-    background: linear-gradient(to right, blueviolet, hotpink);
 }
 
 .editor header .ham {
@@ -126,7 +117,6 @@
 }
 
 .editor header .tools .tool-drop-down-container {
-    background: linear-gradient(to right, blueviolet, hotpink);
     left: -25%;
     transition: all 0.2s ease;
     opacity: 0;
@@ -202,15 +192,6 @@
     display: grid;
     place-items: center;
     transition: all 0.2s ease;
-}
-
-.editor nav .mobile-menu .tools span:hover,
-.editor header .left .tools del:hover {
-    background: linear-gradient(45deg, blueviolet, hotpink);
-}
-
-.editor nav .mobile-menu .options .download button {
-    background: linear-gradient(45deg, blueviolet, hotpink);
 }
 
 /*=====Mobile Menu End=====*/
@@ -328,18 +309,33 @@
 /*=====Upload Popup=====*/
 
 .editor .upload-popup-overlay {
-    z-index: 1000;
+    z-index: 1001;
+    transition: all 0.2s ease;
+    opacity: 0;
+    display: none;
+}
+
+.editor .upload-popup-overlay.active {
+    opacity: 0.4;
+    transition: all 0.4s ease;
 }
 
 .editor .upload-popup-container {
+    display: none;
     inset: 0;
     margin: auto;
-    z-index: 1001;
+    z-index: 1002;
     height: max-content;
-    width: 650px;
+    width: 450px;
+    transition: all 0.4s cubic-bezier(0.87, 0, 0.13, 1);
+    transform: scale(0);
+    opacity: 0;
+    transform-origin: center;
 }
 
-.editor .upload-popup-container .upload-popup .input-wrapper .label-wrapper{
-    background: linear-gradient(45deg, blueviolet, hotpink);
+.editor .upload-popup-container.active {
+    transform: scale(1);
+    opacity: 1;
+    transition: all 0.2s cubic-bezier(0.87, 0, 0.13, 1);
 }
 /*=====Upload Popup End=====*/

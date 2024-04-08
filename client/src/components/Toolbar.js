@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-export const Toolbar = ({ insertText, toolbarExpand }) => {
+export const Toolbar = ({ insertText, uploadPopupToggle }) => {
 
     //Refs
     const moreDropDown = useRef(null);
@@ -22,7 +22,9 @@ export const Toolbar = ({ insertText, toolbarExpand }) => {
 
     return (
         <>
-            <span title="Upload Markdown File" className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-upload" /></span>
+            <span title="Upload Markdown File" onClick={()=>{
+                uploadPopupToggle()
+            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-upload" /></span>
             <span title="Insert Bold Text" onClick={() => {
                 insertText("bold")
             }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">B</span>
@@ -47,7 +49,7 @@ export const Toolbar = ({ insertText, toolbarExpand }) => {
             }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">HL</span>
             <div className="more-tools-wrapper relative" onMouseLeave={closeDropDown}>
                 <span title="More" onMouseEnter={openDropDown} className="p-2 aspect-square user-select-none text-white font-bold text-xl cursor-pointer hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-chevron-down" /></span>
-                <div ref={moreDropDown} className="tool-drop-down-container absolute top-full rounded p-1">
+                <div ref={moreDropDown} className="tool-drop-down-container bg-gradient absolute top-full rounded p-1">
                     <div className="tool-drop-down flex flex-col p-2 rounded gap-2">
                         <span title="Insert Table" onClick={() => {
                             insertText("table")
