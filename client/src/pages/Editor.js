@@ -42,13 +42,18 @@ export const Editor = () => {
 
     //Fetch Google Fonts
     function fetchGoogleFonts() {
-        axios.get(`https://www.googleapis.com/webfonts/v1/webfonts?key=${process.env.REACT_APP_FONT_API}`)
-            .then((res) => {
-                setFonts(res.data.items);
-            })
-            .catch(err => {
-                console.log("The following error occurred while fetching fonts: " + err);
-            })
+        try {
+            axios.get(`https://www.googleapis.com/webfonts/v1/webfonts?key=${process.env.REACT_APP_FONT_API}`)
+                .then((res) => {
+                    setFonts(res.data.items);
+                })
+                .catch(err => {
+                    console.log("The following error occurred while fetching fonts: " + err);
+                })
+        }
+        catch (err) {
+            console.log("The following error occured while fetching fonts from Google Fonts API: " + err);
+        }
     }
 
     //Setup Font Face
@@ -65,7 +70,7 @@ export const Editor = () => {
             style.appendChild(document.createTextNode(fontFaceRule));
             document.head.appendChild(style);
         } catch (err) {
-            console.log("This error occurred while changing the font: " + err);
+            console.log("The following error occured while creating a new font face: " + err);
         }
     }
 
@@ -112,19 +117,29 @@ export const Editor = () => {
 
     //Handle Tab Press in TextArea
     const handleTab = (event) => {
-        if (event.keyCode === 9) {
-            event.preventDefault();
-            const start = event.target.selectionStart;
-            const end = event.target.selectionEnd;
-            const text = event.target.value;
-            event.target.value = text.substring(0, start) + '    ' + text.substring(end);
-            event.target.selectionStart = event.target.selectionEnd = start + 4;
+        try {
+            if (event.keyCode === 9) {
+                event.preventDefault();
+                const start = event.target.selectionStart;
+                const end = event.target.selectionEnd;
+                const text = event.target.value;
+                event.target.value = text.substring(0, start) + '    ' + text.substring(end);
+                event.target.selectionStart = event.target.selectionEnd = start + 4;
+            }
+        }
+        catch (err) {
+            console.log("The following error occured while handling tab press: " + err);
         }
     };
 
     //Download pdf
     function downloadPdf() {
-        window.print();
+        try {
+            window.print();
+        }
+        catch (err) {
+            console.log("The following error occured while printing PDF: " + err);
+        }
     }
 
     //Call Fetch Google Fonts
@@ -134,44 +149,60 @@ export const Editor = () => {
 
     //Call Font Face Setup on Change & Fetch Local Storage content & Set Active Panel at startup
     useEffect(() => {
-        if (first.current) {
-            activePanelStartup();
-            let temp = localStorage.getItem('editorContent') || '';
-            let tempTheme = localStorage.getItem('theme') || 'Classic';
-            setPrevSaved(temp);
-            setSelectedTheme(tempTheme);
-            if (!text) setText(temp);
-            first.current = false;
-        } else {
-            setupFontFace()
+        try {
+            if (first.current) {
+                activePanelStartup();
+                let temp = localStorage.getItem('editorContent') || '';
+                let tempTheme = localStorage.getItem('theme') || 'Classic';
+                setPrevSaved(temp);
+                setSelectedTheme(tempTheme);
+                if (!text) setText(temp);
+                first.current = false;
+            } else {
+                setupFontFace()
+            }
+        }
+        catch (err) {
+            console.log("The following error occured while performing startup activities: " + err);
         }
     }, [selectedFont])
 
     //Call Versa Parser
     useEffect(() => {
-        setPreview(versaParser(text, selectedTheme));
-        localStorage.setItem('theme', selectedTheme);
-        verifySaveStatus();
-        setWordCharCount();
+        try {
+            setPreview(versaParser(text, selectedTheme));
+            localStorage.setItem('theme', selectedTheme);
+            verifySaveStatus();
+            setWordCharCount();
+        }
+        catch (err) {
+            console.log("The following error occured while updating preview: " + err);
+        }
     }, [text, selectedTheme])
 
     //Store editor content in localstorage before unload
     useEffect(() => {
-        const unloadMethod = () => {
-            activateSaveLoader();
-            localStorage.setItem('editorContent', editorArea.current.value);
-            localStorage.setItem('theme', selectedTheme);
+        try {
+            const unloadMethod = () => {
+                activateSaveLoader();
+                localStorage.setItem('editorContent', editorArea.current.value);
+                localStorage.setItem('theme', selectedTheme);
+            }
+            const unloadInterval = setInterval(() => {
+                unloadMethod();
+                setPrevSaved(editorArea.current.value);
+                verifySaveStatus();
+            }, 60000);
+            window.addEventListener("beforeunload", unloadMethod, { capture: true });
+
+            return () => {
+                window.removeEventListener("beforeunload", unloadMethod);
+                clearInterval(unloadInterval);
+            };
         }
-        const unloadInterval = setInterval(() => {
-            unloadMethod();
-            setPrevSaved(editorArea.current.value);
-            verifySaveStatus();
-        }, 60000);
-        window.addEventListener("beforeunload", unloadMethod, { capture: true });
-        return () => {
-            window.removeEventListener("beforeunload", unloadMethod);
-            clearInterval(unloadInterval);
-        };
+        catch (err) {
+            console.log("The following error occured while unloading data: " + err);
+        }
     }, [])
 
     //Handle Preview Scroll Top
