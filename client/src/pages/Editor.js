@@ -319,17 +319,17 @@ export const Editor = () => {
         <>
             <section className="editor flex flex-col">
                 {/* Upload Popup */}
-                {/* <div className="upload-popup-overlay fixed top-0 left-0 h-screen w-screen bg-black opacity-40" />
+                <div className="upload-popup-overlay fixed top-0 left-0 h-screen w-screen bg-black opacity-40"/>
                 <div className="upload-popup-container fixed p-2 rounded bg-white">
                     <div className="upload-popup">
                         <div className="input-wrapper w-full text-center">
                             <div className="label-wrapper w-max rounded p-1">
                                 <label htmlFor="file-upload" className="font-bold rounded text-white cursor-pointer">Upload File Here</label>
                             </div>
-                            <input type="file" id="file-upload" className="hidden" required />
+                            <input type="file" id="file-upload" className="hidden" required/>
                         </div>
                     </div>
-                </div> */}
+                </div>
                 {/* Upload Popup End */}
                 {/* Header */}
                 <nav className="no-print relative">
