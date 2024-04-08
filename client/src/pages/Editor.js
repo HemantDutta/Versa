@@ -476,7 +476,7 @@ export const Editor = () => {
                 <div onClick={uploadPopupToggle} ref={uploadOverlay} className="upload-popup-overlay fixed top-0 left-0 h-screen w-screen bg-black" />
                 <div ref={uploadCont} className="upload-popup-container fixed p-2 rounded bg-white">
                     <div className="upload-popup">
-                        <div className={`upload-content flex flex-col items-center py-5 gap-5 border-sm border-dashed border-gray-200 rounded ${isDragging ? "dragged" : ""}`} ref={drageArea} onDragOver={uploadDrageOver} onDragEnter={uploadDragEnterHandle} onDragLeave={uploadDragLeaveHandle} onDrop={uploadDropHandle} >
+                        <div className={`upload-content flex flex-col items-center py-5 gap-5 rounded ${isDragging ? "dragged" : ""}`} ref={drageArea} onDragOver={uploadDrageOver} onDragEnter={uploadDragEnterHandle} onDragLeave={uploadDragLeaveHandle} onDrop={uploadDropHandle} >
                             {
                                 fileStatus !== "process" && fileStatus !== "ready" &&
                                 <>

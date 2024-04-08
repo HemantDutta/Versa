@@ -27,7 +27,6 @@
 
 .text-gradient {
     -webkit-background-clip: text !important;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
     background: linear-gradient(45deg, var(--root-clr-1), var(--rootclr-2));
 }
@@ -353,6 +352,7 @@
 
 .editor .upload-popup-container .upload-popup .upload-content {
     transition: background-color 0.2s ease;
+    border: 3px dashed rgba(229, 231, 235);
 }
 
 .editor .upload-popup-container .upload-popup .upload-content.dragged {
