@@ -11,6 +11,7 @@ export const Editor = () => {
 
     //Refs
     const first = useRef(true);
+    const firstUpload = useRef(true);
     const ham = useRef(null);
     const mobileMenu = useRef(null);
     const previewSpan = useRef(null);
@@ -34,6 +35,7 @@ export const Editor = () => {
     const [chars, setChars] = useState(0);
     const [prevSaved, setPrevSaved] = useState("");
     const [isDragging, setIsDragging] = useState(false);
+    const [fileUpload, setFileUpload] = useState(null);
 
     //Fetch Google Fonts
     function fetchGoogleFonts() {
@@ -349,10 +351,38 @@ export const Editor = () => {
         setIsDragging(false);
     }
 
-    //Upload Drop Handler
-    function uploadDropHandle() {
-        console.log("Drop Hogya bhai")
+    //Upload Drag Over Handler
+    function uploadDrageOver(e) {
+        e.preventDefault();
+        e.stopPropagation();
     }
+
+    //Upload Drop Handler
+    function uploadDropHandle(e) {
+        e.preventDefault();
+        setIsDragging(false);
+        setFileUpload(e.dataTransfer.files[0]);
+    }
+
+    //Upload Input Handler
+    function uploadInputHandler(e) {
+        setFileUpload(e.target.files[0]);
+    }
+
+    //File Processor
+    function fileProcessor() {
+        console.log(fileUpload);
+    }
+
+    //Call File Processor
+    useEffect(()=>{
+        if(firstUpload.current) {
+            firstUpload.current = false;
+        }
+        else {
+            fileProcessor();
+        }
+    },[fileUpload])
 
     return (
         <>
@@ -361,14 +391,14 @@ export const Editor = () => {
                 <div onClick={uploadPopupToggle} ref={uploadOverlay} className="upload-popup-overlay fixed top-0 left-0 h-screen w-screen bg-black" />
                 <div ref={uploadCont} className="upload-popup-container fixed p-2 rounded bg-white">
                     <div className="upload-popup">
-                        <div className="upload-content flex flex-col items-center py-5 gap-5 border-sm border-dashed border-gray-200 rounded" ref={drageArea} onDragEnter={uploadDragEnterHandle} onDragLeave={uploadDragLeaveHandle} onDrop={uploadDropHandle} >
+                        <div className={`upload-content flex flex-col items-center py-5 gap-5 border-sm border-dashed border-gray-200 rounded ${isDragging ? "dragged" : ""}`} ref={drageArea} onDragOver={uploadDrageOver} onDragEnter={uploadDragEnterHandle} onDragLeave={uploadDragLeaveHandle} onDrop={uploadDropHandle} >
                             <span className="drag-text font-bold text-gray-400">Drag & Drop your file here...</span>
                             <span className="or text-xl text-gray-400">or</span>
                             <div className="input-wrapper w-max text-center">
                                 <div className="label-wrapper bg-gradient w-max rounded p-1">
                                     <label htmlFor="file-upload" className="rounded text-white cursor-pointer px-2">Upload File Here</label>
                                 </div>
-                                <input type="file" id="file-upload" className="hidden" required />
+                                <input type="file" id="file-upload" className="hidden" onInput={uploadInputHandler} required />
                             </div>
                         </div>
                     </div>
@@ -428,7 +458,7 @@ export const Editor = () => {
                     <div className="mobile-menu absolute bg-dark top-full w-screen left-0 z-40 flex flex-col gap-5" ref={mobileMenu}>
                         <span className="head text-3xl text-white">Tools</span>
                         <div className="tools flex flex-wrap gap-x-1">
-                            <Toolbar insertText={insertText} />
+                            <Toolbar insertText={insertText} uploadPopupToggle={uploadPopupToggle} />
                         </div>
                         <span className="options text-3xl text-white">Options</span>
                         <div className="options flex flex-wrap gap-5 items-end">

@@ -7,7 +7,7 @@ export const tools = {
     "code": "\n\n```` \n Insert Code Here \n ````\n",
     "highlight": "`Insert Text Here`",
     "table": "\n\n| Header | Header | Header |\n| Data | Data | Data|\n| Data | Data | Data|\n",
-    "img": "\n\n ![alt text here](Image URL Here)",
-    "link": "\n\n [Link Title Here](Link URL Here)",
+    "img": "\n\n ![alt text here](Image URL Here)\n",
+    "link": "\n\n [Link Title Here](Link URL Here)\n",
     "br": "\n<br/>\n"
 }

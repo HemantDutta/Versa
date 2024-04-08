@@ -22,9 +22,7 @@ export const Toolbar = ({ insertText, uploadPopupToggle }) => {
 
     return (
         <>
-            <span title="Upload Markdown File" onClick={()=>{
-                uploadPopupToggle()
-            }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-upload" /></span>
+            <span title="Upload Markdown File" onClick={uploadPopupToggle} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-upload" /></span>
             <span title="Insert Bold Text" onClick={() => {
                 insertText("bold")
             }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">B</span>

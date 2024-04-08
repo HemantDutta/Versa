@@ -1,5 +1,10 @@
 /*Editor Page Stylesheet*/
 
+:root {
+    --root-clr-1: blueviolet;
+    --rootclr-2: hotpink;
+}
+
 @media (prefers-reduced-motion: no-preference) {
     * {
         scroll-behavior: smooth;
@@ -17,7 +22,7 @@
 }
 
 .bg-gradient {
-    background: linear-gradient(45deg, blueviolet, hotpink) !important;
+    background: linear-gradient(45deg, var(--root-clr-1), var(--rootclr-2)) !important;
 }
 
 .editor {
@@ -337,5 +342,16 @@
     transform: scale(1);
     opacity: 1;
     transition: all 0.2s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.editor .upload-popup-container .upload-popup .upload-content.dragged {
+    border: 3px dashed var(--rootclr-2);
+    background-color: #fff6fb;
+}
+
+@media screen and (max-width: 480px) {
+    .editor .upload-popup-container {
+        width: 95%;
+    }
 }
 /*=====Upload Popup End=====*/
