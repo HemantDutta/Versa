@@ -11,6 +11,7 @@ export const themeColors = {
     "MoonShine": "#151226",
     "Pearl": "#0e142c",
     "Oasis": "#10131a",
+    "Creamy": "#fffff4",
 }
 
 export const themes = {
@@ -1576,6 +1577,160 @@ export const themes = {
         "    display: block;\n" +
         "    margin: 16px 0 0;\n" +
         "    box-shadow: 0 0 25px 10px #133840;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml p {\n" +
+        "    font-size: 20px;\n" +
+        "    margin: 18px 0 10px;\n" +
+        "}",
+    "Creamy": "#styledHtml {\n" +
+        "    width: 100%;\n" +
+        "    height: 100%;\n" +
+        "    background-color: #fffff4;\n" +
+        "    color: #020202;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h1, #styledHtml h2, #styledHtml h3, #styledHtml h4, #styledHtml h5, #styledHtml h6 {\n" +
+        "    margin: 32px 0 0;\n" +
+        "    font-weight: bold;\n" +
+        "    text-wrap: normal;\n" +
+        "    color: #020202;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h1 {\n" +
+        "    position: relative;\n" +
+        "    font-size: 42px;\n" +
+        "    margin: 50px 0 32px;\n" +
+        "    z-index: 100;\n" +
+        "    width: max-content;\n" +
+        "    max-width: 100%;\n" +
+        "    color: #020202;\n" +
+        "    background-color: #ffffff;\n" +
+        "    padding: 16px 24px;\n" +
+        "    border-radius: 10px;\n" +
+        "    border: 2px solid #020202;\n" +
+        "    box-shadow: 5px 5px #020202;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h2 {\n" +
+        "    font-size: 24px;\n" +
+        "    margin: 42px 0 0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h3 {\n" +
+        "    font-size: 22px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h4 {\n" +
+        "    font-size: 20px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h5 {\n" +
+        "    font-size: 18px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h6 {\n" +
+        "    font-size: 16px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml ul {\n" +
+        "    list-style: disc;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml ol {\n" +
+        "    list-style: decimal;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml ul, #styledHtml ol {\n" +
+        "    padding-left: 32px;\n" +
+        "    display: flex;\n" +
+        "    flex-direction: column;\n" +
+        "    gap: 10px;\n" +
+        "    margin: 16px 0 0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml .blockquote {\n" +
+        "    margin: 32px 0;\n" +
+        "    border: 2px solid #000000;\n" +
+        "    padding-left: 23px;\n" +
+        "    font-size: 20px;\n" +
+        "    padding-top: 5px;\n" +
+        "    padding-bottom: 5px;\n" +
+        "    color: #020202;\n" +
+        "    background-color: #ffd7c2;\n" +
+        "    box-shadow: 5px 5px #020202;\n" +
+        "    border-radius: 10px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml pre {\n" +
+        "    margin: 56px 0 0;\n" +
+        "    padding: 32px;\n" +
+        "    border: 2px solid #020202;\n" +
+        "    font-family: monospace;\n" +
+        "    background-color: #fff500;\n" +
+        "    box-shadow: 5px 5px #020202;\n" +
+        "    border-radius: 10px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml pre code {\n" +
+        "    padding: 0;\n" +
+        "    background-color: transparent;\n" +
+        "    color: #020202;\n" +
+        "    border: none;\n" +
+        "    box-shadow: none;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml code {\n" +
+        "    padding: 0 5px;\n" +
+        "    background-color: #ffd7c2;\n" +
+        "    box-shadow: 5px 5px #020202;\n" +
+        "    border: 2px solid #020202;\n" +
+        "    font-family: monospace;\n" +
+        "    color: #102f37;\n" +
+        "    margin-right: 5px;\n" +
+        "    margin-left: 2px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml strong {\n" +
+        "    font-weight: bold;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml table {\n" +
+        "    margin: 32px 0 0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml table tr:first-child td {\n" +
+        "    color: #020202;\n" +
+        "    font-weight: bold;\n" +
+        "    background-color: #ffd7c2;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml table td {\n" +
+        "    padding: 16px;\n" +
+        "    border: 1px solid #020202;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml em {\n" +
+        "    font-style: italic;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml a {\n" +
+        "    color: #020202;\n" +
+        "    text-decoration: underline;\n" +
+        "    -webkit-tap-highlight-color: transparent;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml > a {\n" +
+        "    display: inline-block;\n" +
+        "    margin: 32px 0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml img {\n" +
+        "    display: block;\n" +
+        "    margin: 16px 0 0;\n" +
+        "    box-shadow: 5px 5px #020202;\n" +
+        "    border-radius: 10px;\n" +
+        "    border: 2px solid #020202;\n" +
         "}\n" +
         "\n" +
         "#styledHtml p {\n" +
