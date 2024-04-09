@@ -13,6 +13,7 @@ export const themeColors = {
     "Oasis": "#10131a",
     "Creamy": "#fffff4",
     "Cannabis": "#ffffff",
+    "Love": "#f1485c"
 }
 
 export const themes = {
@@ -1883,6 +1884,145 @@ export const themes = {
         "    box-shadow: 5px 5px #020202;\n" +
         "    border-radius: 10px;\n" +
         "    border: 2px solid #020202;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml p {\n" +
+        "    font-size: 20px;\n" +
+        "    margin: 18px 0 10px;\n" +
+        "}",
+    "Love": "#styledHtml {\n" +
+        "    width: 100%;\n" +
+        "    height: 100%;\n" +
+        "    background-color: #f1485c;\n" +
+        "    color: #fdfdfe;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h1, #styledHtml h2, #styledHtml h3, #styledHtml h4, #styledHtml h5, #styledHtml h6 {\n" +
+        "    margin: 32px 0 0;\n" +
+        "    font-weight: bold;\n" +
+        "    text-wrap: normal;\n" +
+        "    color: #fdfdfe;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h1 {\n" +
+        "    position: relative;\n" +
+        "    font-size: 42px;\n" +
+        "    margin: 50px 0 32px;\n" +
+        "    z-index: 100;\n" +
+        "    width: max-content;\n" +
+        "    max-width: 100%;\n" +
+        "    color: #fdfdfe;\n" +
+        "    background: #ff7786;\n" +
+        "    padding: 10px 12px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h2 {\n" +
+        "    font-size: 24px;\n" +
+        "    margin: 42px 0 0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h3 {\n" +
+        "    font-size: 22px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h4 {\n" +
+        "    font-size: 20px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h5 {\n" +
+        "    font-size: 18px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml h6 {\n" +
+        "    font-size: 16px;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml ul {\n" +
+        "    list-style: square;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml ol {\n" +
+        "    list-style: decimal;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml ul, #styledHtml ol {\n" +
+        "    padding-left: 32px;\n" +
+        "    display: flex;\n" +
+        "    flex-direction: column;\n" +
+        "    gap: 10px;\n" +
+        "    margin: 16px 0 0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml .blockquote {\n" +
+        "    margin: 32px 0;\n" +
+        "    border-left: 4px solid #ff7786;\n" +
+        "    padding-left: 23px;\n" +
+        "    font-size: 20px;\n" +
+        "    padding-top: 5px;\n" +
+        "    padding-bottom: 5px;\n" +
+        "    color: #1a0000;\n" +
+        "    background-color: #f4bebf;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml pre {\n" +
+        "    margin: 56px 0 0;\n" +
+        "    padding: 32px;\n" +
+        "    border-bottom: 5px solid #ff7786;\n" +
+        "    background: #1a0000;\n" +
+        "    font-family: monospace;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml pre code {\n" +
+        "    padding: 0;\n" +
+        "    background-color: transparent;\n" +
+        "    color: #f7f5f0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml code {\n" +
+        "    padding: 0 5px;\n" +
+        "    background-color: #fdfdfd;\n" +
+        "    font-family: monospace;\n" +
+        "    color: #102f37;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml strong {\n" +
+        "    font-weight: bold;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml table {\n" +
+        "    margin: 32px 0 0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml table tr:first-child td {\n" +
+        "    color: #102f37;\n" +
+        "    font-weight: bold;\n" +
+        "    background-color: #fdfdfd;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml table td {\n" +
+        "    padding: 16px;\n" +
+        "    border: 1px solid #fdfdfd;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml em {\n" +
+        "    font-style: italic;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml a {\n" +
+        "    color: #fdfdfe;\n" +
+        "    text-decoration: underline;\n" +
+        "    -webkit-tap-highlight-color: transparent;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml > a {\n" +
+        "    display: inline-block;\n" +
+        "    margin: 32px 0;\n" +
+        "}\n" +
+        "\n" +
+        "#styledHtml img {\n" +
+        "    display: block;\n" +
+        "    margin: 16px 0 0;\n" +
+        "    box-shadow: 0 5px #ff7786;\n" +
         "}\n" +
         "\n" +
         "#styledHtml p {\n" +
