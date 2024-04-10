@@ -16,7 +16,8 @@ export const themeColors = {
     "Cannabis": "#ffffff",
     "Love": "#f1485c",
     "Golden Boy": "#000000",
-    "70s": "#181818"
+    "70s": "#181818",
+    "Cyber Purple": "#100021",
 }
 
 export const themes = {
@@ -2487,5 +2488,164 @@ export const themes = {
         #styledHtml p {
             font-size: 20px;
             margin: 18px 0 10px;
-        }`
+        }`,
+    "Cyber Purple": `#styledHtml {
+        width: 100%;
+        height: 100%;
+        background-color: #100021;
+        color: #ffffff;
+    }
+    
+    #styledHtml h1, #styledHtml h2, #styledHtml h3, #styledHtml h4, #styledHtml h5, #styledHtml h6 {
+        margin: 32px 0 0;
+        font-weight: bold;
+        text-wrap: normal;
+        color: #ffffff;
+        border-left: 4px solid #9f6ce3;
+        width: max-content;
+        padding-left: 15px;
+        background: linear-gradient(to right, #744ba8, #100021,#100021);
+    }
+    
+    #styledHtml h1 {
+        position: relative;
+        font-size: 42px;
+        margin: 50px 0 32px;
+        width: max-content;
+        z-index: 100;
+        max-width: 100%;
+        color: #ffffff;
+        padding-left: 15px;
+        border-left: 4px solid #9f6ce3;
+        background: linear-gradient(to right, #744ba8, #100021,#100021);
+    }
+    
+    #styledHtml h2 {
+        font-size: 24px;
+        margin: 42px 0 0;
+    }
+    
+    #styledHtml h3 {
+        font-size: 22px;
+    }
+    
+    #styledHtml h4 {
+        font-size: 20px;
+    }
+    
+    #styledHtml h5 {
+        font-size: 18px;
+    }
+    
+    #styledHtml h6 {
+        font-size: 16px;
+    }
+    
+    #styledHtml ul {
+        list-style: square;
+    }
+    
+    #styledHtml ol {
+        list-style: decimal;
+    }
+    
+    #styledHtml ul, #styledHtml ol {
+        padding-left: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 16px 0 0;
+    }
+    
+    #styledHtml .blockquote {
+        margin: 32px 0;
+        border-left: 4px solid #9f6ce3;
+        padding-left: 23px;
+        font-size: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        color: #ffffff;
+        background: linear-gradient(to right, #744ba8, #100021,#100021);
+    }
+    
+    #styledHtml pre {
+        margin: 56px 0 0;
+        padding: 32px;
+        border: 2px solid #9f6ce3;
+        background-color: #2e203c;
+        font-family: monospace;
+    }
+    
+    #styledHtml pre code {
+        padding: 0;
+        background-color: transparent;
+        color: #ffffff;
+    }
+    
+    #styledHtml code {
+        padding: 0 5px;
+        background-color: #9f6ce3;
+        font-family: monospace;
+        color: #ffffff;
+    }
+    
+    #styledHtml strong {
+        font-weight: bold;
+    }
+    
+    #styledHtml table {
+        margin: 32px 0 0;
+    }
+    
+    #styledHtml table tr:first-child td {
+        color: #ffffff;
+        font-weight: bold;
+        background-color: #2e203c;
+    }
+    
+    #styledHtml table td {
+        padding: 16px;
+        border: 1px solid #fdfdfd;
+    }
+    
+    #styledHtml em {
+        font-style: italic;
+    }
+    
+    #styledHtml a {
+        color: #ffffff;
+        text-decoration: underline;
+        padding: 5px 8px;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    #styledHtml > a {
+        display: inline-block;
+        margin: 32px 0;
+    }
+    
+    #styledHtml .img-wrapper {
+        position: relative;
+    }
+    
+    #styledHtml .img-wrapper::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        content: "";
+        background: linear-gradient(to bottom, transparent, transparent, #100021);
+    }
+    
+    #styledHtml img {
+        display: block;
+        margin: 16px 0 0;
+        position: relative;
+    }
+    
+    #styledHtml p {
+        font-size: 20px;
+        margin: 18px 0 10px;
+    }`,
 };

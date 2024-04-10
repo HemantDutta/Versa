@@ -32,7 +32,7 @@ export const versaParser = (file, theme) => {
             .replace(boldRegex, '<strong>$1</strong>')
             .replace(italicRegex, '<em>$1</em>')
             .replace(unorderedListRegex, (match, item) => `<li>${item}</li>`)
-            .replace(imageRegex, '<img src="$2" alt="$1"/>')
+            .replace(imageRegex, theme==="Cyber Purple"? '<div class="img-wrapper"><img src="$2" alt="$1"/></div>'  : '<img src="$2" alt="$1"/>')
             .replace(linkRegex, '<a href="$2" rel="noreferrer" target="_blank">$1</a>')
             .replace(highlightRegex, '<code>$1</code>')
             .replace(multiHighlightRegex, '<pre>$1</pre>')
