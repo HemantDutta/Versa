@@ -1,6 +1,7 @@
 //Themes for the parser
 export const themeColors = {
     "Classic": "#ffffff",
+    "Black Neu": "#242424",
     "Vega": "#131313",
     "Payne": "#0b0b0b",
     "Mellow": "#2d2c31",
@@ -154,6 +155,154 @@ export const themes = {
         "#styledHtml strong {\n" +
         "    font-weight: bold;\n" +
         "}",
+    "Black Neu": `#styledHtml {
+        width: 100%;
+        height: 100%;
+        background-color: #242424;
+        color: #ffffff;
+    }
+    
+    #styledHtml h1, #styledHtml h2, #styledHtml h3, #styledHtml h4, #styledHtml h5, #styledHtml h6 {
+        margin: 32px 0 0;
+        font-weight: bold;
+        text-wrap: normal;
+        color: #ffffff;
+    }
+    
+    #styledHtml h1 {
+        position: relative;
+        font-size: 42px;
+        margin: 50px 0 32px;
+        width: max-content;
+        z-index: 100;
+        max-width: 100%;
+        color: #242424;
+        background-color: #fff;
+        padding: 12px 16px;
+        border: 2px solid #000000;
+        box-shadow: 5px 5px #000000;
+    }
+    
+    #styledHtml h2 {
+        font-size: 24px;
+        margin: 42px 0 0;
+    }
+    
+    #styledHtml h3 {
+        font-size: 22px;
+    }
+    
+    #styledHtml h4 {
+        font-size: 20px;
+    }
+    
+    #styledHtml h5 {
+        font-size: 18px;
+    }
+    
+    #styledHtml h6 {
+        font-size: 16px;
+    }
+    
+    #styledHtml ul {
+        list-style: square;
+    }
+    
+    #styledHtml ol {
+        list-style: decimal;
+    }
+    
+    #styledHtml ul, #styledHtml ol {
+        padding-left: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 16px 0 0;
+    }
+    
+    #styledHtml .blockquote {
+        margin: 32px 0;
+        border: 4px solid #000000;
+        padding-left: 23px;
+        font-size: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        color: #242424;
+        background-color: #ffffff;
+        box-shadow: 5px 5px #000000;
+    }
+    
+    #styledHtml pre {
+        margin: 56px 0 0;
+        padding: 32px;
+        border: 4px solid #000000;
+        background-color: #fff;
+        font-family: monospace;
+        box-shadow: 5px 5px #000000;
+    }
+    
+    #styledHtml pre code {
+        padding: 0;
+        background-color: transparent;
+        color: #242424;
+    }
+    
+    #styledHtml code {
+        padding: 0 5px;
+        background-color: #ffffff;
+        font-family: monospace;
+        color: #242424;
+    }
+    
+    #styledHtml strong {
+        font-weight: bold;
+    }
+    
+    #styledHtml table {
+        margin: 32px 0 0;
+    }
+    
+    #styledHtml table tr:first-child td {
+        color: #102f37;
+        font-weight: bold;
+        background-color: #fdfdfd;
+    }
+    
+    #styledHtml table td {
+        padding: 16px;
+        border: 1px solid #fdfdfd;
+    }
+    
+    #styledHtml em {
+        font-style: italic;
+    }
+    
+    #styledHtml a {
+        color: #242424;
+        background-color: #fff;
+        border: 2px solid #000000;
+        box-shadow: 5px 5px #000000;
+        text-decoration: underline;
+        padding: 5px 8px;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    #styledHtml > a {
+        display: inline-block;
+        margin: 32px 0;
+    }
+    
+    #styledHtml img {
+        display: block;
+        margin: 16px 0 0;
+        border: 2px solid #000000;
+        box-shadow: 5px 5px #000000;
+    }
+    
+    #styledHtml p {
+        font-size: 20px;
+        margin: 18px 0 10px;
+    }`,
     "Vega": "#styledHtml {\n" +
         "    width: 100%;\n" +
         "    height: 100%;\n" +
@@ -2031,8 +2180,8 @@ export const themes = {
         "    font-size: 20px;\n" +
         "    margin: 18px 0 10px;\n" +
         "}",
-            
-        "Golden Boy": `#styledHtml {
+
+    "Golden Boy": `#styledHtml {
             width: 100%;
             height: 100%;
             background-color: #000000;
@@ -2193,7 +2342,7 @@ export const themes = {
             font-size: 20px;
             margin: 18px 0 10px;
         }`,
-        "70s": `#styledHtml {
+    "70s": `#styledHtml {
             width: 100%;
             height: 100%;
             background-color: #181818;
