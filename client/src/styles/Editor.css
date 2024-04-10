@@ -154,7 +154,7 @@
         display: none;
     }
 
-    .editor header .right {
+    .editor header .right .font-options, .editor header .right .operations .style {
         display: none;
     }
 
@@ -178,6 +178,10 @@
 @media screen and (max-width: 991px) {
     .editor .view-edit {
         display: initial;
+    }
+
+    .editor header .right .operations .options {
+        display: none;
     }
 }
 

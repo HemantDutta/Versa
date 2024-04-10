@@ -569,13 +569,13 @@ export const Editor = () => {
                                     <button type="button" className="text-white rounded px-5 py-3 bg-gradient click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download" /></button>
                                 </div>
                             </div>
-                        </div>
-                        <div className="mobile-options flex items-center gap-x-5">
-                            <div className="view-edit bg-gradient rounded">
-                                <button type="button" className="text-white bg-black px-3 py-2 rounded" onClick={activePanelSwitcher} dangerouslySetInnerHTML={{ __html: activePanel === "view" ? "Edit&nbsp;&nbsp;<i class=\"fa-solid fa-pen-to-square\"/>" : "View&nbsp;&nbsp;<i class=\"fa-solid fa-eye\"/>" }} />
-                            </div>
-                            <div className="ham" ref={ham} onClick={toggleMobileMenu}>
-                                <span></span><span></span><span></span>
+                            <div className="mobile-options flex items-center gap-x-5">
+                                <div className="view-edit bg-gradient rounded">
+                                    <button type="button" className="text-white bg-black px-3 py-2 rounded" onClick={activePanelSwitcher} dangerouslySetInnerHTML={{ __html: activePanel === "view" ? "Edit&nbsp;&nbsp;<i class=\"fa-solid fa-pen-to-square\"/>" : "View&nbsp;&nbsp;<i class=\"fa-solid fa-eye\"/>" }} />
+                                </div>
+                                <div className="ham" ref={ham} onClick={toggleMobileMenu}>
+                                    <span></span><span></span><span></span>
+                                </div>
                             </div>
                         </div>
                     </header>
