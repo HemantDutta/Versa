@@ -18,6 +18,7 @@ export const themeColors = {
     "Golden Boy": "#000000",
     "70s": "#181818",
     "Cyber Purple": "#100021",
+    "Blue Lemonade": "#ffffff",
 }
 
 export const themes = {
@@ -2648,4 +2649,159 @@ export const themes = {
         font-size: 20px;
         margin: 18px 0 10px;
     }`,
+    "Blue Lemonade": `#styledHtml {
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff;
+        color: #2d2b2a;
+    }
+    
+    #styledHtml h1, #styledHtml h2, #styledHtml h3, #styledHtml h4, #styledHtml h5, #styledHtml h6 {
+        margin: 32px 0 0;
+        font-weight: bold;
+        text-wrap: normal;
+        color: #2d2b2a;
+    }
+    
+    #styledHtml h1 {
+        position: relative;
+        font-size: 42px;
+        margin: 50px 0 32px;
+        width: max-content;
+        z-index: 100;
+        max-width: 100%;
+        color: #2d2b2a;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.09) 6px, transparent 6px), linear-gradient(to right, rgba(255, 255, 255, 0.09) 6px, transparent 6px);
+        background-size: 46px 46px;
+        background-color: #4ec0f1;
+        border-radius: 10px;
+        padding: 10px 12px;
+        border: 2px solid #000000;
+        box-shadow: 5px 5px #000000;
+    }
+    
+    #styledHtml h2 {
+        font-size: 24px;
+        margin: 42px 0 0;
+    }
+    
+    #styledHtml h3 {
+        font-size: 22px;
+    }
+    
+    #styledHtml h4 {
+        font-size: 20px;
+    }
+    
+    #styledHtml h5 {
+        font-size: 18px;
+    }
+    
+    #styledHtml h6 {
+        font-size: 16px;
+    }
+    
+    #styledHtml ul {
+        list-style: square;
+    }
+    
+    #styledHtml ol {
+        list-style: decimal;
+    }
+    
+    #styledHtml ul, #styledHtml ol {
+        padding-left: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 16px 0 0;
+    }
+    
+    #styledHtml .blockquote {
+        margin: 32px 0;
+        border: 2px solid #000000;
+        padding-left: 23px;
+        font-size: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        color: #2d2b2a;
+        background-color: #ffe180;
+        box-shadow: 5px 5px #000000;
+    }
+    
+    #styledHtml pre {
+        margin: 56px 0 0;
+        padding: 32px;
+        border: 2px solid #000000;
+        font-family: monospace;
+        box-shadow: 5px 5px #000000;
+        border-radius: 10px;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.09) 6px, transparent 6px), linear-gradient(to right, rgba(255, 255, 255, 0.09) 6px, transparent 6px);
+        background-size: 46px 46px;
+        background-color: #4ec0f1;}
+    
+    #styledHtml pre code {
+        padding: 0;
+        background-color: transparent;
+        color: #ffffff;
+    }
+    
+    #styledHtml code {
+        padding: 0 5px;
+        background-color: #ffffff;
+        font-family: monospace;
+        color: #242424;
+    }
+    
+    #styledHtml strong {
+        font-weight: bold;
+    }
+    
+    #styledHtml table {
+        margin: 32px 0 0;
+    }
+    
+    #styledHtml table tr:first-child td {
+        color: #2d2b2a;
+        font-weight: bold;
+        background-color: #ffe180;
+    }
+    
+    #styledHtml table td {
+        padding: 16px;
+        border: 1px solid #2d2b2a;
+    }
+    
+    #styledHtml em {
+        font-style: italic;
+    }
+    
+    #styledHtml a {
+        color: #2d2b2a;
+        background-color: #fff;
+        border: 2px solid #000000;
+        box-shadow: 5px 5px #000000;
+        text-decoration: underline;
+        padding: 5px 8px;
+        border-radius: 10px;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    #styledHtml > a {
+        display: inline-block;
+        margin: 32px 0;
+    }
+    
+    #styledHtml img {
+        display: block;
+        margin: 16px 0 0;
+        border: 2px solid #000000;
+        box-shadow: 5px 5px #ffe180;
+        border-radius: 10px;
+    }
+    
+    #styledHtml p {
+        font-size: 20px;
+        margin: 18px 0 10px;
+    }`
 };
