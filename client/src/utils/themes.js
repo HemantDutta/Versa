@@ -1,6 +1,7 @@
 //Themes for the parser
 export const themeColors = {
     "Classic": "#ffffff",
+    "Classic Dark": "#111111",
     "Black Neu": "#242424",
     "Vega": "#131313",
     "Payne": "#0b0b0b",
@@ -158,6 +159,152 @@ export const themes = {
         "#styledHtml strong {\n" +
         "    font-weight: bold;\n" +
         "}",
+    "Classic Dark": `#styledHtml {
+            width: 100%;
+            height: 100%;
+            background-color: #111111;
+            color: #fefefe;
+        }
+        
+        #styledHtml h1,
+        #styledHtml h2,
+        #styledHtml h3,
+        #styledHtml h4,
+        #styledHtml h5,
+        #styledHtml h6 {
+            margin: 32px 0 0;
+            font-weight: bold;
+            text-wrap: normal;
+            color: #ffffff;
+        }
+        
+        #styledHtml h1 {
+            position: relative;
+            font-size: 42px;
+            margin: 50px 0 32px;
+            width: max-content;
+            z-index: 100;
+            max-width: 100%;
+            color: #ffffff;
+        }
+        
+        #styledHtml h2 {
+            font-size: 24px;
+            margin: 42px 0 0;
+        }
+        
+        #styledHtml h3 {
+            font-size: 22px;
+        }
+        
+        #styledHtml h4 {
+            font-size: 20px;
+        }
+        
+        #styledHtml h5 {
+            font-size: 18px;
+        }
+        
+        #styledHtml h6 {
+            font-size: 16px;
+        }
+        
+        #styledHtml ul {
+            list-style: square;
+        }
+        
+        #styledHtml ol {
+            list-style: decimal;
+        }
+        
+        #styledHtml ul,
+        #styledHtml ol {
+            padding-left: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 16px 0 0;
+        }
+        
+        #styledHtml .blockquote {
+            margin: 32px 0;
+            border-left: 4px solid #ffffff;
+            padding-left: 23px;
+            font-size: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            color: #ffffff;
+            background-color: transparent;
+        }
+         
+        #styledHtml pre {
+            position: relative;
+            margin: 56px 0 0;
+            padding: 32px;
+            border-top: 1px solid #aaaaaa;
+            border-bottom: 1px solid #aaaaaa;
+            font-family: monospace;
+            z-index: 1;
+        }
+        
+        #styledHtml pre code {
+            padding: 0;
+            background-color: transparent;
+            border: none;
+            color: #f7f5f0;
+        }
+        
+        #styledHtml code {
+            padding: 0 5px;
+            background-color: transparent;
+            font-family: monospace;
+            color: #ffffff;
+            border: 1px solid #aaaaaa;
+        }
+        
+        #styledHtml strong {
+            font-weight: bold;
+        }
+        
+        #styledHtml table {
+            margin: 32px 0 0;
+        }
+        
+        #styledHtml table tr:first-child td {
+            color: #102f37;
+            font-weight: bold;
+            background-color: #ffffff;
+        }
+        
+        #styledHtml table td {
+            padding: 16px;
+            border: 1px solid #fdfdfd;
+        }
+        
+        #styledHtml em {
+            font-style: italic;
+        }
+        
+        #styledHtml a {
+            color: #ffffff;
+            text-decoration: underline;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        #styledHtml>a {
+            display: inline-block;
+            margin: 32px 0;
+        }
+        
+        #styledHtml img {
+            display: block;
+            margin: 16px 0 0;
+        }
+        
+        #styledHtml p {
+            font-size: 20px;
+            margin: 18px 0 10px;
+        }`,
     "Black Neu": `#styledHtml {
         width: 100%;
         height: 100%;
@@ -2805,7 +2952,7 @@ export const themes = {
         font-size: 20px;
         margin: 18px 0 10px;
     }`,
-    "Prism" : `#styledHtml {
+    "Prism": `#styledHtml {
         width: 100%;
         height: 100%;
         background-color: #000000;
@@ -2981,5 +3128,6 @@ export const themes = {
     #styledHtml p {
         font-size: 20px;
         margin: 18px 0 10px;
-    }`
+    }`,
+
 };
