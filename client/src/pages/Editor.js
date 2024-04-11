@@ -685,7 +685,7 @@ export const Editor = () => {
                             </div>
                         </div>
                     }
-                    <span title="Back to the Top!" onClick={previewScrollTop} className="fixed right-5 aspect-square text-white bottom-14 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print"><i className="fa-solid fa-arrow-up" /></span>
+                    <span title="Back to the Top!" onClick={previewScrollTop} className="fixed right-5 aspect-square text-white bottom-14 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print z-50"><i className="fa-solid fa-arrow-up" /></span>
                 </main>
                 {/* Main Section End*/}
             </section>

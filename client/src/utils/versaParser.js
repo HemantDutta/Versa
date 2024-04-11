@@ -35,7 +35,7 @@ export const versaParser = (file, theme) => {
             .replace(imageRegex, theme==="Cyber Purple"? '<div class="img-wrapper"><img src="$2" alt="$1"/></div>'  : '<img src="$2" alt="$1"/>')
             .replace(linkRegex, '<a href="$2" rel="noreferrer" target="_blank">$1</a>')
             .replace(highlightRegex, '<code>$1</code>')
-            .replace(multiHighlightRegex, '<pre>$1</pre>')
+            .replace(multiHighlightRegex, theme==="Prism"? '<div class="pre-wrapper"><pre>$1</pre></div>' :'<pre>$1</pre>')
             .replace(strikeThroughRegex, '<del>$1</del>')
             .replace(blockquoteRegex, (match, content) => `<blockquote class="blockquote">${content.trim()}</blockquote>`);
     }

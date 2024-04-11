@@ -19,6 +19,7 @@ export const themeColors = {
     "70s": "#181818",
     "Cyber Purple": "#100021",
     "Blue Lemonade": "#ffffff",
+    "Prism": "#000000",
 }
 
 export const themes = {
@@ -2798,6 +2799,183 @@ export const themes = {
         border: 2px solid #000000;
         box-shadow: 5px 5px #ffe180;
         border-radius: 10px;
+    }
+    
+    #styledHtml p {
+        font-size: 20px;
+        margin: 18px 0 10px;
+    }`,
+    "Prism" : `#styledHtml {
+        width: 100%;
+        height: 100%;
+        background-color: #000000;
+        color: #ababab;
+    }
+    
+    #styledHtml h1,
+    #styledHtml h2,
+    #styledHtml h3,
+    #styledHtml h4,
+    #styledHtml h5,
+    #styledHtml h6 {
+        margin: 32px 0 0;
+        font-weight: bold;
+        text-wrap: normal;
+        color: #ffffff;
+    }
+    
+    #styledHtml h1 {
+        position: relative;
+        font-size: 42px;
+        margin: 50px 0 32px;
+        width: max-content;
+        z-index: 100;
+        max-width: 100%;
+        background: linear-gradient(-45deg, #100629, #9d79ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    #styledHtml h2 {
+        font-size: 24px;
+        margin: 42px 0 0;
+    }
+    
+    #styledHtml h3 {
+        font-size: 22px;
+    }
+    
+    #styledHtml h4 {
+        font-size: 20px;
+    }
+    
+    #styledHtml h5 {
+        font-size: 18px;
+    }
+    
+    #styledHtml h6 {
+        font-size: 16px;
+    }
+    
+    #styledHtml ul {
+        list-style: square;
+    }
+    
+    #styledHtml ol {
+        list-style: decimal;
+    }
+    
+    #styledHtml ul,
+    #styledHtml ol {
+        padding-left: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 16px 0 0;
+    }
+    
+    #styledHtml .blockquote {
+        margin: 32px 0;
+        border-left: 4px solid #9d79ff;
+        padding-left: 23px;
+        font-size: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        color: #ffffff;
+        background-color: transparent;
+    }
+    
+    #styledHtml .pre-wrapper {
+        position: relative;
+    }
+    
+    #styledHtml .pre-wrapper::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        height: 50%;
+        width: 80%;
+        border-radius: 100%;
+        background: #9d79ff;
+        filter: blur(50px);
+    }
+    
+    #styledHtml .pre-wrapper::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        height: 50%;
+        width: 50%;
+        border-radius: 100%;
+        background: #9d79ff;
+        filter: blur(50px);
+    }
+     
+    #styledHtml pre {
+        position: relative;
+        margin: 56px 0 0;
+        padding: 32px;
+        background: rgba(255,255,255,0.10);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.075);
+        font-family: monospace;
+        z-index: 1;
+    }
+    
+    #styledHtml pre code {
+        padding: 0;
+        background-color: transparent;
+        color: #f7f5f0;
+    }
+    
+    #styledHtml code {
+        padding: 0 5px;
+        background-color: #9d79ff;
+        font-family: monospace;
+        color: #ffffff;
+    }
+    
+    #styledHtml strong {
+        font-weight: bold;
+    }
+    
+    #styledHtml table {
+        margin: 32px 0 0;
+    }
+    
+    #styledHtml table tr:first-child td {
+        color: #102f37;
+        font-weight: bold;
+        background-color: #ffffff;
+    }
+    
+    #styledHtml table td {
+        padding: 16px;
+        border: 1px solid #fdfdfd;
+    }
+    
+    #styledHtml em {
+        font-style: italic;
+    }
+    
+    #styledHtml a {
+        color: #9d79ff;
+        text-decoration: underline;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    #styledHtml>a {
+        display: inline-block;
+        margin: 32px 0;
+    }
+    
+    #styledHtml img {
+        display: block;
+        margin: 16px 0 0;
+        box-shadow: 0 5px #ffffff;
     }
     
     #styledHtml p {
