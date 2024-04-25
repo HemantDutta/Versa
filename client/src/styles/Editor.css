@@ -250,6 +250,11 @@
     display: initial;
 }
 
+.editor main .preview .preview-span code {
+    word-break: break-all;
+    overflow-wrap: break-word;
+}
+
 .editor main .content-details {
     width: 50%;
 }

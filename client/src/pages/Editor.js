@@ -485,9 +485,9 @@ export const Editor = () => {
                                     <span className="or text-xl pointer-events-none text-gray-400">or</span>
                                     <div className="input-wrapper pointer-events-none w-max text-center">
                                         <div className="label-wrapper bg-gradient w-max rounded p-1">
-                                            <label htmlFor="file-upload" className="rounded text-white cursor-pointer px-2">Upload File Here</label>
+                                            <label htmlFor="file-upload" className="rounded text-white cursor-pointer px-2 pointer-events-auto">Upload File Here</label>
                                         </div>
-                                        <input type="file" id="file-upload" className="hidden" onInput={uploadInputHandler} required />
+                                        <input type="file" id="file-upload" name="file-upload" className="hidden" onInput={uploadInputHandler} required />
                                     </div>
                                 </>
                             }
@@ -635,8 +635,8 @@ export const Editor = () => {
                     </section>
                     {/*  Editor End  */}
                     {/*  Preview  */}
-                    <section ref={previewPanel} style={{ backgroundColor: themeColors[selectedTheme] }} className={`preview w-1/2 h-full overflow-scroll relative`} id="preview">
-                        <div style={{ fontFamily: selectedFont.family }} className="preview-span h-max" id="previewSpan" ref={previewSpan} dangerouslySetInnerHTML={{ __html: preview }} />
+                    <section ref={previewPanel} style={{ backgroundColor: themeColors[selectedTheme] }} className={`preview w-1/2 h-full overflow-y-scroll overflow-x-hidden relative`} id="preview">
+                        <div style={{ fontFamily: selectedFont.family }} className="preview-span h-max break-all" id="previewSpan" ref={previewSpan} dangerouslySetInnerHTML={{ __html: preview }} />
                     </section>
                     {/*  Preview End  */}
                     {
