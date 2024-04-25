@@ -76,21 +76,31 @@ export const Editor = () => {
 
     //Toggle Mobile Menu
     function toggleMobileMenu() {
-        if (ham.current.classList.contains("active")) {
-            ham.current.classList.remove("active");
-            mobileMenu.current.classList.remove("active");
-        } else {
-            ham.current.classList.add("active");
-            mobileMenu.current.classList.add("active");
+        try {
+            if (ham.current.classList.contains("active")) {
+                ham.current.classList.remove("active");
+                mobileMenu.current.classList.remove("active");
+            } else {
+                ham.current.classList.add("active");
+                mobileMenu.current.classList.add("active");
+            }
+        }
+        catch(err) {
+            console.log("The following error occurred while toggling mobile menu: " + err);
         }
     }
 
     //Close Mobile Menu on Resize
     useEffect(() => {
         const closeOnResize = () => {
-            if (window.innerWidth > 1425) {
-                ham.current.classList.remove("active");
-                mobileMenu.current.classList.remove("active");
+            try {
+                if (window.innerWidth > 1425) {
+                    ham.current.classList.remove("active");
+                    mobileMenu.current.classList.remove("active");
+                }
+            }
+            catch (err) {
+                console.log("The following error occurred while closing mobile menu on resize: " + err);
             }
         }
 
@@ -102,11 +112,16 @@ export const Editor = () => {
     //Close Mobile Menu on Click Away
     useEffect(() => {
         const closeOnClickAway = (e) => {
-            if (mobileMenu.current.classList.contains("active")) {
-                if (!mobileMenu.current.contains(e.target) && !ham.current.contains(e.target)) {
-                    ham.current.classList.remove("active");
-                    mobileMenu.current.classList.remove("active");
+            try {
+                if (mobileMenu.current.classList.contains("active")) {
+                    if (!mobileMenu.current.contains(e.target) && !ham.current.contains(e.target)) {
+                        ham.current.classList.remove("active");
+                        mobileMenu.current.classList.remove("active");
+                    }
                 }
+            }
+            catch (err) {
+                console.log("The following error occurred while closing mobile menu: " + err);
             }
         }
 
@@ -182,33 +197,38 @@ export const Editor = () => {
 
     //Store editor content in localstorage before unload
     useEffect(() => {
-            const unloadMethod = () => {
-                try {
-                    activateSaveLoader();
-                    localStorage.setItem('editorContent', editorArea.current.value);
-                    localStorage.setItem('theme', selectedTheme);
-                }
-                catch (err) {
-                    console.log("The following error occured while unloading data: " + err);
-                }
+        const unloadMethod = () => {
+            try {
+                activateSaveLoader();
+                localStorage.setItem('editorContent', editorArea.current.value);
+                localStorage.setItem('theme', selectedTheme);
             }
-            const unloadInterval = setInterval(() => {
-                try {
-                    unloadMethod();
-                    setPrevSaved(editorArea.current.value);
-                    verifySaveStatus();
-                }
-                catch (err) {
-                    console.log("The following error occured while unloading data: " + err);
-                }
-            }, 60000);
-            window.addEventListener("beforeunload", unloadMethod, { capture: true });
+            catch (err) {
+                console.log("The following error occured while unloading data: " + err);
+            }
+        }
+        const unloadInterval = setInterval(() => {
+            try {
+                unloadMethod();
+                setPrevSaved(editorArea.current.value);
+                verifySaveStatus();
+            }
+            catch (err) {
+                console.log("The following error occured while unloading data: " + err);
+            }
+        }, 60000);
+        window.addEventListener("beforeunload", unloadMethod, { capture: true });
 
-            return () => {
+        return () => {
+            try {
                 unloadMethod();
                 window.removeEventListener("beforeunload", unloadMethod);
                 clearInterval(unloadInterval);
-            };
+            }
+            catch (err) {
+                console.log("The following error occured while unloading data: " + err);
+            }
+        };
     }, [])
 
     //Handle Preview Scroll Top
@@ -219,74 +239,94 @@ export const Editor = () => {
 
     //Insert Stuff into Textarea
     function insertText(type) {
-        const position = editorArea.current.selectionStart;
+        try {
+            const position = editorArea.current.selectionStart;
 
-        const before = editorArea.current.value.substring(0, position);
-        const after = editorArea.current.value.substring(position, editorArea.current.value.length);
+            const before = editorArea.current.value.substring(0, position);
+            const after = editorArea.current.value.substring(position, editorArea.current.value.length);
 
-        editorArea.current.value = before + tools[type] + after;
-        setText(editorArea.current.value);
-        editorArea.current.selectionStart = editorArea.current.selectionEnd = position + text.length;
+            editorArea.current.value = before + tools[type] + after;
+            setText(editorArea.current.value);
+            editorArea.current.selectionStart = editorArea.current.selectionEnd = position + text.length;
+        }
+        catch (err) {
+            console.log("The following error occured while inserting text through the toolbar: " + err);
+        }
     }
 
     //Active Panel Switcher
     function activePanelSwitcher() {
-        if (window.innerWidth < 991) {
-            if (activePanel === "edit") {
-                setActivePanel("view");
-                editorPanel.current.classList.remove("active");
-                setTimeout(() => {
-                    editorPanel.current.style.display = "none";
-                    previewPanel.current.style.display = "initial";
+        try {
+            if (window.innerWidth < 991) {
+                if (activePanel === "edit") {
+                    setActivePanel("view");
+                    editorPanel.current.classList.remove("active");
                     setTimeout(() => {
-                        previewPanel.current.classList.add("active");
-                    }, 50)
-                }, 900)
-            } else {
-                setActivePanel("edit");
-                previewPanel.current.classList.remove("active");
-                setTimeout(() => {
-                    previewPanel.current.style.display = "none";
-                    editorPanel.current.style.display = "initial";
+                        editorPanel.current.style.display = "none";
+                        previewPanel.current.style.display = "initial";
+                        setTimeout(() => {
+                            previewPanel.current.classList.add("active");
+                        }, 50)
+                    }, 900)
+                } else {
+                    setActivePanel("edit");
+                    previewPanel.current.classList.remove("active");
                     setTimeout(() => {
-                        editorPanel.current.classList.add("active");
-                    }, 50)
-                }, 900)
+                        previewPanel.current.style.display = "none";
+                        editorPanel.current.style.display = "initial";
+                        setTimeout(() => {
+                            editorPanel.current.classList.add("active");
+                        }, 50)
+                    }, 900)
+                }
             }
+        }
+        catch (err) {
+            console.log("The following error occurred while switching panels: " + err);
         }
     }
 
     //Reset Panels on Resize
     useEffect(() => {
         const resetPanel = () => {
-            if (window.innerWidth > 991) {
-                setActivePanel("edit");
-                editorPanel.current.style.display = "initial";
-                previewPanel.current.style.display = "initial";
-            } else {
-                activePanelStartup();
+            try {
+                if (window.innerWidth > 991) {
+                    setActivePanel("edit");
+                    editorPanel.current.style.display = "initial";
+                    previewPanel.current.style.display = "initial";
+                } else {
+                    activePanelStartup();
+                }
             }
+            catch (err) {
+                console.log("The following error occurred while resetting panels: " + err);
+            }
+            window.addEventListener("resize", resetPanel);
+            return () => window.removeEventListener("resize", resetPanel);
         }
 
-        window.addEventListener("resize", resetPanel);
-        return () => window.removeEventListener("resize", resetPanel);
     }, [])
 
     //Active Panel Startup Setter
     function activePanelStartup() {
-        if (window.innerWidth < 991) {
-            if (activePanel === "edit") {
-                editorPanel.current.classList.add("active");
-                previewPanel.current.classList.remove("active");
-                editorPanel.current.style.display = "initial";
-                previewPanel.current.style.display = "none";
-            } else {
-                editorPanel.current.classList.remove("active");
-                previewPanel.current.classList.add("active");
-                editorPanel.current.style.display = "none";
-                previewPanel.current.style.display = "initial";
+        try {
+            if (window.innerWidth < 991) {
+                if (activePanel === "edit") {
+                    editorPanel.current.classList.add("active");
+                    previewPanel.current.classList.remove("active");
+                    editorPanel.current.style.display = "initial";
+                    previewPanel.current.style.display = "none";
+                } else {
+                    editorPanel.current.classList.remove("active");
+                    previewPanel.current.classList.add("active");
+                    editorPanel.current.style.display = "none";
+                    previewPanel.current.style.display = "initial";
 
+                }
             }
+        }
+        catch (err) {
+            console.log("The following error occurred while setting up panels during Startup: " + err);
         }
     }
 
@@ -353,31 +393,41 @@ export const Editor = () => {
 
     //Set Word and Char Count
     function setWordCharCount() {
-        let charLength = editorArea.current.value.length;
-        setChars(charLength);
+        try {
+            let charLength = editorArea.current.value.length;
+            setChars(charLength);
 
-        let wordCount = editorArea.current.value.trim().split(/\s+/).filter(word => /\w+/.test(word)).length;
-        setWords(wordCount);
+            let wordCount = editorArea.current.value.trim().split(/\s+/).filter(word => /\w+/.test(word)).length;
+            setWords(wordCount);
+        }
+        catch (err) {
+            console.log("The following error occurred while setting word count: " + err);
+        }
     }
 
     //Upload Section
     //Upload Pop-up toggle
     function uploadPopupToggle() {
-        if (uploadCont.current.classList.contains("active") && fileStatus !== "process") {
-            uploadCont.current.classList.remove("active");
-            uploadOverlay.current.classList.remove("active");
-            setTimeout(() => {
-                uploadCont.current.style.display = "none";
-                uploadOverlay.current.style.display = "none";
-            }, 400)
+        try {
+            if (uploadCont.current.classList.contains("active") && fileStatus !== "process") {
+                uploadCont.current.classList.remove("active");
+                uploadOverlay.current.classList.remove("active");
+                setTimeout(() => {
+                    uploadCont.current.style.display = "none";
+                    uploadOverlay.current.style.display = "none";
+                }, 400)
+            }
+            else {
+                uploadCont.current.style.display = "initial";
+                uploadOverlay.current.style.display = "initial";
+                setTimeout(() => {
+                    uploadCont.current.classList.add("active");
+                    uploadOverlay.current.classList.add("active");
+                }, 0)
+            }
         }
-        else {
-            uploadCont.current.style.display = "initial";
-            uploadOverlay.current.style.display = "initial";
-            setTimeout(() => {
-                uploadCont.current.classList.add("active");
-                uploadOverlay.current.classList.add("active");
-            }, 0)
+        catch (err) {
+            console.log("The following error occurred while toggling popup window:" + err);
         }
     }
 
@@ -417,12 +467,12 @@ export const Editor = () => {
 
     //File Processor
     function fileProcessor() {
-        try{
+        try {
             if (fileUpload !== null) {
                 setFileLoading(true);
                 let nameCheck = fileUpload.name.slice(-3);
                 let typeCheck = fileUpload.type;
-                if(!nameCheck) {
+                if (!nameCheck) {
                     setFileLoading(false);
                     return null;
                 };
@@ -449,8 +499,8 @@ export const Editor = () => {
                 }
             }
         }
-        catch(err) {
-            console.log(err);
+        catch (err) {
+            console.log("The following error occurred while processing the uploaded file: " + err);
         }
     }
 
