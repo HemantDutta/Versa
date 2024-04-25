@@ -7,7 +7,6 @@ export const Toolbar = ({ insertText, uploadPopupToggle }) => {
 
     //More Tools Drop Down Toggle
     function openDropDown() {
-        console.log("dropdown khul gya bhai");
         moreDropDown.current.style.display = "initial";
         setTimeout(() => {
             moreDropDown.current.classList.add("active");
@@ -15,7 +14,6 @@ export const Toolbar = ({ insertText, uploadPopupToggle }) => {
     }
 
     function closeDropDown() {
-        console.log("dropdown band ho gya bhai");
         moreDropDown.current.classList.remove("active");
         setTimeout(() => {
             moreDropDown.current.style.display = "none";

@@ -182,16 +182,25 @@ export const Editor = () => {
 
     //Store editor content in localstorage before unload
     useEffect(() => {
-        try {
             const unloadMethod = () => {
-                activateSaveLoader();
-                localStorage.setItem('editorContent', editorArea.current.value);
-                localStorage.setItem('theme', selectedTheme);
+                try {
+                    activateSaveLoader();
+                    localStorage.setItem('editorContent', editorArea.current.value);
+                    localStorage.setItem('theme', selectedTheme);
+                }
+                catch (err) {
+                    console.log("The following error occured while unloading data: " + err);
+                }
             }
             const unloadInterval = setInterval(() => {
-                unloadMethod();
-                setPrevSaved(editorArea.current.value);
-                verifySaveStatus();
+                try {
+                    unloadMethod();
+                    setPrevSaved(editorArea.current.value);
+                    verifySaveStatus();
+                }
+                catch (err) {
+                    console.log("The following error occured while unloading data: " + err);
+                }
             }, 60000);
             window.addEventListener("beforeunload", unloadMethod, { capture: true });
 
@@ -200,10 +209,6 @@ export const Editor = () => {
                 window.removeEventListener("beforeunload", unloadMethod);
                 clearInterval(unloadInterval);
             };
-        }
-        catch (err) {
-            console.log("The following error occured while unloading data: " + err);
-        }
     }, [])
 
     //Handle Preview Scroll Top
@@ -412,32 +417,40 @@ export const Editor = () => {
 
     //File Processor
     function fileProcessor() {
-        if (fileUpload !== null) {
-            setFileLoading(true);
-            let nameCheck = fileUpload.name.slice(-3);
-            let typeCheck = fileUpload.type;
-
-            if (nameCheck === ".md" || typeCheck === "text/plain") {
-                setFileStatus("process");
-                const fileReader = new FileReader();
-                fileReader.readAsText(fileUpload);
-                fileReader.addEventListener("load", () => {
-                    if (!fileReader.result) {
-                        setFileStatus("no_data");
-                        setFileLoading(false);
-                    }
-                    else {
-                        setFileStatus("ready");
-                        setFileLoading(false);
-                        let tempFileContent = "\n\n" + fileReader.result;
-                        setTempContent(tempFileContent);
-                    }
-                })
+        try{
+            if (fileUpload !== null) {
+                setFileLoading(true);
+                let nameCheck = fileUpload.name.slice(-3);
+                let typeCheck = fileUpload.type;
+                if(!nameCheck) {
+                    setFileLoading(false);
+                    return null;
+                };
+                if (nameCheck === ".md" || typeCheck === "text/plain") {
+                    setFileStatus("process");
+                    const fileReader = new FileReader();
+                    fileReader.readAsText(fileUpload);
+                    fileReader.addEventListener("load", () => {
+                        if (!fileReader.result) {
+                            setFileStatus("no_data");
+                            setFileLoading(false);
+                        }
+                        else {
+                            setFileStatus("ready");
+                            setFileLoading(false);
+                            let tempFileContent = "\n\n" + fileReader.result;
+                            setTempContent(tempFileContent);
+                        }
+                    })
+                }
+                else {
+                    setFileLoading(false);
+                    setFileStatus("wrong_format");
+                }
             }
-            else {
-                setFileLoading(false);
-                setFileStatus("wrong_format");
-            }
+        }
+        catch(err) {
+            console.log(err);
         }
     }
 
