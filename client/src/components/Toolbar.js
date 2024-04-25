@@ -7,6 +7,7 @@ export const Toolbar = ({ insertText, uploadPopupToggle }) => {
 
     //More Tools Drop Down Toggle
     function openDropDown() {
+        console.log("dropdown khul gya bhai");
         moreDropDown.current.style.display = "initial";
         setTimeout(() => {
             moreDropDown.current.classList.add("active");
@@ -14,6 +15,7 @@ export const Toolbar = ({ insertText, uploadPopupToggle }) => {
     }
 
     function closeDropDown() {
+        console.log("dropdown band ho gya bhai");
         moreDropDown.current.classList.remove("active");
         setTimeout(() => {
             moreDropDown.current.style.display = "none";
@@ -46,7 +48,7 @@ export const Toolbar = ({ insertText, uploadPopupToggle }) => {
                 insertText("highlight")
             }} className="cursor-pointer user-select-none p-2 aspect-square text-white font-bold text-xl hover:bg-gray-700 rounded active:bg-white active:text-black">HL</span>
             <div className="more-tools-wrapper relative" onMouseLeave={closeDropDown}>
-                <span title="More" onMouseEnter={openDropDown} className="p-2 aspect-square user-select-none text-white font-bold text-xl cursor-pointer hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-chevron-down" /></span>
+                <span title="More" onClick={openDropDown} className="p-2 aspect-square user-select-none text-white font-bold text-xl cursor-pointer hover:bg-gray-700 rounded active:bg-white active:text-black"><i className="fa-solid fa-chevron-down" /></span>
                 <div ref={moreDropDown} className="tool-drop-down-container bg-gradient absolute top-full rounded p-1">
                     <div className="tool-drop-down flex flex-col p-2 rounded gap-2">
                         <span title="Insert Table" onClick={() => {
