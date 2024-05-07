@@ -85,7 +85,7 @@ export const Editor = () => {
                 mobileMenu.current.classList.add("active");
             }
         }
-        catch(err) {
+        catch (err) {
             console.log("The following error occurred while toggling mobile menu: " + err);
         }
     }
@@ -301,10 +301,11 @@ export const Editor = () => {
             catch (err) {
                 console.log("The following error occurred while resetting panels: " + err);
             }
-            window.addEventListener("resize", resetPanel);
-            return () => window.removeEventListener("resize", resetPanel);
         }
 
+        window.addEventListener("resize", resetPanel);
+
+        return () => window.removeEventListener("resize", resetPanel);
     }, [])
 
     //Active Panel Startup Setter
@@ -316,12 +317,12 @@ export const Editor = () => {
                     previewPanel.current.classList.remove("active");
                     editorPanel.current.style.display = "initial";
                     previewPanel.current.style.display = "none";
+
                 } else {
                     editorPanel.current.classList.remove("active");
                     previewPanel.current.classList.add("active");
                     editorPanel.current.style.display = "none";
                     previewPanel.current.style.display = "initial";
-
                 }
             }
         }
@@ -345,36 +346,46 @@ export const Editor = () => {
                 e.preventDefault();
                 save();
             }
-            if (e.ctrlKey && e.key === 'd') {
+            if (e.ctrlKey && e.key === "d") {
                 e.preventDefault();
                 duplicateCurrentLine();
             }
         }
 
         const save = () => {
-            activateSaveLoader();
-            let currentContent = editorArea.current.value;
-            setPrevSaved(currentContent);
-            verifySaveStatus();
-            localStorage.setItem('editorContent', currentContent);
+            try {
+                activateSaveLoader();
+                let currentContent = editorArea.current.value;
+                setPrevSaved(currentContent);
+                verifySaveStatus();
+                localStorage.setItem('editorContent', currentContent);
+            }
+            catch (err) {
+                console.log("The following error occurred while saving content: " + err);
+            }
         }
 
         const duplicateCurrentLine = () => {
-            let startPos = editorArea.current.selectionStart;
-            let endPos = editorArea.current.selectionEnd;
-            let text = editorArea.current.value;
+            try {
+                let startPos = editorArea.current.selectionStart;
+                let endPos = editorArea.current.selectionEnd;
+                let text = editorArea.current.value;
 
-            let lineStart = text.lastIndexOf('\n', startPos - 1) + 1;
-            let lineEnd = text.indexOf('\n', endPos);
+                let lineStart = text.lastIndexOf('\n', startPos - 1) + 1;
+                let lineEnd = text.indexOf('\n', endPos);
 
-            let currentLine = text.substring(lineStart, lineEnd !== -1 ? lineEnd : undefined);
+                let currentLine = text.substring(lineStart, lineEnd !== -1 ? lineEnd : undefined);
 
-            editorArea.current.value = text.substring(0, lineEnd) + '\n' + currentLine + text.substring(lineEnd);
+                editorArea.current.value = text.substring(0, lineEnd) + '\n' + currentLine + text.substring(lineEnd);
 
-            editorArea.current.selectionStart = startPos + currentLine.length + 1;
-            editorArea.current.selectionEnd = startPos + currentLine.length + 1;
+                editorArea.current.selectionStart = startPos + currentLine.length + 1;
+                editorArea.current.selectionEnd = startPos + currentLine.length + 1;
 
-            setText(editorArea.current.value);
+                setText(editorArea.current.value);
+            }
+            catch (err) {
+                console.log("The following error occurred while duplicating current line: " + err);
+            }
         }
 
         window.addEventListener("keydown", initializeFunctionality);
@@ -401,7 +412,7 @@ export const Editor = () => {
             setWords(wordCount);
         }
         catch (err) {
-            console.log("The following error occurred while setting word count: " + err);
+            console.log("The following error occurred while setting word and Character count: " + err);
         }
     }
 
@@ -446,7 +457,7 @@ export const Editor = () => {
     }
 
     //Upload Drag Over Handler
-    function uploadDrageOver(e) {
+    function uploadDragOver(e) {
         e.preventDefault();
         e.stopPropagation();
     }
@@ -540,7 +551,7 @@ export const Editor = () => {
                 <div onClick={uploadPopupToggle} ref={uploadOverlay} className="upload-popup-overlay fixed top-0 left-0 h-screen w-screen bg-black" />
                 <div ref={uploadCont} className="upload-popup-container fixed p-2 rounded bg-white">
                     <div className="upload-popup">
-                        <div className={`upload-content flex flex-col items-center py-5 gap-5 rounded ${isDragging ? "dragged" : ""}`} ref={drageArea} onDragOver={uploadDrageOver} onDragEnter={uploadDragEnterHandle} onDragLeave={uploadDragLeaveHandle} onDrop={uploadDropHandle} >
+                        <div className={`upload-content flex flex-col items-center py-5 gap-5 rounded ${isDragging ? "dragged" : ""}`} ref={drageArea} onDragOver={uploadDragOver} onDragEnter={uploadDragEnterHandle} onDragLeave={uploadDragLeaveHandle} onDrop={uploadDropHandle} >
                             {
                                 fileStatus !== "process" && fileStatus !== "ready" &&
                                 <>
@@ -593,7 +604,7 @@ export const Editor = () => {
                 {/* Upload Popup End */}
                 {/* Header */}
                 <nav className="no-print relative">
-                    <header className="bg-dark relative p-3 flex gap-x-5 items-center justify-between z-50 no-print">
+                    <header className="relative p-3 flex gap-x-5 items-center justify-between z-50 no-print">
                         <div className="left flex items-center gap-x-5">
                             <span className="brand user-select-none cursor-pointer text-white font-bold text-4xl">Versa</span>
                             <div className="tools flex items-center gap-x-1 flex-wrap">

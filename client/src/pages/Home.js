@@ -11,8 +11,8 @@ export const Home = () => {
             {/*Header*/}
             <Navbar />
             {/*Header End*/}
-            <div className="home" id="home">
-
+            <div className="home relative" id="home">
+                
             </div>
         </>
     )

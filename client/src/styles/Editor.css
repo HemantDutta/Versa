@@ -3,6 +3,7 @@
 :root {
     --root-clr-1: blueviolet;
     --rootclr-2: hotpink;
+    --bg-color: #0d0d0d;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -54,6 +55,7 @@
 
 .editor header {
     z-index: 1000;
+    background-color: var(--bg-color);
 }
 
 .editor header .left .tools span,
