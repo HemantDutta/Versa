@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 
 export const Navbar = () => {
 
@@ -12,14 +13,40 @@ export const Navbar = () => {
 
     //Open Big Menu
     function bigMenuToggle() {
-        setBigMenuStatus(true);
-
+        bigMenuOverlay.current.style.display = "initial";
+        setTimeout(() => {
+            setBigMenuStatus(true);
+        }, 0)
     }
 
     //Close Big Menu
     function closeBigMenu() {
         setBigMenuStatus(false);
+        setTimeout(() => {
+            bigMenuOverlay.current.style.display = "none";
+        }, 600)
     }
+
+    //Big Menu Animations
+    useEffect(() => {
+        const tl = gsap.timeline();
+
+        if (bigMenuStatus) {
+            tl
+                .to(".main-link-anim", {
+                    yPercent: -100,
+                    duration: 0.6,
+                    ease: "expo.in"
+                })
+        }
+        else {
+            tl
+                .to(".main-link-anim", {
+                    yPercent: 100,
+                    duration: 0.2,
+                })
+        }
+    }, [bigMenuStatus])
 
     return (
         <>
@@ -41,7 +68,7 @@ export const Navbar = () => {
                     </div>
                 </div>
             </nav>
-            <div ref={bigMenuOverlay} className={`big-menu-overlay ${bigMenuStatus ? "active" : ""} fixed h-screen w-screen top-0 left-0 z-[1000] bg-black`} onClick={closeBigMenu} />
+            <div ref={bigMenuOverlay} className={`big-menu-overlay ${bigMenuStatus ? "active" : ""} fixed h-screen w-screen top-0 left-0 z-[1000] bg-black`} onClick={bigMenuStatus ? closeBigMenu : null} />
             <div className={`big-menu ${bigMenuStatus ? "active" : ""} fixed right-0 top-0 h-full w-[85%] sm:w-[450px] z-[1001] bg-white px-5 sm:px-10 pb-10 pt-20`}>
                 {/* Rising Bars */}
                 <div className="rising-bar-1 absolute top-0 -left-[20px] w-[10px] bg-white"></div>
@@ -60,16 +87,16 @@ export const Navbar = () => {
                 <div className="big-menu-content h-full w-full relative z-[1001] flex flex-col gap-5 items-start justify-between">
                     <div className="big-menu-list flex flex-col gap-10">
                         <div className="link-wrapper overflow-hidden">
-                            <Link to="/" className="text-5xl">Home</Link>
+                            <Link to="/" className="text-5xl main-link-anim block">Home</Link>
                         </div>
                         <div className="link-wrapper overflow-hidden">
-                            <Link to="/editor" className="text-5xl">Editor</Link>
+                            <Link to="/editor" className="text-5xl main-link-anim block">Editor</Link>
                         </div>
                         <div className="link-wrapper overflow-hidden">
-                            <Link to="/about" className="text-5xl">About</Link>
+                            <Link to="/about" className="text-5xl main-link-anim block">About</Link>
                         </div>
                         <div className="link-wrapper overflow-hidden">
-                            <Link to="/contact" className="text-5xl">Contact</Link>
+                            <Link to="/contact" className="text-5xl main-link-anim block">Contact</Link>
                         </div>
                     </div>
                     <div className="big-menu-bottom w-full flex flex-col gap-10">
