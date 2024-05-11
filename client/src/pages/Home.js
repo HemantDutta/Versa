@@ -1,18 +1,18 @@
 import { Navbar } from "../components/Navbar";
-import { PreLoader } from "../components/PreLoader";
 
 export const Home = () => {
 
     return (
         <>
-            {/* PreLoader */}
-            {/* <PreLoader/> */}
-            {/* PreLoader End */}
             {/*Header*/}
             <Navbar />
             {/*Header End*/}
             <div className="home relative" id="home">
-                
+                {/* Hero Section */}
+                <div className="hero" id="hero">
+
+                </div>
+                {/* Hero Section End */}
             </div>
         </>
     )

@@ -63,7 +63,7 @@ export const Navbar = () => {
 
     return (
         <>
-            <nav className="fixed top-0 left-0 w-screen p-5 z-[999]">
+            <nav className="fixed top-0 left-0 w-screen p-5 z-[999] lg:px-24">
                 <div className="navbar-container flex items-center justify-between gap-5">
                     <div className="logo-section">
                         <span className="text-4xl logo-font">Versa</span>

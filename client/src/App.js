@@ -1,18 +1,19 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {Home} from "./pages/Home";
-import {Editor} from "./pages/Editor";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Editor } from "./pages/Editor";
+import { MainLayout } from "./layouts/MainLayout";
 
 function App() {
-  return (
-    <>
-      <BrowserRouter>
+    return (
+      <>
+        <BrowserRouter>
           <Routes>
-              <Route path={"/"} element={<Home/>}/>
-              <Route path={"/editor"} element={<Editor/>}/>
+            <Route path={"/"} element={<MainLayout><Home /></MainLayout>} />
+            <Route path={"/editor"} element={<Editor />} />
           </Routes>
-      </BrowserRouter>
-    </>
-  );
-}
+        </BrowserRouter>
+      </>
+    );
+  }
 
 export default App;
