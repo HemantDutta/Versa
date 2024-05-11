@@ -6,7 +6,7 @@ import { versaParser } from "../utils/versaParser";
 import { themeColors, themes } from "../utils/themes";
 import { tools } from "../utils/tools";
 import { Toolbar } from "../components/Toolbar";
-import {generateHTML} from "../utils/generateHTML";
+import { generateHTML } from "../utils/generateHTML";
 
 export const Editor = () => {
 
@@ -23,7 +23,9 @@ export const Editor = () => {
     const uploadCont = useRef(null);
     const uploadOverlay = useRef(null);
     const downloadDropDown = useRef(null);
+    const downloadDropDownMobile = useRef(null);
     const htmlDownloadButton = useRef(null);
+    const htmlDownloadButtonMobile = useRef(null);
 
     //States
     const [text, setText] = useState("");
@@ -556,6 +558,15 @@ export const Editor = () => {
         htmlDownloadButton.current.click();
     }
 
+    //I Know this is a lot of Redundant code, but I want to be done with this project and move ahead, so bare with me please....
+    function downloadAsHTMLMobile() {
+        let htmlContent = generateHTML(versaParser(text, selectedTheme));
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        htmlDownloadButtonMobile.current.href = url;
+        htmlDownloadButtonMobile.current.click();
+    }
+
     //Download Drop Down Toggle
     function openDownloadDropDown() {
         downloadDropDown.current.style.display = "flex";
@@ -568,6 +579,20 @@ export const Editor = () => {
         downloadDropDown.current.classList.remove("active");
         setTimeout(() => {
             downloadDropDown.current.style.display = "none";
+        }, 200)
+    }
+
+    function openDownloadMobile() {
+        downloadDropDownMobile.current.style.display = "flex";
+        setTimeout(() => {
+            downloadDropDownMobile.current.classList.add("active");
+        }, 0)
+    }
+
+    function closeDownloadMobile() {
+        downloadDropDownMobile.current.classList.remove("active");
+        setTimeout(() => {
+            downloadDropDownMobile.current.style.display = "none";
         }, 200)
     }
 
@@ -721,11 +746,16 @@ export const Editor = () => {
                             <div className="view-edit bg-gradient rounded">
                                 <button type="button" className="text-white bg-black px-3 py-2 rounded" onClick={activePanelSwitcher} dangerouslySetInnerHTML={{ __html: activePanel === "view" ? "Edit&nbsp;&nbsp;<i class=\"fa-solid fa-pen-to-square\"/>" : "View&nbsp;&nbsp;<i class=\"fa-solid fa-eye\"/>" }} />
                             </div>
-                            <div className="download">
+                            <div className="download relative">
                                 {
                                     activePanel === "view" &&
-                                    <button type="button" className="text-black rounded px-5 py-3  click active:text-black bg-gradient" onClick={downloadPdf}>Download <i className="fa-solid fa-download" /></button>
+                                    <button type="button" className="text-black rounded px-5 py-3  click active:text-black bg-gradient" onClick={openDownloadMobile}>Download <i className="fa-solid fa-download" /></button>
                                 }
+                                <div ref={downloadDropDownMobile} onMouseLeave={closeDownloadMobile} className="download-menu rounded shadow-sm shadow-gray-800 absolute bottom-[100%] right-0 p-5 w-max flex flex-col gap-5 bg-black items-end">
+                                    <button type="button" className="py-2 px-2 text-14-grad font-semibold" onClick={downloadPdf}>Download as PDF</button>
+                                    <button type="button" className="py-2 px-2 text-14-grad font-semibold" onClick={downloadAsHTMLMobile}>Download as HTML</button>
+                                    <a href="#" ref={htmlDownloadButtonMobile} download="versa.html" className="py-2 px-2 text-14-grad font-semibold hidden"></a>
+                                </div>
                             </div>
                         </div>
                     </div>

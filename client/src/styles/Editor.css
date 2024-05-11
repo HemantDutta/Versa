@@ -385,13 +385,13 @@
 
 /*=====Download Dropdown===== */
 
-.editor header .download-menu {
+.editor .download-menu {
     transition: all 0.2s ease;
     opacity: 0;
     display: none;
 }
 
-.editor header .download-menu.active {
+.editor .download-menu.active {
     opacity: 1;
 }
 
