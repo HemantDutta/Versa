@@ -3,6 +3,10 @@
 :root {
     --root-clr-1: blueviolet;
     --rootclr-2: hotpink;
+    --grad-1: #F875AA;
+    --grad-2: #FFDFDF;
+    --grad-3: #FFF6F6;
+    --grad-4: #AEDEFC;
     --bg-color: #0d0d0d;
 }
 
@@ -23,13 +27,13 @@
 }
 
 .bg-gradient {
-    background: linear-gradient(45deg, var(--root-clr-1), var(--rootclr-2)) !important;
+    background: linear-gradient(45deg, var(--grad-1), var(--grad-4)) !important;
 }
 
 .text-gradient {
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent;
-    background: linear-gradient(45deg, var(--root-clr-1), var(--rootclr-2));
+    background: linear-gradient(45deg, var(--grad-1), var(--grad-4));
 }
 
 .editor {
@@ -367,7 +371,7 @@
 }
 
 .editor .upload-popup-container .upload-popup .upload-content.dragged {
-    border: 3px dashed var(--rootclr-2);
+    border: 3px dashed var(--grad-2);
     background-color: #fff6fb;
 }
 

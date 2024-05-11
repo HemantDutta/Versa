@@ -640,7 +640,7 @@ export const Editor = () => {
                                     </Select>
                                 </div>
                                 <div className="options">
-                                    <button type="button" className="text-white rounded px-5 py-3 bg-gradient click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download" /></button>
+                                    <button type="button" className="text-black rounded px-5 py-3 bg-gradient click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download" /></button>
                                 </div>
                             </div>
                             <div className="mobile-options flex items-center gap-x-5">
@@ -692,7 +692,7 @@ export const Editor = () => {
                             <div className="download">
                                 {
                                     activePanel === "view" &&
-                                    <button type="button" className="text-white rounded px-5 py-3  click active:text-black bg-gradient" onClick={downloadPdf}>Download <i className="fa-solid fa-download" /></button>
+                                    <button type="button" className="text-black rounded px-5 py-3  click active:text-black bg-gradient" onClick={downloadPdf}>Download <i className="fa-solid fa-download" /></button>
                                 }
                             </div>
                         </div>

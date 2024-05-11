@@ -1,5 +1,15 @@
 /*Select Component Style*/
 
+:root {
+    --root-clr-1: blueviolet;
+    --rootclr-2: hotpink;
+    --grad-1: #F875AA;
+    --grad-2: #FFDFDF;
+    --grad-3: #FFF6F6;
+    --grad-4: #AEDEFC;
+    --bg-color: #0d0d0d;
+}
+
 select {
     width: 99%;
     position: relative;
@@ -25,7 +35,7 @@ select::-webkit-scrollbar {
     left: 0;
     width: 102%;
     height: 101%;
-    background: linear-gradient(45deg, blueviolet, hotpink);
+    background: linear-gradient(45deg, var(--grad-1), var(--grad-4));
     transition: all 0.2s ease;
 }
 

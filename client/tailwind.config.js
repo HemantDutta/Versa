@@ -11,6 +11,10 @@ module.exports = {
         versa: {
           lightBg: "#ffffff",
           lightBorder: "#ecedee",
+          one: "#F875AA",
+          two: "#FFDFDF",
+          three: "#FFF6F6",
+          four: "#AEDEFC"
         }
       },
       screens: {
