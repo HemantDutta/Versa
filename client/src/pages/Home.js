@@ -1,5 +1,7 @@
 import { Navbar } from "../components/Navbar";
 import { Link } from "react-router-dom";
+import { keypoints } from "../data/keypoints";
+import { KeyPoint } from "../components/KeyPoint";
 
 export const Home = () => {
 
@@ -22,15 +24,14 @@ export const Home = () => {
                 </div>
                 {/* Hero Section End */}
                 {/* Key Points */}
-                <div className="key-points">
-                    <div className="key-point-item flex flex-col items-start justify-between gap-5 h-[250px] w-[350px] py-2 px-5 border-x border-versa-lightBorder">
-                        <span className="serial text-14-grad text-2xl w-max">01</span>
-                        <div className="key-bottom-content flex flex-col gap-2">
-                            <span className="title text-2xl">0 Design Effort</span>
-                            <span className="description text-gray-600 text-sm">Focus on your content! Let Versa take care of your designing needs!</span>
-                            <button type="button" className="w-max load-big">Know More</button>
-                        </div>
-                    </div>
+                <div className="key-points flex items-center">
+                    {
+                        keypoints.map((value, index) => {
+                            return (
+                                <KeyPoint data={value} key={index}/>
+                            )
+                        })
+                    }
                 </div>
                 {/* Key Points End */}
             </div>

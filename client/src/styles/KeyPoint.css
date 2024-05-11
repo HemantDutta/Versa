@@ -8,17 +8,37 @@
 
 /* Key Point Component */
 
-.key-point .load-big {
+.key-point-item .load-big {
     position: relative;
+    cursor: pointer;
 }
 
-.key-point .load-big::after {
+.key-point-item .load-big::after {
     content: "";
     position: absolute;
-    bottom: 0;
+    bottom: -5px;
     left: 0;
     width: 60%;
     height: 2px;
     border-radius: 20px;
     background: linear-gradient(to right, var(--grad-1), var(--grad-4));
+    transition: all 0.4s ease;
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.key-point-item .load-big:hover:after {
+    transform: scaleX(1);
+}
+
+.key-point-item .full-desc {
+    background: rgba( 255, 255, 255, 0.25 );
+    backdrop-filter: blur( 8px );
+    -webkit-backdrop-filter: blur( 8px );
+    transform: translateY(100%);
+    transition: all 0.6s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.key-point-item .full-desc.active {
+    transform: translateY(0%);
 }
