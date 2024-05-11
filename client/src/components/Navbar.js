@@ -36,7 +36,19 @@ export const Navbar = () => {
                 .to(".main-link-anim", {
                     yPercent: -100,
                     duration: 0.6,
-                    ease: "expo.in"
+                    stagger: 0.1,
+                    ease: "power4.inOut"
+                })
+                .from(".top-stripe", {
+                    width: 0,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: "power4.inOut"
+                }, 0)
+                .from(".op-anim", {
+                    opacity: 0,
+                    stagger: 0.05,
+                    ease: "bounce.in",
                 })
         }
         else {
@@ -44,6 +56,7 @@ export const Navbar = () => {
                 .to(".main-link-anim", {
                     yPercent: 100,
                     duration: 0.2,
+                    ease: "power4.inOut"
                 })
         }
     }, [bigMenuStatus])
@@ -102,16 +115,16 @@ export const Navbar = () => {
                     <div className="big-menu-bottom w-full flex flex-col gap-10">
                         <div className="github-item pt-2 relative flex items-center justify-between gap-2 flex-wrap">
                             <span className="top-stripe absolute top-0 left-0 w-full h-[1px] bg-black" />
-                            <span className="text-sm">Drop a Star on Github</span>
-                            <a href="https://github.com/HemantDutta/Versa" rel="noreferrer" target="_blank" className="flex items-center gap-2 border border-versa-lightBorder px-2 py-1 bg-hover-gradient">
+                            <span className="text-sm op-anim">Drop a Star on Github</span>
+                            <a href="https://github.com/HemantDutta/Versa" rel="noreferrer" target="_blank" className="op-anim flex items-center gap-2 border border-versa-lightBorder px-2 py-1 bg-hover-gradient">
                                 <i className="fa-brands fa-github" />
                                 <span>Github</span>
                             </a>
                         </div>
                         <div className="contact-item pt-2 relative flex items-center justify-between gap-2 flex-wrap">
                             <span className="top-stripe absolute top-0 left-0 w-full h-[1px] bg-black" />
-                            <span className="text-sm">Developed By Hemant Dutta</span>
-                            <div className="social-wrapper flex items-center gap-2">
+                            <span className="text-sm op-anim">Developed By Hemant Dutta</span>
+                            <div className="social-wrapper flex items-center gap-2 op-anim">
                                 <a href="https://github.com/HemantDutta" rel="noreferrer" target="_blank" className="flex items-center gap-2 border border-versa-lightBorder px-2 py-1 bg-hover-gradient">
                                     <i className="fa-brands fa-github" />
                                 </a>
