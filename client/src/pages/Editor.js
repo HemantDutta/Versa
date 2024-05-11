@@ -6,6 +6,7 @@ import { versaParser } from "../utils/versaParser";
 import { themeColors, themes } from "../utils/themes";
 import { tools } from "../utils/tools";
 import { Toolbar } from "../components/Toolbar";
+import {generateHTML} from "../utils/generateHTML";
 
 export const Editor = () => {
 
@@ -21,6 +22,8 @@ export const Editor = () => {
     const drageArea = useRef(null);
     const uploadCont = useRef(null);
     const uploadOverlay = useRef(null);
+    const downloadDropDown = useRef(null);
+    const htmlDownloadButton = useRef(null);
 
     //States
     const [text, setText] = useState("");
@@ -544,6 +547,30 @@ export const Editor = () => {
         uploadPopupToggle();
     }
 
+    //Download as HTML function
+    function downloadAsHTML() {
+        let htmlContent = generateHTML(versaParser(text, selectedTheme));
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        htmlDownloadButton.current.href = url;
+        htmlDownloadButton.current.click();
+    }
+
+    //Download Drop Down Toggle
+    function openDownloadDropDown() {
+        downloadDropDown.current.style.display = "flex";
+        setTimeout(() => {
+            downloadDropDown.current.classList.add("active");
+        }, 0)
+    }
+
+    function closeDownloadDropDown() {
+        downloadDropDown.current.classList.remove("active");
+        setTimeout(() => {
+            downloadDropDown.current.style.display = "none";
+        }, 200)
+    }
+
     return (
         <>
             <section className="editor flex flex-col">
@@ -639,8 +666,13 @@ export const Editor = () => {
                                         }
                                     </Select>
                                 </div>
-                                <div className="options">
-                                    <button type="button" className="text-black rounded px-5 py-3 bg-gradient click active:text-black" onClick={downloadPdf}>Download <i className="fa-solid fa-download" /></button>
+                                <div className="options relative">
+                                    <button type="button" onClick={openDownloadDropDown} className="text-black rounded px-5 py-3 bg-gradient click active:text-black">Download <i className="fa-solid fa-download" /></button>
+                                    <div ref={downloadDropDown} onMouseLeave={closeDownloadDropDown} className="download-menu rounded shadow-sm shadow-gray-800 absolute top-[100%] right-0 p-5 w-max flex flex-col gap-5 bg-black items-end">
+                                        <button type="button" className="py-2 px-2 text-14-grad font-semibold" onClick={downloadPdf}>Download as PDF</button>
+                                        <button type="button" className="py-2 px-2 text-14-grad font-semibold" onClick={downloadAsHTML}>Download as HTML</button>
+                                        <a href="#" ref={htmlDownloadButton} download="versa.html" className="py-2 px-2 text-14-grad font-semibold hidden"></a>
+                                    </div>
                                 </div>
                             </div>
                             <div className="mobile-options flex items-center gap-x-5">

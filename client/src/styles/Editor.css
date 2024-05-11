@@ -137,6 +137,7 @@
     left: -25%;
     transition: all 0.2s ease;
     opacity: 0;
+    display: none;
 }
 
 .editor header .tools .tool-drop-down-container.active {
@@ -381,3 +382,17 @@
     }
 }
 /*=====Upload Popup End=====*/
+
+/*=====Download Dropdown===== */
+
+.editor header .download-menu {
+    transition: all 0.2s ease;
+    opacity: 0;
+    display: none;
+}
+
+.editor header .download-menu.active {
+    opacity: 1;
+}
+
+/*=====Download Dropdown End===== */

@@ -17,7 +17,7 @@ export const KeyPoint = ({data, key}) => {
     }
 
     return (
-        <div key={key} className="key-point-item overflow-hidden relative flex flex-col items-start justify-between gap-5 h-[250px] w-[350px] py-2 px-5 border-x border-versa-lightBorder">
+        <div key={key} className="key-point-item overflow-hidden relative flex flex-col items-start justify-between gap-5 h-[250px] w-[100%] sm:min-w-[250px] sm:max-w-[25%] py-2 px-5 first:border-x border-r  border-versa-lightBorder">
             <span className="serial text-14-grad text-2xl w-max">0{data.serial}</span>
             <div className="key-bottom-content flex flex-col gap-2">
                 <span className="title text-2xl">{data.title}</span>

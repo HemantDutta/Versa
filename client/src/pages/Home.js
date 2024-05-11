@@ -10,7 +10,7 @@ export const Home = () => {
             {/*Header*/}
             <Navbar />
             {/*Header End*/}
-            <div className="home relative" id="home">
+            <div className="home relative lg:px-0 px-5" id="home">
                 {/* Hero Section */}
                 <div className="hero h-screen flex items-center" id="hero">
                     <div className="text-content md:w-[50%] flex flex-col gap-5">
@@ -24,7 +24,7 @@ export const Home = () => {
                 </div>
                 {/* Hero Section End */}
                 {/* Key Points */}
-                <div className="key-points flex items-center">
+                <div className="key-points flex items-center justify-center gap-y-10 flex-wrap">
                     {
                         keypoints.map((value, index) => {
                             return (
