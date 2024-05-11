@@ -51,7 +51,7 @@ export const Navbar = () => {
                 <div className="bg-blob absolute inset-0 m-auto w-[40%] h-[60%] rounded-full aspect-square" />
                 {/* Background Blobs End */}
                 {/* Close Button */}
-                <div className="close-btn absolute top-5 right-5 flex items-center gap-x-5 border border-versa-lightBorder px-2 py-1 cursor-pointer" onClick={closeBigMenu}>
+                <div className="close-btn absolute top-5 right-5 flex items-center gap-x-5 border border-versa-lightBorder px-2 py-1 cursor-pointer bg-hover-gradient" onClick={closeBigMenu}>
                     <span>Close</span>
                     <i className="fa-solid fa-xmark" />
                 </div>

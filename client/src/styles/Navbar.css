@@ -121,4 +121,12 @@ nav .navbar-container .links-section .ham.active span:nth-child(2) {
     transform: translateY(0);
 }
 
+.big-menu .big-menu-content .big-menu-list .link-wrapper a {
+    transition: all 0.2s ease;
+}
+
+.big-menu .big-menu-content .big-menu-list .link-wrapper a:hover {
+    color: gray;
+}
+
 /* Big Menu End */
