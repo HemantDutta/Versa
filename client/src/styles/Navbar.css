@@ -1,15 +1,124 @@
+:root {
+    --bg-dark: #101010;
+    --grad-1: #F875AA;
+    --grad-2: #FFDFDF;
+    --grad-3: #FFF6F6;
+    --grad-4: #AEDEFC;
+}
+
 /* Navbar CSS */
 
-nav .navbar-section .links-section a {
+nav .navbar-container .links-section a {
     position: relative;
 }
 
-nav .navbar-section .links-section a::after {
+nav .navbar-container .links-section a::after {
     content: "";
     position: absolute;
-    bottom: 0;
+    bottom: -5px;
     left: 0;
     width: 100%;
-    height: 2px;
+    height: 1px;
+    border-radius: 50px;
     background: #121212;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: all 0.4s ease;
 }
+
+nav .navbar-container .links-section a:hover::after {
+    transform: scaleX(1);
+}
+
+nav .navbar-container .links-section .ham {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    cursor: pointer;
+    align-items: flex-end;
+    transition: all 0.6s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+nav .navbar-container .links-section .ham.active {
+    rotate: 0deg;
+}
+
+nav .navbar-container .links-section .ham span {
+    height: 2px;
+    background-color: #121212;
+    transition: all 0.6s cubic-bezier(0.87, 0, 0.13, 1);
+    width: 20px;
+}
+
+nav .navbar-container .links-section .ham span:nth-child(1) {
+    width: 14px;
+}
+
+nav .navbar-container .links-section .ham span:nth-child(3) {
+    width: 18px;
+}
+
+nav .navbar-container .links-section .ham span:nth-child(2) {
+    width: 20px;
+}
+
+nav .navbar-container .links-section .ham.active span:nth-child(1) {
+    rotate: 405deg;
+    translate: 0 7px;
+    width: 20px;
+}
+
+nav .navbar-container .links-section .ham.active span:nth-child(3) {
+    rotate: -405deg;
+    translate: 0 -7px;
+    width: 20px;
+}
+
+nav .navbar-container .links-section .ham.active span:nth-child(2) {
+    opacity: 0;
+    width: 20px;
+}
+
+/* Navbar CSS End */
+
+/* Big Menu */
+
+.big-menu {
+    transform: translateX(100%);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.big-menu-overlay {
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.big-menu-overlay.active {
+    opacity: 45%;
+    transform: translateX(0%);
+}
+
+.big-menu.active {
+    transform: translateX(0);
+}
+
+.big-menu .rising-bar-1 {
+    transition: all 0.4s cubic-bezier(0.87, 0, 0.13, 1);
+    transform: translateY(-101%);
+    height: 55%;
+}
+
+.big-menu .rising-bar-2 {
+    transition: all 0.2s cubic-bezier(0.87, 0, 0.13, 1);
+    transform: translateY(-101%);
+    height: 35%;
+}
+
+.big-menu.active .rising-bar-1,
+.big-menu.active .rising-bar-2 {
+    transition: all 0.8s cubic-bezier(0.87, 0, 0.13, 1);
+    transform: translateY(0);
+}
+
+/* Big Menu End */

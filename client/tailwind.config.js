@@ -6,7 +6,17 @@ module.exports = {
     "./src/pages/*.{js,jsx,ts,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        versa: {
+          lightBg: "#ffffff",
+          lightBorder: "#ecedee",
+        }
+      },
+      screens: {
+        xxs: "280px"
+      }
+    },
   },
   plugins: [],
 }

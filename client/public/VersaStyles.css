@@ -10,10 +10,16 @@ body {
     padding: 0;
     margin: 0;
     overflow-x: hidden;
+    font-family: "Jost", sans-serif;
+    letter-spacing: 1px;
 }
 
 :root {
     --bg-dark: #101010;
+    --grad-1: #F875AA;
+    --grad-2: #FFDFDF;
+    --grad-3: #FFF6F6;
+    --grad-4: #AEDEFC;
 }
 
 .logo-font {
@@ -48,6 +54,52 @@ body {
 
 /*=====Root Color Styles End=====*/
 
+/*=====Blob Styles===== */
+
+.bg-blob {
+    background: linear-gradient(45deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4));
+    filter: blur(50px);
+}
+
+.blob-animate-1 {
+    animation: blobMove 10s ease infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes blobMove {
+    0% {
+        background-position: 100% 50%;
+        scale: 1;
+        rotate: 0deg;
+    }
+
+    25% {
+        background-position: 0% 50%;
+        scale: 1.2;
+        rotate: 25deg;
+    }
+
+    50% {
+        background-position: 100% 0%;
+        scale: 1.1;
+        rotate: -20deg;
+    }
+
+    75% {
+        background-position: 50% 50%;
+        scale: 1.2;
+        rotate: 20deg;
+    }
+
+    100% {
+        background-position: 100% 50%;
+        scale: 1;
+        rotate: 0deg;
+    }
+}
+
+/*=====Blob Styles End===== */
+
 
 /*=====Common Styles=====*/
 
@@ -61,6 +113,26 @@ body {
 
 .user-select-none {
     user-select: none;
+}
+
+.bg-hover-gradient:hover {
+    animation: gradMove 4s ease infinite;
+    background: linear-gradient(45deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4));
+    background-size: 200% 200%;
+}
+
+@keyframes gradMove {
+    0% {
+        background-position: 100% 0%;
+    }
+
+    50% {
+        background-position: 100% 100%;
+    }
+
+    100% {
+        background-position: 100% 0%;
+    }
 }
 
 /*=====Common Styles End=====*/

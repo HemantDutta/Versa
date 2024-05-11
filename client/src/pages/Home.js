@@ -6,7 +6,7 @@ export const Home = () => {
     return (
         <>
             {/* PreLoader */}
-            <PreLoader/>
+            {/* <PreLoader/> */}
             {/* PreLoader End */}
             {/*Header*/}
             <Navbar />
