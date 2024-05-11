@@ -115,6 +115,12 @@ body {
     user-select: none;
 }
 
+.bg-normal-gradient {
+    animation: gradMove 4s ease infinite;
+    background: linear-gradient(45deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4));
+    background-size: 200% 200%;
+}
+
 .bg-hover-gradient:hover {
     animation: gradMove 4s ease infinite;
     background: linear-gradient(45deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4));

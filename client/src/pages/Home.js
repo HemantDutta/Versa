@@ -15,10 +15,13 @@ export const Home = () => {
                         <span className="mini-title border border-versa-two text-versa-one w-max py-2 px-4 rounded-[20px] logo-font">Versa</span>
                         <span className="title text-5xl font-semibold">The Ultimate Markdown to PDF Generator</span>
                         <span className="subtitle text-gray-600">Transform your ideas into Stunning Document with Ease...</span>
-                        <Link to="/editor" className="py-2 px-4 border border-versa-two w-max rounded-lg">Start Creating</Link>
+                        <div className="cta-wrapper py-3 px-1 bg-normal-gradient w-max rounded-xl">
+                            <Link to="/editor" className="py-2 px-4 w-max rounded-lg bg-white">Start Creating</Link>
+                        </div>
                     </div>
                 </div>
                 {/* Hero Section End */}
+                
             </div>
         </>
     )
