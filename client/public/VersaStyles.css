@@ -115,6 +115,13 @@ body {
     user-select: none;
 }
 
+.text-14-grad {
+    background: linear-gradient(45deg, var(--grad-1), var(--grad-4));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .bg-normal-gradient {
     animation: gradMove 4s ease infinite;
     background: linear-gradient(45deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4));

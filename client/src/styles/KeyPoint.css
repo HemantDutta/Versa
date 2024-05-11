@@ -1,0 +1,24 @@
+:root {
+    --bg-dark: #101010;
+    --grad-1: #F875AA;
+    --grad-2: #FFDFDF;
+    --grad-3: #FFF6F6;
+    --grad-4: #AEDEFC;
+}
+
+/* Key Point Component */
+
+.key-point .load-big {
+    position: relative;
+}
+
+.key-point .load-big::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60%;
+    height: 2px;
+    border-radius: 20px;
+    background: linear-gradient(to right, var(--grad-1), var(--grad-4));
+}
