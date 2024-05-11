@@ -11,4 +11,16 @@ export const keypoints = [
         desc: "Write in Markdown, or Don't! Our Tools, take care of it!",
         bigDesc: "Our Editor tools, help you add tables, images, active links, headers, and much more using Markdown. So, you don't have to learn Markdown to use Versa.",
     },
+    {
+        serial: "3",
+        title: "Go Beyond PDF",
+        desc: "Want something more customizable? Why not download it as HTML?",
+        bigDesc: "Are you a developer? Like our designs, but want to customize them your way? No problem, Versa lets you download your creation as stylized HTML!",
+    },
+    {
+        serial: "4",
+        title: "Open-Source",
+        desc: "Something needs to fixed or added? Why not do it yourself!",
+        bigDesc: "Versa is open-source, so feel free to open a pull request if you want to fix or add something to this projext! I will actively go through all the pull requests.",
+    },
 ]
