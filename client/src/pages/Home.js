@@ -2,8 +2,26 @@ import { Navbar } from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { keypoints } from "../data/keypoints";
 import { KeyPoint } from "../components/KeyPoint";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { useEffect } from "react";
 
 export const Home = () => {
+
+    //Register Plugin
+    gsap.registerPlugin(ScrollTrigger);
+
+    //Key Points Animation
+    useEffect(() => {
+        gsap.from(".key-point-wrapper", {
+            yPercent: 100,
+            stagger: 0.2,
+            duration: 0.6,
+            scrollTrigger: {
+                trigger: ".key-points"
+            }
+        })
+    }, [])
 
     return (
         <>
@@ -28,7 +46,7 @@ export const Home = () => {
                     {
                         keypoints.map((value, index) => {
                             return (
-                                <KeyPoint data={value} key={index}/>
+                                <KeyPoint data={value} key={index} />
                             )
                         })
                     }
