@@ -751,7 +751,7 @@ export const Editor = () => {
                                     activePanel === "view" &&
                                     <button type="button" className="text-black rounded px-5 py-3  click active:text-black bg-gradient" onClick={openDownloadMobile}>Download <i className="fa-solid fa-download" /></button>
                                 }
-                                <div ref={downloadDropDownMobile} onMouseLeave={closeDownloadMobile} className="download-menu rounded shadow-sm shadow-gray-800 absolute bottom-[100%] right-0 p-5 w-max flex flex-col gap-5 bg-black items-end">
+                                <div ref={downloadDropDownMobile} onMouseLeave={closeDownloadMobile} className="download-menu rounded shadow-sm shadow-gray-800 absolute bottom-[100%] left-0 editorDownload:-left-[50%] editorDownload:items-end p-5 w-max flex flex-col gap-5 bg-black items-start">
                                     <button type="button" className="py-2 px-2 text-14-grad font-semibold" onClick={downloadPdf}>Download as PDF</button>
                                     <button type="button" className="py-2 px-2 text-14-grad font-semibold" onClick={downloadAsHTMLMobile}>Download as HTML</button>
                                     <a href="#" ref={htmlDownloadButtonMobile} download="versa.html" className="py-2 px-2 text-14-grad font-semibold hidden"></a>

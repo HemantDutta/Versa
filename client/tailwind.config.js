@@ -18,7 +18,8 @@ module.exports = {
         }
       },
       screens: {
-        xxs: "280px"
+        xxs: "280px",
+        editorDownload: "801px"
       }
     },
   },
