@@ -42,7 +42,7 @@ export const Home = () => {
                 </div>
                 {/* Hero Section End */}
                 {/* Key Points */}
-                <div className="key-points flex items-center justify-center gap-y-10 flex-wrap">
+                <div className="key-points mt-10 flex items-center justify-center gap-y-10 flex-wrap">
                     {
                         keypoints.map((value, index) => {
                             return (
@@ -52,6 +52,16 @@ export const Home = () => {
                     }
                 </div>
                 {/* Key Points End */}
+                {/* Features */}
+                <div className="features-section mt-20">
+                    <div className="features-header flex flex-col gap-3 ">
+                        <span className="smol-title border border-versa-two text-14-grad w-max py-2 px-4 rounded-[20px] logo-font">What Versa Offers</span>
+                    </div>
+                    <div className="features-flex">
+                        
+                    </div>
+                </div>
+                {/* Features End */}
             </div>
         </>
     )

@@ -8,7 +8,7 @@ export const keypoints = [
     {
         serial: "2",
         title: "Easy Formatting",
-        desc: "Write in Markdown, or Don't! Our Tools, take care of it!",
+        desc: "Write in Markdown, or Don't! Our Tools take care of it!",
         bigDesc: "Our Editor tools, help you add tables, images, active links, headers, and much more using Markdown. So, you don't have to learn Markdown to use Versa.",
     },
     {

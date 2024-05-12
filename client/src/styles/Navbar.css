@@ -8,6 +8,14 @@
 
 /* Navbar CSS */
 
+nav {
+    transition: transform 0.4s ease;
+}
+
+nav.active {
+    transform: translateY(-100%);
+}
+
 nav .navbar-container .links-section a {
     position: relative;
 }

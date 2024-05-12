@@ -10,6 +10,7 @@ export const Navbar = () => {
 
     //States
     const [bigMenuStatus, setBigMenuStatus] = useState(false);
+    const [navHide, setNavHide] = useState(false);
 
     //Open Big Menu
     function bigMenuToggle() {
@@ -61,9 +62,27 @@ export const Navbar = () => {
         }
     }, [bigMenuStatus])
 
+    //Hide Navbar on Scroll
+    let scrollY = 0;
+    useEffect(() => {
+        const hideNav = () => {
+            if (window.scrollY > scrollY) {
+                setNavHide(true);
+            }
+            else {
+                setNavHide(false);
+            }
+            scrollY = window.scrollY;
+        }
+
+        window.addEventListener("scroll", hideNav);
+
+        return () => window.removeEventListener("scroll", hideNav);
+    }, [])
+
     return (
         <>
-            <nav className="fixed top-0 left-0 w-screen p-5 z-[999] lg:px-24">
+            <nav className={`fixed ${navHide ? "active" : ""} top-0 left-0 w-screen p-5 z-[999] lg:px-24`}>
                 <div className="navbar-container flex items-center justify-between gap-5">
                     <div className="logo-section">
                         <span className="text-4xl logo-font">Versa</span>
