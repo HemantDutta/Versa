@@ -2,4 +2,43 @@
 
 :root {
     --bg-color: #ffffff;
+    --grad-1: #F875AA;
+    --grad-2: #FFDFDF;
+    --grad-3: #FFF6F6;
+    --grad-4: #AEDEFC;
+}
+
+.home .hero .featured-image-section {
+    background-image: linear-gradient(#e3e3e3 2px, transparent 2px), linear-gradient(to right, #e3e3e3 2px, transparent 2px);
+    background-size: 32px 32px;
+    background-color: #ffffff;
+}
+
+
+.home .hero .featured-image-section .edge-overlay {
+    background: linear-gradient(to bottom, transparent 80%, #ffffff), linear-gradient(to top, transparent 80%, #ffffff), linear-gradient(to left, transparent 80%, #ffffff), linear-gradient(to right, transparent 80%, #ffffff);
+}
+
+.home .hero .featured-image-section .gradient-bubble {
+    height: 50%;
+    width: 100%;
+    background: linear-gradient(45deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4));
+    filter: blur(50px);
+    opacity: 80%;
+    background-size: 200% 200%;
+    animation: gradAnim 10s ease infinite;
+}
+
+@keyframes gradAnim {
+    0% {
+        background-position: 0 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0 50%;
+    }
 }

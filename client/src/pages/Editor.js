@@ -7,8 +7,12 @@ import { themeColors, themes } from "../utils/themes";
 import { tools } from "../utils/tools";
 import { Toolbar } from "../components/Toolbar";
 import { generateHTML } from "../utils/generateHTML";
+import {useNavigate} from "react-router-dom";
 
 export const Editor = () => {
+
+    //Navigator
+    const navigator = useNavigate();
 
     //Refs
     const first = useRef(true);
@@ -44,6 +48,7 @@ export const Editor = () => {
     const [fileLoading, setFileLoading] = useState(false);
     const [fileStatus, setFileStatus] = useState("init");
     const [tempContent, setTempContent] = useState("");
+    const [helpOpen, setHelpOpen] = useState(false);
 
     //Fetch Google Fonts
     function fetchGoogleFonts() {
@@ -658,7 +663,7 @@ export const Editor = () => {
                 <nav className="no-print relative">
                     <header className="relative p-3 flex gap-x-5 items-center justify-between z-50 no-print">
                         <div className="left flex items-center gap-x-5">
-                            <span className="brand user-select-none cursor-pointer text-white font-bold text-4xl">Versa</span>
+                            <span className="brand user-select-none cursor-pointer text-white font-bold text-4xl" onClick={()=>{navigator("/")}}>Versa</span>
                             <div className="tools flex items-center gap-x-1 flex-wrap">
                                 <Toolbar insertText={insertText} uploadPopupToggle={uploadPopupToggle} />
                             </div>
@@ -821,7 +826,20 @@ export const Editor = () => {
                             </div>
                         </div>
                     }
-                    <span title="Back to the Top!" onClick={previewScrollTop} className="fixed right-5 aspect-square text-white bottom-14 px-5 py-3 grid place-items-center rounded bg-black cursor-pointer no-print z-50"><i className="fa-solid fa-arrow-up" /></span>
+                    <div className="floating-options fixed right-5 bottom-14 z-50 no-print flex flex-col gap-6 items-center">
+                        <div className={`relative px-5 py-3 rounded-full bg-white z-[100] cursor-pointer aspect-square grid place-items-center font-bold shadow ${helpOpen ? "bg-normal-gradient" : ""}`} onClick={()=>{setHelpOpen(!helpOpen)}}>
+                            <span>{helpOpen ? <i className="fa-solid fa-xmark" /> : <i className="fa-solid fa-question"/>}</span>
+                            <div className={`absolute top-0 left-0 bg-white rounded-full p-1 transition-smooth -z-10 shadow-md ${helpOpen ? "pointer-events-auto opacity-100 -translate-y-[300%] rotate-0 group" : "-rotate-180 pointer-events-none opacity-0 -translate-y-[0%]"}`}>
+                                <img src="/assets/editor/vs_faq.png" alt="FAQs"/>
+                                <span className="absolute bg-normal-gradient p-2 font-normal w-max top-[50%] -translate-y-[50%] right-[110%] pr-7 right-message-box opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none">View FAQs</span>
+                            </div>
+                            <div className={`absolute top-0 left-0 bg-white rounded-full p-2 transition-smooth -z-10 shadow-md ${helpOpen ? "pointer-events-auto opacity-100 -translate-y-[150%] rotate-0 group" : "rotate-180 pointer-events-none opacity-0 -translate-y-[0%]"}`}>
+                                <img src="/assets/editor/vs_tour.png" alt="Take a tour"/>
+                                <span className="absolute bg-normal-gradient p-2 font-normal w-max top-[50%] -translate-y-[50%] right-[110%] pr-7 right-message-box opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none">Take a tour of Versa</span>
+                            </div>
+                        </div>
+                        <span title="Back to the Top!" onClick={previewScrollTop} className="aspect-square text-white px-5 py-3 grid place-items-center rounded bg-black cursor-pointer"><i className="fa-solid fa-arrow-up" /></span>
+                    </div>
                 </main>
                 {/* Main Section End*/}
             </section>
