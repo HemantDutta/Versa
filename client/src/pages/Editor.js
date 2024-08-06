@@ -66,6 +66,7 @@ export const Editor = () => {
     // Tour Traveller
     function tourTraveller(next) {
         try {
+            setTourAvailable(false);
             let currIndex = index;
             if(next) {
                 currIndex++;
@@ -100,6 +101,7 @@ export const Editor = () => {
             tourSetter.map(stateSetter => stateSetter(false));
             setIndex(-1);
             setTourOverlay(false);
+            setTourAvailable(true);
         }
         catch (e) {
             console.log(e)
@@ -791,7 +793,7 @@ export const Editor = () => {
                                         <button type="button" className="py-2 px-2 text-14-grad font-semibold" onClick={downloadAsHTML}>Download as HTML</button>
                                         <a href="#" ref={htmlDownloadButton} download="versa.html" className="py-2 px-2 text-14-grad font-semibold hidden"></a>
                                     </div>
-                                    <TourPopup closeTour={closeTour} index={index} isActive={downloadPopup4} travelFunc={tourTraveller} positioning={"absolute top-[130%] right-[0%]"} tourLength={tourSetter.length}/>
+                                    <TourPopup closeTour={closeTour} index={index} isActive={downloadPopup4} travelFunc={tourTraveller} positioning={"absolute top-[145%] right-[0%]"} tourLength={tourSetter.length}/>
                                 </div>
                             </div>
                             <div className="mobile-options flex items-center gap-x-5">
@@ -932,7 +934,7 @@ export const Editor = () => {
                                 </div>
                             }
                         </div>
-                        <span title="Back to the Top!" onClick={previewScrollTop} className="aspect-square text-white px-5 py-3 grid place-items-center rounded bg-black cursor-pointer"><i className="fa-solid fa-arrow-up" /></span>
+                        <span title="Back to the Top!" onClick={previewScrollTop} className="aspect-square text-white border border-white px-5 py-3 grid place-items-center rounded bg-black cursor-pointer"><i className="fa-solid fa-arrow-up" /></span>
                     </div>
                 </main>
                 {/* Main Section End*/}
