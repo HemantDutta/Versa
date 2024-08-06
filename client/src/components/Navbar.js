@@ -91,7 +91,7 @@ export const Navbar = () => {
                         <Link to="/editor" className="hidden md:block">Editor</Link>
                         <Link to="/about" className="hidden md:block">About</Link>
                         <Link to="/contact" className="hidden md:block">Contact</Link>
-                        <div className="ham-menu flex items-center gap-x-5 border border-versa-lightBorder px-2 py-1 cursor-pointer" onClick={bigMenuToggle}>
+                        <div className="ham-menu flex items-center gap-x-5 border border-versa-lightBorder px-2 py-1 cursor-pointer bg-hover-gradient" onClick={bigMenuToggle}>
                             <span className="xxs:block hidden">Menu</span>
                             <div className="ham">
                                 <span></span><span></span><span></span>

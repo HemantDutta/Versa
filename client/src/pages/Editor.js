@@ -8,6 +8,7 @@ import { tools } from "../utils/tools";
 import { Toolbar } from "../components/Toolbar";
 import { generateHTML } from "../utils/generateHTML";
 import {useNavigate} from "react-router-dom";
+import {TourPopup} from "../components/TourPopup";
 
 export const Editor = () => {
 
@@ -49,6 +50,61 @@ export const Editor = () => {
     const [fileStatus, setFileStatus] = useState("init");
     const [tempContent, setTempContent] = useState("");
     const [helpOpen, setHelpOpen] = useState(false);
+
+    //Tour States
+    const [toolbarPopup1, setToolBarPopup1] = useState(false);
+    const [fontPopup2, setFontPopup2] = useState(false);
+    const [themePopup3, setThemePopup3] = useState(false);
+    const [downloadPopup4, setDownloadPopup4] = useState(false);
+    const [statsPopup5, setStatsPopup5] = useState(false);
+    const [statusPopup6, setStatusPopup6] = useState(false);
+    const tourSetter = [setToolBarPopup1,setFontPopup2,setThemePopup3,setDownloadPopup4,setStatsPopup5,setStatusPopup6];
+    const [index, setIndex] = useState(-1);
+    const [tourOverlay, setTourOverlay] = useState(false);
+    const [tourAvailable, setTourAvailable] = useState(true);
+
+    // Tour Traveller
+    function tourTraveller(next) {
+        try {
+            let currIndex = index;
+            if(next) {
+                currIndex++;
+                if (currIndex === 0) {
+                    setTourOverlay(true);
+                    tourSetter[currIndex](true);
+                    setIndex(currIndex);
+                } else if (currIndex === tourSetter.length) {
+                    setTourOverlay(false);
+                    tourSetter[currIndex](false);
+                    setIndex(-1);
+                } else {
+                    tourSetter[currIndex - 1](false);
+                    tourSetter[currIndex](true);
+                    setIndex(currIndex);
+                }
+            }
+            else {
+                tourSetter[currIndex - 1](true);
+                tourSetter[currIndex](false);
+                currIndex -= 1;
+                setIndex(currIndex);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    //Close Tour
+    function closeTour() {
+        try{
+            tourSetter.map(stateSetter => stateSetter(false));
+            setIndex(-1);
+            setTourOverlay(false);
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
 
     //Fetch Google Fonts
     function fetchGoogleFonts() {
@@ -296,7 +352,7 @@ export const Editor = () => {
         }
     }
 
-    //Reset Panels on Resize
+    //Reset Panels on Resize and Close Tour
     useEffect(() => {
         const resetPanel = () => {
             try {
@@ -307,10 +363,26 @@ export const Editor = () => {
                 } else {
                     activePanelStartup();
                 }
+
+                if(window.innerWidth <= 1425) {
+                    closeTour();
+                    setTourAvailable(false);
+                }
+                else {
+                    setTourAvailable(true);
+                }
             }
             catch (err) {
                 console.log("The following error occurred while resetting panels: " + err);
             }
+        }
+
+        if(window.innerWidth <= 1425) {
+            closeTour();
+            setTourAvailable(false);
+        }
+        else {
+            setTourAvailable(true);
         }
 
         window.addEventListener("resize", resetPanel);
@@ -604,6 +676,19 @@ export const Editor = () => {
     return (
         <>
             <section className="editor flex flex-col">
+                {/* Tour Popup */}
+                <TourPopup closeTour={closeTour} index={index} isActive={toolbarPopup1} travelFunc={tourTraveller} positioning={"fixed top-[11%] left-[9%]"} tourLength={tourSetter.length}/>
+                {/*<div className="fixed inset-0 w-max h-max z-[99999999] m-auto bg-white p-1 flex flex-col gap-2 border border-black shadow-lg">*/}
+                {/*    <button onClick={tourTraveller}>Start Tour</button>*/}
+                {/*    /!*<div>Tour Overlay: {tourOverlay.toString()}</div>*!/*/}
+                {/*    <div>Toolbar Popup 1: {toolbarPopup1.toString()}</div>*/}
+                {/*    <div>Font Popup 2: {fontPopup2.toString()}</div>*/}
+                {/*    <div>Theme Popup 3: {themePopup3.toString()}</div>*/}
+                {/*    <div>Download Popup 4: {downloadPopup4.toString()}</div>*/}
+                {/*    <div>Stats Popup 5: {statsPopup5.toString()}</div>*/}
+                {/*    <div>Status Popup 6: {statusPopup6.toString()}</div>*/}
+                {/*</div>*/}
+                {/* Tour Popup End */}
                 {/* Upload Popup */}
                 <div onClick={uploadPopupToggle} ref={uploadOverlay} className="upload-popup-overlay fixed top-0 left-0 h-screen w-screen bg-black" />
                 <div ref={uploadCont} className="upload-popup-container fixed p-2 rounded bg-white">
@@ -661,7 +746,7 @@ export const Editor = () => {
                 {/* Upload Popup End */}
                 {/* Header */}
                 <nav className="no-print relative">
-                    <header className="relative p-3 flex gap-x-5 items-center justify-between z-50 no-print">
+                    <header className="relative p-3 flex gap-x-5 items-center justify-between no-print">
                         <div className="left flex items-center gap-x-5">
                             <span className="brand user-select-none cursor-pointer text-white font-bold text-4xl" onClick={()=>{navigator("/")}}>Versa</span>
                             <div className="tools flex items-center gap-x-1 flex-wrap">
@@ -669,7 +754,7 @@ export const Editor = () => {
                             </div>
                         </div>
                         <div className="right flex items-center gap-x-5">
-                            <div className="font-options flex flex-col">
+                            <div className="font-options flex flex-col relative">
                                 <label htmlFor="fonts" className="text-white">Choose Font</label>
                                 <Select name="fonts" setState={setSelectedFont}>
                                     {
@@ -682,9 +767,10 @@ export const Editor = () => {
                                         })
                                     }
                                 </Select>
+                                <TourPopup closeTour={closeTour} index={index} isActive={fontPopup2} travelFunc={tourTraveller} positioning={"absolute top-[130%] right-[0%]"} tourLength={tourSetter.length}/>
                             </div>
                             <div className="operations flex gap-x-5 items-end">
-                                <div className="style flex flex-col">
+                                <div className="style flex flex-col relative">
                                     <label htmlFor="theme" className="text-white">Choose Theme</label>
                                     <Select name="theme" setState={setSelectedTheme}>
                                         {
@@ -695,6 +781,8 @@ export const Editor = () => {
                                             })
                                         }
                                     </Select>
+                                    <TourPopup closeTour={closeTour} index={index} isActive={themePopup3} travelFunc={tourTraveller} positioning={"absolute top-[130%] right-[0%]"} tourLength={tourSetter.length}/>
+
                                 </div>
                                 <div className="options relative">
                                     <button type="button" onClick={openDownloadDropDown} className="text-black rounded px-5 py-3 bg-gradient click active:text-black">Download <i className="fa-solid fa-download" /></button>
@@ -703,6 +791,7 @@ export const Editor = () => {
                                         <button type="button" className="py-2 px-2 text-14-grad font-semibold" onClick={downloadAsHTML}>Download as HTML</button>
                                         <a href="#" ref={htmlDownloadButton} download="versa.html" className="py-2 px-2 text-14-grad font-semibold hidden"></a>
                                     </div>
+                                    <TourPopup closeTour={closeTour} index={index} isActive={downloadPopup4} travelFunc={tourTraveller} positioning={"absolute top-[130%] right-[0%]"} tourLength={tourSetter.length}/>
                                 </div>
                             </div>
                             <div className="mobile-options flex items-center gap-x-5">
@@ -782,19 +871,21 @@ export const Editor = () => {
                     {/*  Preview End  */}
                     {
                         activePanel === "edit" &&
-                        <div className="content-details no-print fixed bottom-0 left-0 py-1 px-2 bg-black text-white flex items-center justify-between">
-                            <div className="left flex items-center gap-x-5">
-                                <div className="word-count">
+                        <div className="content-details no-print fixed bottom-0 left-0 py-1 px-2 bg-black flex items-center justify-between">
+                            <div className="left flex items-center gap-x-5 relative">
+                                <div className="word-count text-white">
                                     <span className="title">Words: </span>
                                     <span className="value">{words}</span>
                                 </div>
-                                <div className="char-count">
+                                <div className="char-count text-white">
                                     <span className="title">Characters: </span>
                                     <span className="value">{chars}</span>
                                 </div>
+                                <TourPopup closeTour={closeTour} index={index} isActive={statsPopup5} travelFunc={tourTraveller} positioning={"absolute bottom-[150%] left-[0%]"} tourLength={tourSetter.length}/>
                             </div>
-                            <div className="right">
-                                <div className="save-details">
+                            <div className="right relative">
+                                <TourPopup closeTour={closeTour} index={index} isActive={statusPopup6} travelFunc={tourTraveller} positioning={"absolute bottom-[150%] right-[0%]"} tourLength={tourSetter.length}/>
+                                <div className="save-details text-white">
                                     {
                                         saveLoader &&
                                         <>
@@ -829,14 +920,17 @@ export const Editor = () => {
                     <div className="floating-options fixed right-5 bottom-14 z-50 no-print flex flex-col gap-6 items-center">
                         <div className={`relative px-5 py-3 rounded-full bg-white z-[100] cursor-pointer aspect-square grid place-items-center font-bold shadow ${helpOpen ? "bg-normal-gradient" : ""}`} onClick={()=>{setHelpOpen(!helpOpen)}}>
                             <span>{helpOpen ? <i className="fa-solid fa-xmark" /> : <i className="fa-solid fa-question"/>}</span>
-                            <div className={`absolute top-0 left-0 bg-white rounded-full p-1 transition-smooth -z-10 shadow-md ${helpOpen ? "pointer-events-auto opacity-100 -translate-y-[300%] rotate-0 group" : "-rotate-180 pointer-events-none opacity-0 -translate-y-[0%]"}`}>
+                            <div className={`absolute top-0 left-0 bg-white rounded-full p-1 transition-smooth -z-10 shadow-md ${helpOpen ? "pointer-events-auto opacity-100 -translate-y-[150%] rotate-0 group" : "-rotate-180 pointer-events-none opacity-0 -translate-y-[0%]"}`}>
                                 <img src="/assets/editor/vs_faq.png" alt="FAQs"/>
                                 <span className="absolute bg-normal-gradient p-2 font-normal w-max top-[50%] -translate-y-[50%] right-[110%] pr-7 right-message-box opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none">View FAQs</span>
                             </div>
-                            <div className={`absolute top-0 left-0 bg-white rounded-full p-2 transition-smooth -z-10 shadow-md ${helpOpen ? "pointer-events-auto opacity-100 -translate-y-[150%] rotate-0 group" : "rotate-180 pointer-events-none opacity-0 -translate-y-[0%]"}`}>
-                                <img src="/assets/editor/vs_tour.png" alt="Take a tour"/>
-                                <span className="absolute bg-normal-gradient p-2 font-normal w-max top-[50%] -translate-y-[50%] right-[110%] pr-7 right-message-box opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none">Take a tour of Versa</span>
-                            </div>
+                            {
+                                tourAvailable &&
+                                <div onClick={tourTraveller} className={`absolute top-0 left-0 bg-white rounded-full p-2 transition-smooth -z-10 shadow-md ${helpOpen ? "pointer-events-auto opacity-100 -translate-y-[300%] rotate-0 group" : "rotate-180 pointer-events-none opacity-0 -translate-y-[0%]"}`}>
+                                    <img src="/assets/editor/vs_tour.png" alt="Take a tour"/>
+                                    <span className="absolute bg-normal-gradient p-2 font-normal w-max top-[50%] -translate-y-[50%] right-[110%] pr-7 right-message-box opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none">Take a tour of Versa</span>
+                                </div>
+                            }
                         </div>
                         <span title="Back to the Top!" onClick={previewScrollTop} className="aspect-square text-white px-5 py-3 grid place-items-center rounded bg-black cursor-pointer"><i className="fa-solid fa-arrow-up" /></span>
                     </div>

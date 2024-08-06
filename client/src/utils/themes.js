@@ -31,7 +31,6 @@ export const themes = {
         "    box-sizing: border-box;\n" +
         "    padding: 0;\n" +
         "    margin: 0;\n" +
-        "    border: none;\n" +
         "    outline: none;\n" +
         "}\n" +
         "\n" +

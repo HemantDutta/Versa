@@ -50,8 +50,8 @@ export const Home = () => {
                 <div className="hero h-screen flex items-center flex-col-reverse md:flex-row" id="hero">
                     <div className="text-content md:w-[50%] flex flex-col gap-5 relative z-50">
                         <span className="mini-title border border-versa-two text-14-grad w-max py-2 px-4 rounded-[20px] logo-font">Versa</span>
-                        <span className="title lg:text-5xl md:text-3xl font-semibold">The Ultimate Markdown to PDF Generator</span>
-                        <span className="subtitle text-gray-600">Transform your ideas into Stunning Document with Ease...</span>
+                        <span className="title lg:text-7xl md:text-3xl font-semibold">The Ultimate Markdown to PDF Generator</span>
+                        <span className="subtitle lg:text-xl text-gray-600">Transform your ideas into Stunning Document with Ease...</span>
                         <div className="cta-wrapper py-3 px-1 bg-normal-gradient w-max rounded-xl">
                             <Link to="/editor" className="py-2 px-4 w-max rounded-lg bg-white">Start Creating</Link>
                         </div>
