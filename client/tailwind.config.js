@@ -20,6 +20,9 @@ module.exports = {
       screens: {
         xxs: "280px",
         editorDownload: "801px"
+      },
+      transitionTimingFunction: {
+        "in-out-expo": "cubic-bezier(0.87, 0, 0.13, 1)",
       }
     },
   },

@@ -659,6 +659,7 @@ export const Editor = () => {
                 content.classList.remove("max-h-0")
                 content.classList.add("max-h-screen")
                 icon.classList.add("rotate-180");
+                header.classList.add("bg-gray-200");
 
                 document.querySelectorAll(".faq-item-content").forEach(item => {
                     if (item !== content) {
@@ -670,6 +671,7 @@ export const Editor = () => {
                 content.classList.remove("max-h-screen")
                 content.classList.add("max-h-0")
                 icon.classList.remove("rotate-180");
+                header.classList.remove("bg-gray-200");
             }
         } catch (e) {
             console.log(e);
@@ -698,25 +700,12 @@ export const Editor = () => {
                     <div className="popup-title text-2xl font-semibold">Frequently Asked Questions</div>
                     <div className="faq-list mt-5">
                         <div className="faq-item flex flex-col">
-                            <div className="faq-item-title bg-gray-200 p-2 text-md flex items-center justify-between cursor-pointer" onClick={accordionControls}>
-                                <span className="text">Why is my content overflowing while download as pdf?</span>
-                                <i className="fa-solid fa-chevron-down transition-all duration-[400ms]"/>
+                            <div className="faq-item-title border-b border-gray-100 p-2 text-md flex items-center justify-between cursor-pointer transition-all" onClick={accordionControls}>
+                                <span className="text pointer-events-none">Why is my content overflowing while download as pdf?</span>
+                                <i className="fa-solid fa-chevron-down transition-all duration-[600ms] pointer-events-none"/>
                             </div>
-                            <div className="faq-item-content transition-all ease-in-out duration-[400ms] max-h-0 overflow-hidden border">
-                                <div className="content-inner-container p-2 flex flex-col gap-2">
-                                    <span>lol</span>
-                                    <span>lol</span>
-                                    <span>lol</span>
-                                    <span>lol</span>
-                                    <span>lol</span>
-                                    <span>lol</span>
-                                    <span>lol</span>
-                                    <span>lol</span>
-                                    <span>lol</span>
-                                    <span>lol</span>
-                                    <span>lol</span>
-                                    <span>lol</span>
-                                    <span>lol</span>
+                            <div className="faq-item-content transition-all ease-in-out duration-[600ms] max-h-0 overflow-hidden">
+                                <div className="content-inner-container p-2 flex flex-col gap-2 border">
                                     <span>lol</span>
                                     <span>lol</span>
                                     <span>lol</span>
