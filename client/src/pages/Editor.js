@@ -701,7 +701,7 @@ export const Editor = () => {
                     <div className="faq-list mt-5">
                         <div className="faq-item flex flex-col">
                             <div className="faq-item-title border-b border-gray-100 p-2 text-md flex items-center justify-between cursor-pointer transition-all" onClick={accordionControls}>
-                                <span className="text pointer-events-none">Why is my content overflowing while download as pdf?</span>
+                                <span className="text pointer-events-none">Why is my content overflowing while downloading as pdf?</span>
                                 <i className="fa-solid fa-chevron-down transition-all duration-[600ms] pointer-events-none"/>
                             </div>
                             <div className="faq-item-content transition-all ease-in-out duration-[600ms] max-h-0 overflow-hidden">
