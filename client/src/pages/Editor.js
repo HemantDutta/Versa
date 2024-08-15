@@ -695,7 +695,7 @@ export const Editor = () => {
                 {/*</div>*/}
                 {/* Tour Popup End */}
                 {/* FAQs Accordion */}
-                <div className="fixed top-0 left-0 h-screen w-screen bg-black z-[9999] opacity-45"/>
+                {/* <div className="fixed top-0 left-0 h-screen w-screen bg-black z-[9999] opacity-45"/>
                 <div className="accordion-popup bg-white fixed inset-0 m-auto max-w-[650px] max-h-[650px] overflow-y-scroll min-h-[100px] z-[10000] rounded p-5">
                     <div className="popup-title text-2xl font-semibold">Frequently Asked Questions</div>
                     <div className="faq-list mt-5">
@@ -716,7 +716,7 @@ export const Editor = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* FAQs Accordion End */}
                 {/* Upload Popup */}
                 <div onClick={uploadPopupToggle} ref={uploadOverlay} className="upload-popup-overlay fixed top-0 left-0 h-screen w-screen bg-black"/>
