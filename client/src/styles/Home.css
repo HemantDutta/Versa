@@ -1,4 +1,4 @@
-/* Home Page Stylesheet */
+/* home Page Stylesheet */
 
 :root {
     --bg-color: #ffffff;
@@ -15,11 +15,11 @@
 }
 
 
-.home .hero .featured-image-section .edge-overlay {
+.home .edge-overlay {
     background: linear-gradient(to bottom, transparent 80%, #ffffff), linear-gradient(to top, transparent 80%, #ffffff), linear-gradient(to left, transparent 80%, #ffffff), linear-gradient(to right, transparent 80%, #ffffff);
 }
 
-.home .hero .featured-image-section .gradient-bubble {
+.home .gradient-bubble {
     height: 50%;
     width: 100%;
     background: linear-gradient(45deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4));
@@ -41,4 +41,50 @@
     100% {
         background-position: 0 50%;
     }
+}
+
+.home .features-section .feature-image-switcher {
+    background-image: linear-gradient(#e3e3e3 2px, transparent 2px), linear-gradient(to right, #e3e3e3 2px, transparent 2px);
+    background-size: 32px 32px;
+    background-color: #ffffff;
+}
+
+.home .features-section .feature-accordion-list .feature-accordion-item {
+    padding: 16px 32px;
+    transition: .3s ease normal;
+}
+
+.home .features-section .feature-accordion-list .feature-accordion-item:not(.item-open):hover {
+    background-color: #eaeaea;
+}
+
+.home .features-section .feature-accordion-list .feature-accordion-item .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    transition: .3s ease normal;
+    color: white;
+}
+
+.home .features-section .feature-accordion-list .feature-accordion-item i {
+    transition: .3s ease normal;
+}
+
+.home .features-section .feature-accordion-list .feature-accordion-item.item-open {
+    padding: 32px 32px;
+    background-color: #000;
+    color: white;
+}
+
+.home .features-section .feature-accordion-list .feature-accordion-item.item-open i {
+    rotate: 90deg;
+    color: #F875AA;
+}
+
+.home .features-section .feature-accordion-list .feature-accordion-item.item-open .accordion-content {
+    max-height: max-content;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 30px;
 }

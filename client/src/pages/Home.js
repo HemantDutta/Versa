@@ -11,6 +11,7 @@ export const Home = () => {
 
     //refs
     const newDesImg = useRef(null);
+    const ftImgSrc = useRef(null);
 
     //states
     const [counter, setCounter] = useState(1);
@@ -40,6 +41,31 @@ export const Home = () => {
         }
     }
 
+    //Feature Image Routes
+    const imgPath = {
+        "fonts": "/assets/home/features/vs_ft_fonts.png",
+        "auto-save": "/assets/home/features/vs_ft_save.png",
+        "themes": "/assets/home/features/vs_ft_themes.png"
+    }
+
+    //Feature Accordion Switcher
+    function featureAccordionSwitcher(e, ft) {
+        try {
+            let target = e.target;
+            target.classList.add("item-open");
+            ftImgSrc.current.src = imgPath[ft];
+            let allAccordionItems = document.querySelectorAll(".feature-accordion-item");
+            for(const item of allAccordionItems) {
+                if(item !== target) {
+                    item.classList.remove("item-open");
+                }
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
     return (
         <>
             {/*Header*/}
@@ -59,10 +85,10 @@ export const Home = () => {
                     <div className="featured-image-section relative md:w-[50%] w-full grid place-items-center h-[60%] md:h-full z-40">
                         <div className="edge-overlay absolute h-full w-full" />
                         <div className="gradient-bubble absolute inset-0 m-auto" />
-                        <div className="old-design-ew absolute inset-0 m-auto -translate-x-[30%] translate-y-[15%] p-1 -rotate-2 h-[300px] w-[215px] md:h-[400px] md:w-[280px]">
+                        <div className="old-design-ew absolute inset-0 m-auto -translate-x-[30%] translate-y-[15%] p-1 -rotate-2 h-[300px] w-[215px] md:h-[428px] md:w-[300px]">
                             <img src="/assets/home/vs_old_1.png" alt="Old Design Yuck" className="h-full w-full rounded-lg overflow-hidden shadow-lg border border-gray-200" />
                         </div>
-                        <div className="new-design-oh-yeah absolute inset-0 m-auto translate-x-[30%] -translate-y-[15%] rotate-3 h-[300px] w-[215px] md:h-[400px] md:w-[280px] cursor-pointer transition active:scale-95" onClick={imageChanger}>
+                        <div className="new-design-oh-yeah absolute inset-0 m-auto translate-x-[30%] -translate-y-[15%] rotate-3 h-[300px] w-[215px] md:h-[428px] md:w-[300px] cursor-pointer transition active:scale-95" onClick={imageChanger}>
                             <img ref={newDesImg} src={`/assets/home/vs_new_${counter}.png`} alt="New Design Oh Yeah" className="h-full w-full rounded-lg overflow-hidden shadow-lg border border-gray-200" />
                         </div>
                     </div>
@@ -79,42 +105,54 @@ export const Home = () => {
                     }
                 </div>
                 {/* Key Points End */}
-                {/* Features */}
+                {/* features */}
                 <div className="features-section mt-20">
                     <div className="features-header flex flex-col gap-3 ">
                         <span className="smol-title border border-versa-two text-14-grad w-max py-2 px-4 rounded-[20px] logo-font">What Versa Offers</span>
                     </div>
-                    <div className="features-flex flex flex-col py-5">
-                        <div className="feature-item flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-2 justify-between pt-20 pb-20 bg-hover-gradient px-2 hover:px-5 transition-all ease-in-out border-x border-versa-lightBorder">
-                            <div className="item-left">
-                                <span className="text-8xl font-semibold text-14-grad">1600+</span>
-                            </div>
-                            <div className="item-right flex flex-col gap-2 items-end">
-                                <span className="content-head text-3xl font-semibold text-right">Endless Font Choices</span>
-                                <span className="content-des text-gray-600 text-right">Explore a vast library of 1600+ fonts, regularly updated to keep your designs fresh and unique.</span>
-                            </div>
+                    <div className="features-content-flex md:h-[80vh] flex items-center gap-4 md:flex-row flex-col-reverse mt-5">
+                        <div className="feature-image-switcher h-[100%] flex-1 relative grid place-items-center">
+                            <div className="edge-overlay absolute h-full w-full" />
+                            <div className="gradient-bubble absolute inset-0 m-auto" />
+                            <img ref={ftImgSrc} src="/assets/home/features/vs_ft_fonts.png" className="relative z-50 h-[80%]" alt="Features"/>
                         </div>
-                        <div className="feature-item flex flex-col sm:flex-row items-end sm:items-center gap-5 sm:gap-2 justify-between pt-20 pb-20 bg-hover-gradient px-2 hover:px-5 transition-all ease-in-out border-x border-versa-lightBorder">
-                            <div className="item-right flex flex-col gap-2 items-start">
-                                <span className="content-head text-3xl font-semibold text-left">Versatile Themes</span>
-                                <span className="content-des text-gray-600 text-left">Choose from 25+ themes to instantly style your documents, with new themes added frequently.</span>
-                            </div>
-                            <div className="item-left">
-                                <span className="text-8xl font-semibold text-14-grad">25+</span>
-                            </div>
-                        </div>
-                        <div className="feature-item flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-2 justify-between pt-20 pb-20 bg-hover-gradient px-2 hover:px-5 transition-all ease-in-out border-x border-versa-lightBorder">
-                            <div className="item-left">
-                                <span className="text-8xl font-semibold text-14-grad">📃✔️</span>
-                            </div>
-                            <div className="item-right flex flex-col gap-2 items-end">
-                                <span className="content-head text-3xl font-semibold text-right">Auto-Save</span>
-                                <span className="content-des text-gray-600 text-right">Never lose your work again. Your content is automatically saved in your browser's local storage, no login required.</span>
+                        <div className="feature-accordion flex-1 flex flex-col gap-4">
+                            <span className="subtitle text-xl font-semibold text-versa-one">Features</span>
+                            <span className="title text-4xl font-semibold">Focus on the Content.</span>
+                            <span className="title text-4xl font-semibold">Let Versa Take Care of the Rest.</span>
+                            <div className="feature-accordion-list flex flex-col gap-4 mt-5">
+                                <div className="feature-accordion-item cursor-pointer item-open" onClick={(e)=> {featureAccordionSwitcher(e, "fonts")}}>
+                                    <div className="accordion-header flex items-center gap-4 pointer-events-none">
+                                        <i className="fa-solid fa-play"/>
+                                        <span className="header-text text-2xl font-semibold">Endless Font Choices</span>
+                                    </div>
+                                    <div className="accordion-content py-5 pointer-events-none">
+                                        <span className="text-lg">Explore a vast library of 1600+ fonts, regularly updated to keep your designs fresh and unique.</span>
+                                    </div>
+                                </div>
+                                <div className="feature-accordion-item cursor-pointer" onClick={(e)=> {featureAccordionSwitcher(e, "themes")}}>
+                                    <div className="accordion-header flex items-center gap-4 pointer-events-none">
+                                        <i className="fa-solid fa-play"/>
+                                        <span className="header-text text-2xl font-semibold">Versatile Themes</span>
+                                    </div>
+                                    <div className="accordion-content py-5 pointer-events-none">
+                                        <span className="text-lg">Choose from 20+ themes to instantly style your documents, with new themes added frequently.</span>
+                                    </div>
+                                </div>
+                                <div className="feature-accordion-item cursor-pointer" onClick={(e)=> {featureAccordionSwitcher(e, "auto-save")}}>
+                                    <div className="accordion-header flex items-center gap-4 pointer-events-none">
+                                        <i className="fa-solid fa-play"/>
+                                        <span className="header-text text-2xl font-semibold">Auto-Save</span>
+                                    </div>
+                                    <div className="accordion-content py-5 pointer-events-none">
+                                        <span className="text-lg">Never lose your work again. Your content is automatically saved in your browser's local storage, no login required.</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {/* Features End */}
+                {/* features End */}
                 {/* Contact Me */}
                 <div className="contact-us mt-20">
 
