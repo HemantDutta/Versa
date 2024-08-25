@@ -88,3 +88,13 @@
     padding-bottom: 16px;
     padding-left: 30px;
 }
+
+@media screen and (max-width: 500px) {
+    .home .features-section .feature-accordion-list .feature-accordion-item {
+        padding: 16px 16px;
+    }
+
+    .home .features-section .feature-accordion-list .feature-accordion-item.item-open {
+        padding: 32px 16px;
+    }
+}

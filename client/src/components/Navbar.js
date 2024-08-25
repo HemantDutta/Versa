@@ -89,8 +89,7 @@ export const Navbar = () => {
                     </div>
                     <div className="links-section flex items-center gap-10">
                         <Link to="/editor" className="hidden md:block">Editor</Link>
-                        <Link to="/about" className="hidden md:block">About</Link>
-                        <Link to="/contact" className="hidden md:block">Contact</Link>
+                        <a href="https://github.com/HemantDutta/Versa" rel="noreferrer" target="_blank" className="hidden md:block">Contribute</a>
                         <div className="ham-menu flex items-center gap-x-5 border border-versa-lightBorder px-2 py-1 cursor-pointer bg-hover-gradient" onClick={bigMenuToggle}>
                             <span className="xxs:block hidden">Menu</span>
                             <div className="ham">
@@ -119,16 +118,13 @@ export const Navbar = () => {
                 <div className="big-menu-content h-full w-full relative z-[1001] flex flex-col gap-5 items-start justify-between">
                     <div className="big-menu-list flex flex-col gap-10">
                         <div className="link-wrapper overflow-hidden">
-                            <Link to="/" className="text-5xl main-link-anim block">Home</Link>
+                            <Link to="/" onClick={closeBigMenu} className="text-5xl main-link-anim block">Home</Link>
                         </div>
                         <div className="link-wrapper overflow-hidden">
                             <Link to="/editor" className="text-5xl main-link-anim block">Editor</Link>
                         </div>
                         <div className="link-wrapper overflow-hidden">
-                            <Link to="/about" className="text-5xl main-link-anim block">About</Link>
-                        </div>
-                        <div className="link-wrapper overflow-hidden">
-                            <Link to="/contact" className="text-5xl main-link-anim block">Contact</Link>
+                            <a href="https://github.com/HemantDutta/Versa" rel="noreferrer" target="_blank" className="text-5xl main-link-anim block">Contribute</a>
                         </div>
                     </div>
                     <div className="big-menu-bottom w-full flex flex-col gap-10">
