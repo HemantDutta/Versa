@@ -227,7 +227,26 @@ export const Editor = () => {
         try {
             if (first.current) {
                 activePanelStartup();
-                let temp = localStorage.getItem('editorContent') || '';
+                let temp = localStorage.getItem('editorContent') || '\n' +
+                    '# Elegant, Captivating, and Fun\n' +
+                    '\n' +
+                    '> Design Excellence at Your Fingertips\n' +
+                    '\n' +
+                    'Say goodbye to dull and lifeless PDFs. With Versa, transform your documents into beautiful, engaging pieces of art. Choose from a wide range of fonts and themes to match your style.\n' +
+                    '\n' +
+                    '| Features | Description | \n' +
+                    '| Customizable Themes | Choose from 25+ beautiful themes to match your style. | \n' +
+                    '| Rich Font Library | Access 1600+ fonts to ensure your document looks unique. | \n' +
+                    '| Easy-to-Use | Intuitive interface that requires no design expertise |\n' +
+                    '\n' +
+                    '```` \n' +
+                    '// Want to write code? No Problem\n' +
+                    'function generateCodeSnippet(code) {\n' +
+                    '    return awesomeCodeSnippet;\n' +
+                    '}\n' +
+                    ' ````\n' +
+                    '\n' +
+                    'Versa makes it easy to create stunning PDFs without any design experience. Focus on your content, and let Versa handle the design, ensuring your documents always make a lasting impression.';
                 let tempTheme = localStorage.getItem('theme') || 'Classic';
                 setPrevSaved(temp);
                 setSelectedTheme(tempTheme);
