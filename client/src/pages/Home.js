@@ -112,14 +112,14 @@ export const Home = () => {
                         <div className="feature-image-switcher h-[100%] flex-1 relative grid place-items-center">
                             <div className="edge-overlay absolute h-full w-full"/>
                             <div className="gradient-bubble absolute inset-0 m-auto"/>
-                            <img ref={ftImgSrc} src="/assets/home/features/vs_ft_fonts.png" className="relative z-50 aspect-square" alt="Features"/>
+                            <img ref={ftImgSrc} src="/assets/home/features/vs_ft_save.png" className="relative z-50 aspect-square" alt="Features"/>
                         </div>
                         <div className="feature-accordion flex-1 flex flex-col gap-4">
                             <span className="subtitle text-xl font-semibold text-versa-one">Features</span>
                             <span className="title text-2xl md:text-4xl font-semibold">Focus on the Content.</span>
                             <span className="title text-2xl md:text-4xl font-semibold">Let Versa Take Care of the Rest.</span>
                             <div className="feature-accordion-list flex flex-col gap-4 mt-5">
-                                <div className="feature-accordion-item cursor-pointer item-open" onClick={(e) => {
+                                <div className="feature-accordion-item cursor-pointer" onClick={(e) => {
                                     featureAccordionSwitcher(e, "fonts")
                                 }}>
                                     <div className="accordion-header flex items-center gap-4 pointer-events-none">
@@ -141,7 +141,7 @@ export const Home = () => {
                                         <span className="text-lg">Choose from 20+ themes to instantly style your documents, with new themes added frequently.</span>
                                     </div>
                                 </div>
-                                <div className="feature-accordion-item cursor-pointer" onClick={(e) => {
+                                <div className="feature-accordion-item cursor-pointer item-open" onClick={(e) => {
                                     featureAccordionSwitcher(e, "auto-save")
                                 }}>
                                     <div className="accordion-header flex items-center gap-4 pointer-events-none">

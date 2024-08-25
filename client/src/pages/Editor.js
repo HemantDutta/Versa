@@ -953,9 +953,9 @@ export const Editor = () => {
                             setHelpOpen(!helpOpen)
                         }}>
                             <span>{helpOpen ? <i className="fa-solid fa-xmark"/> : <i className="fa-solid fa-question"/>}</span>
-                            <div className={`absolute top-0 left-0 bg-white rounded-full p-1 transition-smooth -z-10 shadow-lg ${helpOpen ? "pointer-events-auto opacity-100 -translate-y-[150%] rotate-0 group" : "-rotate-180 pointer-events-none opacity-0 -translate-y-[0%]"}`}>
+                            <div className={`absolute top-0 left-0 bg-white rounded-full p-1 transition-smooth -z-10 shadow-lg grayscale ${helpOpen ? "pointer-events-auto opacity-100 -translate-y-[150%] rotate-0 group" : "-rotate-180 pointer-events-none opacity-0 -translate-y-[0%]"}`}>
                                 <img src="/assets/editor/vs_faq.png" alt="FAQs"/>
-                                <span className="absolute bg-normal-gradient p-2 font-normal w-max top-[50%] -translate-y-[50%] right-[110%] pr-7 right-message-box opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none">View FAQs</span>
+                                <span className="absolute bg-normal-gradient p-2 font-normal w-max top-[50%] -translate-y-[50%] right-[110%] pr-7 right-message-box opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none">View FAQs (Coming Soon)</span>
                             </div>
                             {
                                 tourAvailable &&
