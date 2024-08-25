@@ -90,7 +90,7 @@ export const Navbar = () => {
                     <div className="links-section flex items-center gap-10">
                         <Link to="/editor" className="hidden md:block">Editor</Link>
                         <a href="https://github.com/HemantDutta/Versa" rel="noreferrer" target="_blank" className="hidden md:block">Contribute</a>
-                        <div className="ham-menu flex items-center gap-x-5 border border-versa-lightBorder px-2 py-1 cursor-pointer bg-hover-gradient" onClick={bigMenuToggle}>
+                        <div className="ham-menu flex items-center gap-x-5 border border-versa-lightBorder px-2 py-1 cursor-pointer bg-hover-gradient bg-white" onClick={bigMenuToggle}>
                             <span className="xxs:block hidden">Menu</span>
                             <div className="ham">
                                 <span></span><span></span><span></span>
