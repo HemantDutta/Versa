@@ -1,7 +1,7 @@
 # Versa ✨
 [Check it out!]()
 
-![Home Page Screenshot](path/to/homepage_screenshot.png)
+![Home Page Screenshot](https://github.com/HemantDutta/Versa/blob/5442a33356c7598e43ee36143e9d2b89885b009f/git_static/Screenshot%202024-08-25%20195023.png)
 ![Editor Page Screenshot](path/to/editor_screenshot.png)
 
 Welcome to **Versa**, the ultimate markdown editor and document creator. With **Versa**, you can easily convert your markdown into beautifully styled documents using HTML/CSS or PDF formats, all with a range of fonts and themes to choose from.
