@@ -1,0 +1,398 @@
+/*Editor Page Stylesheet*/
+
+:root {
+    --root-clr-1: blueviolet;
+    --rootclr-2: hotpink;
+    --grad-1: #F875AA;
+    --grad-2: #FFDFDF;
+    --grad-3: #FFF6F6;
+    --grad-4: #AEDEFC;
+    --bg-color: #0d0d0d;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    * {
+        scroll-behavior: smooth;
+    }
+}
+
+* {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+@page {
+    margin: 0;
+}
+
+.bg-gradient {
+    background: linear-gradient(45deg, var(--grad-1), var(--grad-4)) !important;
+}
+
+.text-gradient {
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(45deg, var(--grad-1), var(--grad-4));
+}
+
+.editor {
+    position: relative;
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+.editor main::-webkit-scrollbar {
+    display: none;
+    opacity: 0;
+}
+
+.editor nav {
+    flex: 0 1 auto;
+}
+
+.editor main {
+    flex: 1 1 auto;
+}
+
+/*=====Header=====*/
+
+.editor header {
+    z-index: 1000;
+    background-color: var(--bg-color);
+}
+
+.editor header .left .tools span,
+.editor header .left .tools del {
+    width: 50px;
+    display: grid;
+    place-items: center;
+    transition: all 0.2s ease;
+}
+
+.editor header .tools-expanded {
+    display: none;
+}
+
+.editor header .mobile-options {
+    display: none;
+}
+
+.editor .view-edit {
+    display: none;
+    padding: 2px;
+}
+
+.editor header .ham {
+    display: none;
+    gap: 5px;
+    flex-direction: column;
+    cursor: pointer;
+    align-items: flex-end;
+    rotate: -45deg;
+    transition: all 0.6s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.editor header .ham.active {
+    rotate: 0deg;
+}
+
+.editor header .ham span {
+    height: 2px;
+    background-color: #ffffff;
+    transition: all 0.6s cubic-bezier(0.87, 0, 0.13, 1);
+    width: 20px;
+}
+
+.editor header .ham span:nth-child(1) {
+    width: 14px;
+}
+
+.editor header .ham span:nth-child(3) {
+    width: 18px;
+}
+
+.editor header .ham span:nth-child(2) {
+    width: 20px;
+}
+
+.editor header .ham.active span:nth-child(1) {
+    rotate: 405deg;
+    translate: 0 7px;
+    width: 20px;
+}
+
+.editor header .ham.active span:nth-child(3) {
+    rotate: -405deg;
+    translate: 0 -7px;
+    width: 20px;
+}
+
+.editor header .ham.active span:nth-child(2) {
+    opacity: 0;
+    width: 20px;
+}
+
+.editor header .tools .tool-drop-down-container {
+    left: -25%;
+    transition: all 0.2s ease;
+    opacity: 0;
+    display: none;
+}
+
+.editor header .tools .tool-drop-down-container.active {
+    opacity: 1;
+}
+
+.editor header .tools .tool-drop-down-container .tool-drop-down {
+    background: #101010;
+}
+
+@media screen and (max-width: 1425px) {
+    .editor header {
+        padding: 24px 16px;
+    }
+
+    .editor header .ham {
+        display: flex;
+    }
+
+    .editor header .left .tools {
+        display: none;
+    }
+
+    .editor header .right .font-options, .editor header .right .operations .style {
+        display: none;
+    }
+
+    .editor nav header {
+        border-bottom: 1px solid white;
+    }
+
+    .editor header .mobile-options {
+        display: flex;
+    }
+
+    .editor header .tools-expanded {
+        display: flex;
+    }
+
+    .editor .more-tools-wrapper {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .editor .view-edit {
+        display: initial;
+    }
+
+    .editor header .right .operations .options {
+        display: none;
+    }
+}
+
+/*=====Header End=====*/
+
+/*=====Mobile Menu=====*/
+
+.editor nav .mobile-menu {
+    transition: transform 0.6s cubic-bezier(0.87, 0, 0.13, 1);
+    transform: translateY(-100%);
+    overflow-y: hidden;
+    padding: 16px;
+    z-index: 999;
+}
+
+.editor nav .mobile-menu.active {
+    transform: translateY(0);
+}
+
+.editor nav .mobile-menu .tools span,
+.editor header .left .tools del {
+    width: 50px;
+    display: grid;
+    place-items: center;
+    transition: all 0.2s ease;
+}
+
+/*=====Mobile Menu End=====*/
+
+.editor main .preview::-webkit-scrollbar {
+    display: none;
+}
+
+.editor main .editor-area::-webkit-scrollbar {
+    width: 8px;
+}
+
+.editor main .editor-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.editor main .editor-area::-webkit-scrollbar-thumb {
+    background: #d5d5d5;
+    border-radius: 20px;
+}
+
+.editor main .preview .preview-span::-webkit-scrollbar {
+    display: none;
+}
+
+.editor main .preview .preview-span {
+    height: 1000%;
+    max-height: max-content;
+}
+
+.editor main .editor-area textarea {
+    height: 1000%;
+}
+
+.editor main .editor-area textarea::-webkit-scrollbar {
+    display: none;
+}
+
+.editor main .editor-area,
+.editor main .preview {
+    display: initial;
+}
+
+.editor main .preview .preview-span code {
+    word-break: break-all;
+    overflow-wrap: break-word;
+}
+
+.editor main .content-details {
+    width: 50%;
+}
+
+@media screen and (max-width: 991px) {
+
+    .editor main .editor-area,
+    .editor main .preview {
+        transition: translate 0.8s cubic-bezier(0.87, 0, 0.13, 1), scale 0.4s cubic-bezier(0.87, 0, 0.13, 1);
+        translate: 0 100%;
+        scale: 0.8;
+        width: 100%;
+        display: none;
+    }
+
+    .editor main .editor-area.active,
+    .editor main .preview.active {
+        transition: translate 0.4s cubic-bezier(0.87, 0, 0.13, 1), scale 0.8s cubic-bezier(0.87, 0, 0.13, 1);
+        translate: 0 0;
+        scale: 1;
+    }
+
+    .editor main .content-details {
+        width: 100%;
+    }
+}
+
+@keyframes gradAnim {
+    0% {
+        background-position: 0 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+/*=====Main Section=====*/
+
+/*=====Main Section End=====*/
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    .preview,
+    .preview,
+    .preview-span,
+    body,
+    html,
+    #root {
+        height: 100% !important;
+        width: 100% !important;
+        display: inline-block;
+    }
+
+    .preview {
+        padding-bottom: 1000px;
+    }
+
+    .editor {
+        overflow-y: initial;
+        height: max-content;
+    }
+}
+
+/*=====Upload Popup=====*/
+
+.editor .upload-popup-overlay {
+    z-index: 1001;
+    transition: all 0.2s ease;
+    opacity: 0;
+    display: none;
+}
+
+.editor .upload-popup-overlay.active {
+    opacity: 0.4;
+    transition: all 0.4s ease;
+}
+
+.editor .upload-popup-container {
+    display: none;
+    inset: 0;
+    margin: auto;
+    z-index: 1002;
+    height: max-content;
+    width: 450px;
+    transition: all 0.4s cubic-bezier(0.87, 0, 0.13, 1);
+    transform: scale(0);
+    opacity: 0;
+    transform-origin: center;
+}
+
+.editor .upload-popup-container.active {
+    transform: scale(1);
+    opacity: 1;
+    transition: all 0.2s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.editor .upload-popup-container .upload-popup .upload-content {
+    transition: background-color 0.2s ease;
+    border: 3px dashed rgba(229, 231, 235);
+}
+
+.editor .upload-popup-container .upload-popup .upload-content.dragged {
+    border: 3px dashed var(--grad-2);
+    background-color: #fff6fb;
+}
+
+@media screen and (max-width: 480px) {
+    .editor .upload-popup-container {
+        width: 95%;
+    }
+}
+/*=====Upload Popup End=====*/
+
+/*=====Download Dropdown===== */
+
+.editor .download-menu {
+    transition: all 0.2s ease;
+    opacity: 0;
+    display: none;
+}
+
+.editor .download-menu.active {
+    opacity: 1;
+}
+
+/*=====Download Dropdown End===== */
