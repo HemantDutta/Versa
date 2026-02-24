@@ -7,7 +7,7 @@ import { getCarouselThemeCSS } from "../themes/carousel";
  * The inner container is always slideSize px, scaled via CSS transform
  * to fit the available panel width.
  */
-export const SlideCanvas = ({ containerWidth = 540 }) => {
+export const SlideCanvas = ({ containerWidth = 540, containerHeight = 540 }) => {
   const canvasRef = useRef(null);
   const { slides, activeSlideIndex, slideSize, selectedTheme, selectedFont } =
     useCarouselStore();
@@ -15,11 +15,14 @@ export const SlideCanvas = ({ containerWidth = 540 }) => {
   const slide = slides[activeSlideIndex] || { html: "<p></p>" };
 
   // Calculate scale so the fixed-size slide fits within the panel
+  // Constrain by both width and height so the slide is never clipped
   const scale = useMemo(() => {
     const padding = 32; // px on each side
-    const available = containerWidth - padding * 2;
-    return Math.min(1, available / slideSize.width);
-  }, [containerWidth, slideSize.width]);
+    const availableW = containerWidth - padding * 2;
+    const navHeight = 48; // approximate height for SlideNavigator + gap
+    const availableH = containerHeight - padding * 2 - navHeight;
+    return Math.min(1, availableW / slideSize.width, availableH / slideSize.height);
+  }, [containerWidth, containerHeight, slideSize.width, slideSize.height]);
 
   const themeCSS = useMemo(
     () => getCarouselThemeCSS(selectedTheme),

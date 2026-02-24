@@ -1,4 +1,4 @@
-/**
+﻿/**
  * LinkedIn Carousel Themes
  * Each theme provides CSS scoped to .versa-slide and preview metadata.
  */
@@ -18,10 +18,18 @@ export const CAROUSEL_THEMES = [
       .versa-slide h2 { font-size: 36px; font-weight: 700; margin-bottom: 20px; color: #1a1a1a; }
       .versa-slide h3 { font-size: 28px; font-weight: 600; margin-bottom: 16px; color: #333; }
       .versa-slide p { font-size: 22px; margin-bottom: 16px; }
-      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 32px; }
-      .versa-slide li { margin-bottom: 8px; }
-      .versa-slide blockquote { border-left: 4px solid #0077B5; padding: 16px 24px; margin: 16px 0; background: #f8f9fa; font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; }
-      .versa-slide code { background: #f0f0f0; padding: 2px 8px; border-radius: 4px; font-size: 18px; }
+      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 8px; list-style: none; }
+      .versa-slide ol { counter-reset: versa-ol; }
+      .versa-slide li { margin-bottom: 8px; position: relative; padding-left: 28px; }
+      .versa-slide ul > li::before { content: "•"; position: absolute; left: 0; font-weight: bold; font-size: 1.2em; line-height: 1.4; }
+      .versa-slide ol > li { counter-increment: versa-ol; }
+      .versa-slide ol > li::before { content: counter(versa-ol) "."; position: absolute; left: 0; font-weight: 600; }
+      .versa-slide li.task-item::before { display: none; }
+      .versa-slide li.task-item { padding-left: 0; }
+      .versa-slide li.task-item input[type="checkbox"] { width: 18px; height: 18px; vertical-align: middle; margin-right: 8px; position: relative; top: -1px; }
+      .versa-slide blockquote { border-left: 4px solid #0077B5; padding: 20px 24px; margin: 16px 0; background: #f8f9fa; font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; display: flex; flex-direction: column; justify-content: center; min-height: 60px; }
+      .versa-slide blockquote p { margin: 0; }
+      .versa-slide code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 18px; }
       .versa-slide pre { background: #f5f5f5; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 16px 0; }
       .versa-slide pre code { background: none; padding: 0; font-size: 16px; }
       .versa-slide strong { color: #0077B5; }
@@ -30,6 +38,7 @@ export const CAROUSEL_THEMES = [
       .versa-slide table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 20px; }
       .versa-slide th { background: #f5f5f5; padding: 12px; text-align: left; border-bottom: 2px solid #ddd; font-weight: 700; }
       .versa-slide td { padding: 12px; border-bottom: 1px solid #eee; }
+      .versa-slide del { text-decoration: line-through; text-decoration-thickness: 2px; opacity: 0.6; }
       .versa-slide img { max-width: 100%; border-radius: 8px; margin: 12px 0; }
     `,
   },
@@ -47,10 +56,18 @@ export const CAROUSEL_THEMES = [
       .versa-slide h2 { font-size: 36px; font-weight: 700; margin-bottom: 20px; color: #f0f0f0; }
       .versa-slide h3 { font-size: 28px; font-weight: 600; margin-bottom: 16px; color: #ccc; }
       .versa-slide p { font-size: 22px; margin-bottom: 16px; }
-      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 32px; }
-      .versa-slide li { margin-bottom: 8px; }
-      .versa-slide blockquote { border-left: 4px solid #00d4aa; padding: 16px 24px; margin: 16px 0; background: #1a1a1a; font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; }
-      .versa-slide code { background: #1e1e1e; color: #00d4aa; padding: 2px 8px; border-radius: 4px; font-size: 18px; }
+      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 8px; list-style: none; }
+      .versa-slide ol { counter-reset: versa-ol; }
+      .versa-slide li { margin-bottom: 8px; position: relative; padding-left: 28px; }
+      .versa-slide ul > li::before { content: "•"; position: absolute; left: 0; font-weight: bold; font-size: 1.2em; line-height: 1.4; }
+      .versa-slide ol > li { counter-increment: versa-ol; }
+      .versa-slide ol > li::before { content: counter(versa-ol) "."; position: absolute; left: 0; font-weight: 600; }
+      .versa-slide li.task-item::before { display: none; }
+      .versa-slide li.task-item { padding-left: 0; }
+      .versa-slide li.task-item input[type="checkbox"] { width: 18px; height: 18px; vertical-align: middle; margin-right: 8px; position: relative; top: -1px; }
+      .versa-slide blockquote { border-left: 4px solid #00d4aa; padding: 20px 24px; margin: 16px 0; background: #1a1a1a; font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; display: flex; flex-direction: column; justify-content: center; min-height: 60px; }
+      .versa-slide blockquote p { margin: 0; }
+      .versa-slide code { background: #1e1e1e; color: #00d4aa; padding: 2px 6px; border-radius: 4px; font-size: 18px; }
       .versa-slide pre { background: #1a1a1a; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 16px 0; border: 1px solid #333; }
       .versa-slide pre code { background: none; padding: 0; font-size: 16px; }
       .versa-slide strong { color: #00d4aa; }
@@ -59,6 +76,7 @@ export const CAROUSEL_THEMES = [
       .versa-slide table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 20px; }
       .versa-slide th { background: #1a1a1a; padding: 12px; text-align: left; border-bottom: 2px solid #333; font-weight: 700; color: #00d4aa; }
       .versa-slide td { padding: 12px; border-bottom: 1px solid #222; }
+      .versa-slide del { text-decoration: line-through; text-decoration-thickness: 2px; opacity: 0.6; }
       .versa-slide img { max-width: 100%; border-radius: 8px; margin: 12px 0; }
     `,
   },
@@ -76,10 +94,18 @@ export const CAROUSEL_THEMES = [
       .versa-slide h2 { font-size: 36px; font-weight: 700; margin-bottom: 20px; }
       .versa-slide h3 { font-size: 28px; font-weight: 600; margin-bottom: 16px; opacity: 0.9; }
       .versa-slide p { font-size: 22px; margin-bottom: 16px; }
-      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 32px; }
-      .versa-slide li { margin-bottom: 8px; }
-      .versa-slide blockquote { border-left: 4px solid #ffffff; padding: 16px 24px; margin: 16px 0; background: rgba(255,255,255,0.1); font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; }
-      .versa-slide code { background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 4px; font-size: 18px; }
+      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 8px; list-style: none; }
+      .versa-slide ol { counter-reset: versa-ol; }
+      .versa-slide li { margin-bottom: 8px; position: relative; padding-left: 28px; }
+      .versa-slide ul > li::before { content: "•"; position: absolute; left: 0; font-weight: bold; font-size: 1.2em; line-height: 1.4; }
+      .versa-slide ol > li { counter-increment: versa-ol; }
+      .versa-slide ol > li::before { content: counter(versa-ol) "."; position: absolute; left: 0; font-weight: 600; }
+      .versa-slide li.task-item::before { display: none; }
+      .versa-slide li.task-item { padding-left: 0; }
+      .versa-slide li.task-item input[type="checkbox"] { width: 18px; height: 18px; vertical-align: middle; margin-right: 8px; position: relative; top: -1px; }
+      .versa-slide blockquote { border-left: 4px solid #ffffff; padding: 20px 24px; margin: 16px 0; background: rgba(255,255,255,0.1); font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; display: flex; flex-direction: column; justify-content: center; min-height: 60px; }
+      .versa-slide blockquote p { margin: 0; }
+      .versa-slide code { background: rgba(255,255,255,0.15); padding: 2px 6px; border-radius: 4px; font-size: 18px; }
       .versa-slide pre { background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px; overflow-x: auto; margin: 16px 0; }
       .versa-slide pre code { background: none; padding: 0; font-size: 16px; }
       .versa-slide strong { color: #90e0ff; }
@@ -88,6 +114,7 @@ export const CAROUSEL_THEMES = [
       .versa-slide table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 20px; }
       .versa-slide th { background: rgba(0,0,0,0.15); padding: 12px; text-align: left; border-bottom: 2px solid rgba(255,255,255,0.3); font-weight: 700; }
       .versa-slide td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .versa-slide del { text-decoration: line-through; text-decoration-thickness: 2px; opacity: 0.7; }
       .versa-slide img { max-width: 100%; border-radius: 8px; margin: 12px 0; }
     `,
   },
@@ -105,10 +132,18 @@ export const CAROUSEL_THEMES = [
       .versa-slide h2 { font-size: 36px; font-weight: 700; margin-bottom: 20px; }
       .versa-slide h3 { font-size: 28px; font-weight: 600; margin-bottom: 16px; }
       .versa-slide p { font-size: 22px; margin-bottom: 16px; }
-      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 32px; }
-      .versa-slide li { margin-bottom: 8px; }
-      .versa-slide blockquote { border-left: 4px solid #ffd700; padding: 16px 24px; margin: 16px 0; background: rgba(255,255,255,0.1); font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; }
-      .versa-slide code { background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 4px; font-size: 18px; }
+      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 8px; list-style: none; }
+      .versa-slide ol { counter-reset: versa-ol; }
+      .versa-slide li { margin-bottom: 8px; position: relative; padding-left: 28px; }
+      .versa-slide ul > li::before { content: "•"; position: absolute; left: 0; font-weight: bold; font-size: 1.2em; line-height: 1.4; }
+      .versa-slide ol > li { counter-increment: versa-ol; }
+      .versa-slide ol > li::before { content: counter(versa-ol) "."; position: absolute; left: 0; font-weight: 600; }
+      .versa-slide li.task-item::before { display: none; }
+      .versa-slide li.task-item { padding-left: 0; }
+      .versa-slide li.task-item input[type="checkbox"] { width: 18px; height: 18px; vertical-align: middle; margin-right: 8px; position: relative; top: -1px; }
+      .versa-slide blockquote { border-left: 4px solid #ffd700; padding: 20px 24px; margin: 16px 0; background: rgba(255,255,255,0.1); font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; display: flex; flex-direction: column; justify-content: center; min-height: 60px; }
+      .versa-slide blockquote p { margin: 0; }
+      .versa-slide code { background: rgba(255,255,255,0.15); padding: 2px 6px; border-radius: 4px; font-size: 18px; }
       .versa-slide pre { background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px; overflow-x: auto; margin: 16px 0; }
       .versa-slide pre code { background: none; padding: 0; font-size: 16px; }
       .versa-slide strong { color: #ffd700; }
@@ -117,6 +152,7 @@ export const CAROUSEL_THEMES = [
       .versa-slide table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 20px; }
       .versa-slide th { background: rgba(0,0,0,0.15); padding: 12px; text-align: left; border-bottom: 2px solid rgba(255,255,255,0.3); font-weight: 700; }
       .versa-slide td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .versa-slide del { text-decoration: line-through; text-decoration-thickness: 2px; opacity: 0.7; }
       .versa-slide img { max-width: 100%; border-radius: 8px; margin: 12px 0; }
     `,
   },
@@ -134,10 +170,18 @@ export const CAROUSEL_THEMES = [
       .versa-slide h2 { font-size: 36px; font-weight: 700; margin-bottom: 20px; color: #3a2a1c; }
       .versa-slide h3 { font-size: 28px; font-weight: 600; margin-bottom: 16px; color: #4a3728; }
       .versa-slide p { font-size: 22px; margin-bottom: 16px; }
-      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 32px; }
-      .versa-slide li { margin-bottom: 8px; }
-      .versa-slide blockquote { border-left: 4px solid #f582ae; padding: 16px 24px; margin: 16px 0; background: #fff3e0; font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; }
-      .versa-slide code { background: #f0e6d2; padding: 2px 8px; border-radius: 4px; font-size: 18px; color: #8a5d3b; }
+      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 8px; list-style: none; }
+      .versa-slide ol { counter-reset: versa-ol; }
+      .versa-slide li { margin-bottom: 8px; position: relative; padding-left: 28px; }
+      .versa-slide ul > li::before { content: "•"; position: absolute; left: 0; font-weight: bold; font-size: 1.2em; line-height: 1.4; }
+      .versa-slide ol > li { counter-increment: versa-ol; }
+      .versa-slide ol > li::before { content: counter(versa-ol) "."; position: absolute; left: 0; font-weight: 600; }
+      .versa-slide li.task-item::before { display: none; }
+      .versa-slide li.task-item { padding-left: 0; }
+      .versa-slide li.task-item input[type="checkbox"] { width: 18px; height: 18px; vertical-align: middle; margin-right: 8px; position: relative; top: -1px; }
+      .versa-slide blockquote { border-left: 4px solid #f582ae; padding: 20px 24px; margin: 16px 0; background: #fff3e0; font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; display: flex; flex-direction: column; justify-content: center; min-height: 60px; }
+      .versa-slide blockquote p { margin: 0; }
+      .versa-slide code { background: #f0e6d2; padding: 2px 6px; border-radius: 4px; font-size: 18px; color: #8a5d3b; }
       .versa-slide pre { background: #f5ead6; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 16px 0; }
       .versa-slide pre code { background: none; padding: 0; font-size: 16px; }
       .versa-slide strong { color: #f582ae; }
@@ -146,6 +190,7 @@ export const CAROUSEL_THEMES = [
       .versa-slide table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 20px; }
       .versa-slide th { background: #f5ead6; padding: 12px; text-align: left; border-bottom: 2px solid #e0cfb8; font-weight: 700; color: #8a5d3b; }
       .versa-slide td { padding: 12px; border-bottom: 1px solid #edddc8; }
+      .versa-slide del { text-decoration: line-through; text-decoration-thickness: 2px; opacity: 0.6; }
       .versa-slide img { max-width: 100%; border-radius: 8px; margin: 12px 0; }
     `,
   },
@@ -163,10 +208,18 @@ export const CAROUSEL_THEMES = [
       .versa-slide h2 { font-size: 36px; font-weight: 800; margin-bottom: 20px; color: #e94560; }
       .versa-slide h3 { font-size: 28px; font-weight: 700; margin-bottom: 16px; color: #ff6b81; }
       .versa-slide p { font-size: 22px; margin-bottom: 16px; }
-      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 32px; }
-      .versa-slide li { margin-bottom: 8px; }
-      .versa-slide blockquote { border-left: 4px solid #e94560; padding: 16px 24px; margin: 16px 0; background: #16213e; font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; }
-      .versa-slide code { background: #16213e; color: #e94560; padding: 2px 8px; border-radius: 4px; font-size: 18px; }
+      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 8px; list-style: none; }
+      .versa-slide ol { counter-reset: versa-ol; }
+      .versa-slide li { margin-bottom: 8px; position: relative; padding-left: 28px; }
+      .versa-slide ul > li::before { content: "•"; position: absolute; left: 0; font-weight: bold; font-size: 1.2em; line-height: 1.4; }
+      .versa-slide ol > li { counter-increment: versa-ol; }
+      .versa-slide ol > li::before { content: counter(versa-ol) "."; position: absolute; left: 0; font-weight: 600; }
+      .versa-slide li.task-item::before { display: none; }
+      .versa-slide li.task-item { padding-left: 0; }
+      .versa-slide li.task-item input[type="checkbox"] { width: 18px; height: 18px; vertical-align: middle; margin-right: 8px; position: relative; top: -1px; }
+      .versa-slide blockquote { border-left: 4px solid #e94560; padding: 20px 24px; margin: 16px 0; background: #16213e; font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; display: flex; flex-direction: column; justify-content: center; min-height: 60px; }
+      .versa-slide blockquote p { margin: 0; }
+      .versa-slide code { background: #16213e; color: #e94560; padding: 2px 6px; border-radius: 4px; font-size: 18px; }
       .versa-slide pre { background: #16213e; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 16px 0; border: 1px solid #0f3460; }
       .versa-slide pre code { background: none; padding: 0; font-size: 16px; }
       .versa-slide strong { color: #e94560; }
@@ -175,6 +228,7 @@ export const CAROUSEL_THEMES = [
       .versa-slide table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 20px; }
       .versa-slide th { background: #16213e; padding: 12px; text-align: left; border-bottom: 2px solid #0f3460; font-weight: 700; color: #e94560; }
       .versa-slide td { padding: 12px; border-bottom: 1px solid #16213e; }
+      .versa-slide del { text-decoration: line-through; text-decoration-thickness: 2px; color: #e94560; opacity: 0.6; }
       .versa-slide img { max-width: 100%; border-radius: 8px; margin: 12px 0; }
     `,
   },
@@ -192,10 +246,18 @@ export const CAROUSEL_THEMES = [
       .versa-slide h2 { font-size: 36px; font-weight: 700; margin-bottom: 20px; color: #7ddf90; }
       .versa-slide h3 { font-size: 28px; font-weight: 600; margin-bottom: 16px; color: #a0e8af; }
       .versa-slide p { font-size: 22px; margin-bottom: 16px; }
-      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 32px; }
-      .versa-slide li { margin-bottom: 8px; }
-      .versa-slide blockquote { border-left: 4px solid #7ddf90; padding: 16px 24px; margin: 16px 0; background: rgba(125,223,144,0.1); font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; }
-      .versa-slide code { background: rgba(125,223,144,0.15); color: #7ddf90; padding: 2px 8px; border-radius: 4px; font-size: 18px; }
+      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 8px; list-style: none; }
+      .versa-slide ol { counter-reset: versa-ol; }
+      .versa-slide li { margin-bottom: 8px; position: relative; padding-left: 28px; }
+      .versa-slide ul > li::before { content: "•"; position: absolute; left: 0; font-weight: bold; font-size: 1.2em; line-height: 1.4; }
+      .versa-slide ol > li { counter-increment: versa-ol; }
+      .versa-slide ol > li::before { content: counter(versa-ol) "."; position: absolute; left: 0; font-weight: 600; }
+      .versa-slide li.task-item::before { display: none; }
+      .versa-slide li.task-item { padding-left: 0; }
+      .versa-slide li.task-item input[type="checkbox"] { width: 18px; height: 18px; vertical-align: middle; margin-right: 8px; position: relative; top: -1px; }
+      .versa-slide blockquote { border-left: 4px solid #7ddf90; padding: 20px 24px; margin: 16px 0; background: rgba(125,223,144,0.1); font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; display: flex; flex-direction: column; justify-content: center; min-height: 60px; }
+      .versa-slide blockquote p { margin: 0; }
+      .versa-slide code { background: rgba(125,223,144,0.15); color: #7ddf90; padding: 2px 6px; border-radius: 4px; font-size: 18px; }
       .versa-slide pre { background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px; overflow-x: auto; margin: 16px 0; }
       .versa-slide pre code { background: none; padding: 0; font-size: 16px; }
       .versa-slide strong { color: #7ddf90; }
@@ -204,6 +266,7 @@ export const CAROUSEL_THEMES = [
       .versa-slide table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 20px; }
       .versa-slide th { background: rgba(0,0,0,0.15); padding: 12px; text-align: left; border-bottom: 2px solid rgba(125,223,144,0.3); font-weight: 700; color: #7ddf90; }
       .versa-slide td { padding: 12px; border-bottom: 1px solid rgba(125,223,144,0.1); }
+      .versa-slide del { text-decoration: line-through; text-decoration-thickness: 2px; opacity: 0.6; }
       .versa-slide img { max-width: 100%; border-radius: 8px; margin: 12px 0; }
     `,
   },
@@ -221,10 +284,18 @@ export const CAROUSEL_THEMES = [
       .versa-slide h2 { font-size: 36px; font-weight: 700; margin-bottom: 20px; }
       .versa-slide h3 { font-size: 28px; font-weight: 600; margin-bottom: 16px; }
       .versa-slide p { font-size: 22px; margin-bottom: 16px; }
-      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 32px; }
-      .versa-slide li { margin-bottom: 8px; }
-      .versa-slide blockquote { border-left: 4px solid #fff3cd; padding: 16px 24px; margin: 16px 0; background: rgba(255,255,255,0.15); font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; }
-      .versa-slide code { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; font-size: 18px; }
+      .versa-slide ul, .versa-slide ol { font-size: 22px; margin-bottom: 16px; padding-left: 8px; list-style: none; }
+      .versa-slide ol { counter-reset: versa-ol; }
+      .versa-slide li { margin-bottom: 8px; position: relative; padding-left: 28px; }
+      .versa-slide ul > li::before { content: "•"; position: absolute; left: 0; font-weight: bold; font-size: 1.2em; line-height: 1.4; }
+      .versa-slide ol > li { counter-increment: versa-ol; }
+      .versa-slide ol > li::before { content: counter(versa-ol) "."; position: absolute; left: 0; font-weight: 600; }
+      .versa-slide li.task-item::before { display: none; }
+      .versa-slide li.task-item { padding-left: 0; }
+      .versa-slide li.task-item input[type="checkbox"] { width: 18px; height: 18px; vertical-align: middle; margin-right: 8px; position: relative; top: -1px; }
+      .versa-slide blockquote { border-left: 4px solid #fff3cd; padding: 20px 24px; margin: 16px 0; background: rgba(255,255,255,0.15); font-style: italic; font-size: 22px; border-radius: 0 8px 8px 0; display: flex; flex-direction: column; justify-content: center; min-height: 60px; }
+      .versa-slide blockquote p { margin: 0; }
+      .versa-slide code { background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 4px; font-size: 18px; }
       .versa-slide pre { background: rgba(0,0,0,0.15); padding: 20px; border-radius: 8px; overflow-x: auto; margin: 16px 0; }
       .versa-slide pre code { background: none; padding: 0; font-size: 16px; }
       .versa-slide strong { color: #fff3cd; }
@@ -233,6 +304,7 @@ export const CAROUSEL_THEMES = [
       .versa-slide table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 20px; }
       .versa-slide th { background: rgba(0,0,0,0.1); padding: 12px; text-align: left; border-bottom: 2px solid rgba(255,255,255,0.3); font-weight: 700; }
       .versa-slide td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .versa-slide del { text-decoration: line-through; text-decoration-thickness: 2px; opacity: 0.7; }
       .versa-slide img { max-width: 100%; border-radius: 8px; margin: 12px 0; }
     `,
   },

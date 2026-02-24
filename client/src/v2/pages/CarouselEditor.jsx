@@ -32,15 +32,17 @@ const CarouselEditor = () => {
   } = useCarouselStore();
 
   const [previewWidth, setPreviewWidth] = useState(540);
+  const [previewHeight, setPreviewHeight] = useState(540);
   const previewRef = useRef(null);
   const paginateTimeout = useRef(null);
 
-  // Measure preview panel width for canvas scaling
+  // Measure preview panel size for canvas scaling
   useEffect(() => {
     if (!previewRef.current) return;
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
         setPreviewWidth(entry.contentRect.width);
+        setPreviewHeight(entry.contentRect.height);
       }
     });
     observer.observe(previewRef.current);
@@ -132,7 +134,7 @@ const CarouselEditor = () => {
 
         {/* Right Panel — Preview */}
         <div className="carousel-preview-panel" ref={previewRef}>
-          <SlideCanvas containerWidth={previewWidth} />
+          <SlideCanvas containerWidth={previewWidth} containerHeight={previewHeight} />
           <SlideNavigator />
         </div>
       </div>

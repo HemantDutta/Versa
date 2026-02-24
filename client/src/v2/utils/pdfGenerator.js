@@ -1,17 +1,15 @@
-import { PDFDocument, rgb } from "pdf-lib";
-import { fetchFontBytes } from "../../shared/utils/fontLoader";
+﻿import { PDFDocument } from "pdf-lib";
+import { toCanvas } from "html-to-image";
 import { getCarouselThemeCSS } from "../themes/carousel";
 
 /**
  * Generate a PDF carousel from slide HTML.
  *
  * Strategy:
- * 1. Render each slide in a hidden DOM container
- * 2. Convert each to a canvas via html2canvas-like approach (using native canvas)
- * 3. Embed each canvas as page images in pdf-lib PDFDocument
+ * 1. Render each slide in a real DOM container (offscreen)
+ * 2. Use html2canvas to capture each slide as a canvas
+ * 3. Embed each canvas as a PNG page in a pdf-lib PDFDocument
  * 4. Download the resulting PDF
- *
- * Since we can't use html2canvas (no dep), we use a foreignObject → SVG → Canvas trick.
  */
 
 /**
@@ -30,30 +28,97 @@ export async function generatePDF({ slides, fontObj, themeName, slideSize }) {
   // Get theme CSS
   const themeCSS = getCarouselThemeCSS(themeName);
 
-  // Font CSS link for the SVG foreignObject
-  const fontCSS = fontObj
-    ? `@import url('https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontObj.family)}&display=swap');`
-    : "";
-
   const fontFamilyStyle = fontObj
     ? `font-family: '${fontObj.family}', sans-serif;`
     : "";
 
-  // Process each slide
-  for (let i = 0; i < slides.length; i++) {
-    const slide = slides[i];
-    const imageData = await renderSlideToImage(
-      slide.html,
-      width,
-      height,
-      themeCSS,
-      fontCSS,
-      fontFamilyStyle
-    );
+  // Create an offscreen container for rendering
+  const renderContainer = document.createElement("div");
+  renderContainer.style.cssText = `
+    position: fixed;
+    top: -99999px;
+    left: -99999px;
+    width: ${width}px;
+    height: ${height}px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -9999;
+  `;
+  document.body.appendChild(renderContainer);
 
-    if (imageData) {
-      // Embed PNG into PDF
-      const pngImage = await pdfDoc.embedPng(imageData);
+  // Base styles that html2canvas renders reliably
+  const baseCSS = `
+    .versa-slide * { box-sizing: border-box; }
+    .versa-slide del, .versa-slide s {
+      text-decoration: line-through !important;
+      text-decoration-thickness: 2px;
+    }
+    .versa-slide ul, .versa-slide ol { list-style: none !important; padding-left: 8px !important; margin: 0 0 16px 0; }
+    .versa-slide li { margin-bottom: 8px; position: relative; padding-left: 28px; }
+    .versa-slide ul > li::before { content: "•"; position: absolute; left: 0; font-weight: bold; font-size: 1.2em; line-height: 1.4; }
+    .versa-slide ol > li::before { display: none !important; content: none !important; }
+    .versa-slide .pdf-ol-number { position: absolute; left: 0; font-weight: 600; }
+    .versa-slide li.task-item::before { display: none; }
+    .versa-slide li.task-item { padding-left: 0; }
+    .versa-slide li.task-item input[type="checkbox"] { width: 18px; height: 18px; vertical-align: middle; margin-right: 8px; position: relative; top: -1px; }
+    .versa-slide blockquote { display: flex; flex-direction: column; justify-content: center; min-height: 60px; }
+    .versa-slide blockquote p { margin: 0 !important; }
+  `;
+
+  // Inject base + theme styles
+  const styleEl = document.createElement("style");
+  styleEl.textContent = baseCSS + "\n" + themeCSS;
+  renderContainer.appendChild(styleEl);
+
+  try {
+    // Process each slide
+    for (let i = 0; i < slides.length; i++) {
+      const slide = slides[i];
+
+      // Create slide element
+      const slideEl = document.createElement("div");
+      slideEl.className = "versa-slide";
+      slideEl.style.cssText = `
+        width: ${width}px;
+        height: ${height}px;
+        overflow: hidden;
+        box-sizing: border-box;
+        ${fontFamilyStyle}
+      `;
+      slideEl.innerHTML = slide.html;
+
+      // Clear previous slide and add new one
+      const prevSlide = renderContainer.querySelector(".versa-slide");
+      if (prevSlide) prevSlide.remove();
+      renderContainer.appendChild(slideEl);
+
+      // Inject ordered-list numbers as real DOM nodes (CSS counters
+      // don't survive html-to-image's SVG serialization).
+      injectOlNumbers(slideEl);
+
+      // Let fonts and layout fully settle before rasterization.
+      await waitForCaptureStability();
+
+      // Capture with html-to-image (uses SVG foreignObject — browser's
+      // own CSS engine handles layout, so baseline/vertical-align is correct)
+      const canvas = await toCanvas(slideEl, {
+        width: width * 2,
+        height: height * 2,
+        pixelRatio: 1,           // we already doubled dimensions
+        cacheBust: true,
+        includeQueryParams: true,
+        style: {
+          transform: 'scale(2)',
+          transformOrigin: 'top left',
+        },
+      });
+
+      // Convert canvas to PNG ArrayBuffer
+      const pngDataUrl = canvas.toDataURL("image/png");
+      const pngBytes = dataUrlToArrayBuffer(pngDataUrl);
+
+      // Embed into PDF
+      const pngImage = await pdfDoc.embedPng(pngBytes);
       const page = pdfDoc.addPage([width, height]);
       page.drawImage(pngImage, {
         x: 0,
@@ -61,29 +126,10 @@ export async function generatePDF({ slides, fontObj, themeName, slideSize }) {
         width,
         height,
       });
-    } else {
-      // Fallback: blank page with error text
-      const page = pdfDoc.addPage([width, height]);
-      page.drawText(`Slide ${i + 1} — Render failed`, {
-        x: 50,
-        y: height - 100,
-        size: 24,
-        color: rgb(0.5, 0.5, 0.5),
-      });
     }
-  }
-
-  // If we have the custom font, try to embed it for metadata
-  if (fontObj) {
-    try {
-      const fontBytes = await fetchFontBytes(fontObj);
-      if (fontBytes) {
-        await pdfDoc.embedFont(fontBytes, { subset: true });
-      }
-    } catch (e) {
-      // Font embedding is optional — continue without it
-      console.warn("Could not embed font into PDF:", e);
-    }
+  } finally {
+    // Clean up
+    document.body.removeChild(renderContainer);
   }
 
   // Serialize and download
@@ -100,90 +146,41 @@ export async function generatePDF({ slides, fontObj, themeName, slideSize }) {
 }
 
 /**
- * Render a single slide's HTML to a PNG data ArrayBuffer
- * using the foreignObject → SVG → Canvas technique.
+ * Convert a data URL to an ArrayBuffer.
  */
-async function renderSlideToImage(
-  html,
-  width,
-  height,
-  themeCSS,
-  fontCSS,
-  fontFamilyStyle
-) {
-  return new Promise((resolve) => {
-    // Build an SVG with foreignObject containing the slide HTML
-    const svgData = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
-        <foreignObject width="100%" height="100%">
-          <div xmlns="http://www.w3.org/1999/xhtml" 
-               style="width:${width}px;height:${height}px;overflow:hidden;${fontFamilyStyle}">
-            <style>
-              ${fontCSS}
-              ${themeCSS}
-              * { margin: 0; padding: 0; box-sizing: border-box; }
-            </style>
-            <div class="versa-slide" style="width:${width}px;height:${height}px;overflow:hidden;">
-              ${escapeForSVG(html)}
-            </div>
-          </div>
-        </foreignObject>
-      </svg>
-    `;
+function dataUrlToArrayBuffer(dataUrl) {
+  const base64 = dataUrl.split(",")[1];
+  const binaryString = atob(base64);
+  const bytes = new Uint8Array(binaryString.length);
+  for (let i = 0; i < binaryString.length; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
 
-    const svgBlob = new Blob([svgData], {
-      type: "image/svg+xml;charset=utf-8",
+function injectOlNumbers(slideEl) {
+  slideEl.querySelectorAll("ol").forEach((ol) => {
+    const items = ol.querySelectorAll(":scope > li");
+    items.forEach((li, idx) => {
+      const num = document.createElement("span");
+      num.className = "pdf-ol-number";
+      num.textContent = `${idx + 1}.`;
+      li.prepend(num);
     });
-    const svgUrl = URL.createObjectURL(svgBlob);
-
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = width;
-      canvas.height = height;
-      const ctx = canvas.getContext("2d");
-
-      // Draw white background first (fallback)
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, width, height);
-
-      // Draw the SVG
-      ctx.drawImage(img, 0, 0, width, height);
-
-      canvas.toBlob(
-        (blob) => {
-          if (blob) {
-            blob.arrayBuffer().then(resolve);
-          } else {
-            resolve(null);
-          }
-        },
-        "image/png",
-        1.0
-      );
-
-      URL.revokeObjectURL(svgUrl);
-    };
-
-    img.onerror = () => {
-      console.error("Failed to render slide to image");
-      URL.revokeObjectURL(svgUrl);
-      resolve(null);
-    };
-
-    img.src = svgUrl;
   });
 }
 
-/**
- * Escape HTML content so it's safe inside an SVG foreignObject.
- * Mainly handles namespace issues.
- */
-function escapeForSVG(html) {
-  // Replace any bare & with &amp; (that aren't already entities)
-  return html.replace(/&(?!amp;|lt;|gt;|quot;|#\d+;|#x[\da-fA-F]+;)/g, "&amp;");
+async function waitForCaptureStability() {
+  if (typeof document !== "undefined" && document.fonts?.ready) {
+    try {
+      await document.fonts.ready;
+    } catch {
+      // Ignore font API failures and continue with frame settling.
+    }
+  }
+
+  await new Promise((resolve) => requestAnimationFrame(resolve));
+  await new Promise((resolve) => requestAnimationFrame(resolve));
 }
 
 export default generatePDF;
