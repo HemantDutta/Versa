@@ -30,7 +30,7 @@ const Blog = () => (
     </nav>
 
     {/* ── Header ─────────────────────────────────── */}
-    <header className="px-6 pt-24 pb-12 md:px-16 md:pt-36 md:pb-16 max-w-4xl">
+    <header className="px-6 pt-24 pb-12 md:px-16 md:pt-36 md:pb-16 max-w-6xl">
       <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] mb-4">
         <span className="text-versa-one italic">Blog</span>
       </h1>
@@ -41,29 +41,31 @@ const Blog = () => (
     </header>
 
     {/* ── Post Grid ──────────────────────────────── */}
-    <main className="px-6 pb-24 md:px-16 md:pb-36 max-w-4xl">
-      <div className="grid gap-6">
+    <main className="px-6 pb-24 md:px-16 md:pb-36 max-w-6xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {BLOG_POSTS.map((post) => (
           <Link
             key={post.slug}
             to={`/blog/${post.slug}`}
-            className="group block border-2 border-white/10 hover:border-versa-one/60 transition-colors p-6 md:p-8"
+            className="group flex flex-col border-2 border-white/10 hover:border-versa-one/60 transition-colors p-6"
           >
             <div className="flex flex-wrap items-center gap-3 mb-3 text-[11px] uppercase tracking-[0.25em] font-bold">
               <span className="text-versa-one">{post.category}</span>
               <span className="text-neutral-600">·</span>
               <span className="text-neutral-600">{post.readTime}</span>
             </div>
-            <h2 className="text-xl md:text-2xl font-black tracking-tight leading-snug group-hover:text-versa-one transition-colors">
+            <h2 className="text-lg font-black tracking-tight leading-snug group-hover:text-versa-one transition-colors">
               {post.title}
             </h2>
-            <p className="mt-2 text-neutral-300 text-sm md:text-base line-clamp-2">
+            <p className="mt-2 text-neutral-400 text-sm line-clamp-3 flex-1">
               {post.metaDesc}
             </p>
+            <span className="mt-4 text-[11px] uppercase tracking-[0.25em] font-bold text-versa-one opacity-0 group-hover:opacity-100 transition-opacity">
+              Read →
+            </span>
           </Link>
         ))}
       </div>
-
     </main>
   </div>
 );

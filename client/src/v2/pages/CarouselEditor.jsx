@@ -9,12 +9,16 @@ import Toolbar from "../components/Toolbar";
 import FontPicker from "../components/FontPicker";
 import ThemePicker from "../components/ThemePicker";
 import ExportPanel from "../components/ExportPanel";
+import PromptCopyModal from "../components/PromptCopyModal";
 import SEO from "../components/SEO";
 import "../styles/CarouselEditor.css";
+
+const MOBILE_BREAKPOINT = 768;
 
 /**
  * CarouselEditor — Main v2 page.
  * Two-panel layout: left = editor, right = slide preview.
+ * On mobile: single panel with edit/view toggle + hamburger dropdown.
  */
 const CarouselEditor = () => {
   const {
@@ -34,7 +38,11 @@ const CarouselEditor = () => {
 
   const [previewWidth, setPreviewWidth] = useState(540);
   const [previewHeight, setPreviewHeight] = useState(540);
+  const [promptOpen, setPromptOpen] = useState(false);
+  const [activePanel, setActivePanel] = useState("edit"); // "edit" | "preview"
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const previewRef = useRef(null);
+  const mobileMenuRef = useRef(null);
   const paginateTimeout = useRef(null);
 
   // Measure preview panel size for canvas scaling
@@ -64,7 +72,6 @@ const CarouselEditor = () => {
   }, [markdown, selectedTheme, selectedFont, slideSize, setSlides]);
 
   useEffect(() => {
-    // Debounce pagination by 300ms
     clearTimeout(paginateTimeout.current);
     paginateTimeout.current = setTimeout(repaginate, 300);
     return () => clearTimeout(paginateTimeout.current);
@@ -81,6 +88,38 @@ const CarouselEditor = () => {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [save]);
+
+  // Close mobile menu & reset panels on resize above breakpoint
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > MOBILE_BREAKPOINT) {
+        setMobileMenuOpen(false);
+        setActivePanel("edit");
+      }
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onClick = (e) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(e.target) &&
+        !e.target.closest(".hamburger-btn")
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [mobileMenuOpen]);
+
+  const togglePanel = () => {
+    setActivePanel((p) => (p === "edit" ? "preview" : "edit"));
+  };
 
   return (
     <div className="carousel-editor">
@@ -109,13 +148,25 @@ const CarouselEditor = () => {
           <span className="text-gray-500 text-xs hidden sm:inline">v2</span>
         </div>
 
+        {/* Desktop-only center section */}
         <div className="carousel-header-center">
           <FontPicker />
           <ThemePicker />
+          <button
+            onClick={() => setPromptOpen(true)}
+            className="flex items-center gap-2 px-3 py-2 bg-gray-800 rounded-lg text-sm text-white hover:bg-gray-700 transition-colors"
+            title="Get an AI-ready prompt for carousel content"
+          >
+            <i className="fa-solid fa-wand-magic-sparkles text-xs text-versa-one" />
+            <span className="hidden sm:inline truncate">AI Prompt</span>
+          </button>
         </div>
 
         <div className="carousel-header-right">
-          <ExportPanel />
+          {/* Desktop export + save */}
+          <div className="desktop-export">
+            <ExportPanel />
+          </div>
           <span
             className={`save-indicator text-xs ${
               saveStatus === "saved"
@@ -129,14 +180,77 @@ const CarouselEditor = () => {
             {saveStatus === "saving" && "Saving..."}
             {saveStatus === "unsaved" && "Unsaved"}
           </span>
+
+          {/* Mobile-only: Edit/View toggle + hamburger */}
+          <div className="mobile-controls">
+            <button
+              className="panel-toggle-btn"
+              onClick={togglePanel}
+              title={activePanel === "edit" ? "Switch to Preview" : "Switch to Editor"}
+            >
+              {activePanel === "edit" ? (
+                <><i className="fa-solid fa-eye text-xs" /> Preview</>
+              ) : (
+                <><i className="fa-solid fa-pen text-xs" /> Edit</>
+              )}
+            </button>
+
+            <button
+              className={`hamburger-btn ${mobileMenuOpen ? "active" : ""}`}
+              onClick={() => setMobileMenuOpen((o) => !o)}
+              aria-label="Menu"
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile dropdown menu — inside header for absolute positioning */}
+        <div
+          className={`mobile-menu ${mobileMenuOpen ? "active" : ""}`}
+          ref={mobileMenuRef}
+        >
+          <div className="mobile-menu-section">
+            <span className="mobile-menu-label">Font</span>
+            <FontPicker />
+          </div>
+          <div className="mobile-menu-section">
+            <span className="mobile-menu-label">Theme</span>
+            <ThemePicker />
+          </div>
+          <div className="mobile-menu-section">
+            <span className="mobile-menu-label">Tools</span>
+            <Toolbar />
+          </div>
+          <div className="mobile-menu-section mobile-menu-actions">
+            <button
+              onClick={() => {
+                setPromptOpen(true);
+                setMobileMenuOpen(false);
+              }}
+              className="mobile-action-btn"
+            >
+              <i className="fa-solid fa-wand-magic-sparkles text-versa-one" />
+              AI Prompt
+            </button>
+            <ExportPanel />
+          </div>
         </div>
       </header>
 
       {/* Main Content */}
       <div className="carousel-body">
         {/* Left Panel — Editor */}
-        <div className="carousel-editor-panel">
-          <Toolbar />
+        <div
+          className={`carousel-editor-panel ${
+            activePanel === "edit" ? "panel-active" : "panel-hidden"
+          }`}
+        >
+          <div className="desktop-toolbar">
+            <Toolbar />
+          </div>
           <MarkdownInput />
           <div className="editor-footer">
             <span className="text-gray-500 text-xs">
@@ -149,11 +263,19 @@ const CarouselEditor = () => {
         </div>
 
         {/* Right Panel — Preview */}
-        <div className="carousel-preview-panel" ref={previewRef}>
+        <div
+          className={`carousel-preview-panel ${
+            activePanel === "preview" ? "panel-active" : "panel-hidden"
+          }`}
+          ref={previewRef}
+        >
           <SlideCanvas containerWidth={previewWidth} containerHeight={previewHeight} />
           <SlideNavigator />
         </div>
       </div>
+
+      {/* Prompt Copy Modal */}
+      <PromptCopyModal open={promptOpen} onClose={() => setPromptOpen(false)} />
     </div>
   );
 };

@@ -168,33 +168,229 @@
   background: #555;
 }
 
+/* ── Mobile Controls (hidden on desktop) ──────────────── */
+
+.mobile-controls {
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.panel-toggle-btn:hover {
+  background: #2a2a2a;
+}
+
+/* Hamburger button */
+.hamburger-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: none;
+  border: 1px solid #333;
+  border-radius: 6px;
+  cursor: pointer;
+  gap: 5px;
+  transition: background 0.2s;
+}
+
+.hamburger-btn:hover {
+  background: #1e1e1e;
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: #e0e0e0;
+  border-radius: 1px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.hamburger-btn.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Desktop export wrapper (hides on mobile) */
+.desktop-export {
+  display: flex;
+  align-items: center;
+}
+
+/* Desktop toolbar (hides on mobile) */
+.desktop-toolbar {
+  flex-shrink: 0;
+  background: #111111;
+}
+
+/* ── Mobile Dropdown Menu ─────────────────────────────── */
+
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #111111;
+  border-bottom: 1px solid #1e1e1e;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  z-index: 50;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.mobile-menu.active {
+  max-height: 500px;
+  padding: 12px 16px;
+  overflow-y: auto;
+}
+
+.mobile-menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 0;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.mobile-menu-section:last-child {
+  border-bottom: none;
+}
+
+.mobile-menu-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #777;
+  font-weight: 600;
+}
+
+.mobile-menu-actions {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mobile-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.mobile-action-btn:hover {
+  background: #2a2a2a;
+}
+
 /* ── Responsive ────────────────────────────────────────── */
 
 @media (max-width: 768px) {
-  .carousel-body {
-    flex-direction: column;
+  /* Header: make it relative so mobile-menu positions below */
+  .carousel-header {
+    position: relative;
+    flex-wrap: nowrap;
+    gap: 8px;
   }
 
-  .carousel-editor-panel {
-    width: 100%;
-    min-width: auto;
-    height: 45%;
-    border-right: none;
-    border-bottom: 1px solid #1e1e1e;
-  }
-
-  .carousel-preview-panel {
-    height: 55%;
-    padding: 12px;
-  }
-
+  /* Hide desktop-only elements */
   .carousel-header-center {
     display: none;
   }
 
-  .carousel-header {
-    flex-wrap: wrap;
-    gap: 8px;
+  .desktop-export {
+    display: none;
+  }
+
+  /* Hide desktop toolbar — it's in the mobile menu */
+  .desktop-toolbar {
+    display: none;
+  }
+
+  /* Show mobile controls */
+  .mobile-controls {
+    display: flex;
+  }
+
+  /* Show mobile menu container */
+  .mobile-menu {
+    display: block;
+  }
+
+  /* Body: stack panels */
+  .carousel-body {
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* Both panels fill 100% */
+  .carousel-editor-panel,
+  .carousel-preview-panel {
+    width: 100%;
+    min-width: auto;
+    border-right: none;
+  }
+
+  /* Active panel takes all space */
+  .carousel-editor-panel.panel-active,
+  .carousel-preview-panel.panel-active {
+    display: flex;
+    flex: 1;
+  }
+
+  /* Hidden panel */
+  .carousel-editor-panel.panel-hidden,
+  .carousel-preview-panel.panel-hidden {
+    display: none;
+  }
+
+  .carousel-preview-panel {
+    padding: 12px;
+  }
+
+  /* Compact footer on mobile */
+  .editor-footer {
+    padding: 6px 12px;
+  }
+
+  /* Navigator: smaller gaps, wrapped */
+  .slide-navigator {
+    gap: 6px;
+    padding: 8px 4px;
   }
 }
 
