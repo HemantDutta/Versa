@@ -9,6 +9,7 @@ import Toolbar from "../components/Toolbar";
 import FontPicker from "../components/FontPicker";
 import ThemePicker from "../components/ThemePicker";
 import ExportPanel from "../components/ExportPanel";
+import SEO from "../components/SEO";
 import "../styles/CarouselEditor.css";
 
 /**
@@ -83,6 +84,21 @@ const CarouselEditor = () => {
 
   return (
     <div className="carousel-editor">
+      <SEO
+        title="Create Carousel"
+        description="Build a LinkedIn carousel from Markdown. Pick a theme, choose a font, export as PDF — all in your browser."
+        path="/create"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          name: "Versa — Carousel Editor",
+          url: "https://versacarousel.vercel.app/create",
+          applicationCategory: "DesignApplication",
+          operatingSystem: "Web",
+          offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        }}
+      />
+
       {/* Top Bar */}
       <header className="carousel-header">
         <div className="carousel-header-left">

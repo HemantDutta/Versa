@@ -8,6 +8,9 @@ import { MainLayout } from "./v1/layouts/MainLayout";
 // v2
 import V2Home from "./v2/pages/Home";
 import CarouselEditor from "./v2/pages/CarouselEditor";
+import About from "./v2/pages/About";
+import Blog from "./v2/pages/Blog";
+import BlogPost from "./v2/pages/BlogPost";
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
         {/* ── v2 routes (default) ─────────────────────── */}
         <Route path="/" element={<V2Home />} />
         <Route path="/create" element={<CarouselEditor />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
 
         {/* ── v1 legacy routes ────────────────────────── */}
         <Route path="/v1" element={<MainLayout><V1Home /></MainLayout>} />
