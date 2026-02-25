@@ -1,10 +1,12 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, memo } from "react";
 import useCarouselStore from "../store/useCarouselStore";
 import { tools } from "../../shared/utils/tools";
 
 export const MarkdownInput = () => {
   const textareaRef = useRef(null);
-  const { markdown, setMarkdown, save } = useCarouselStore();
+  const markdown = useCarouselStore((s) => s.markdown);
+  const setMarkdown = useCarouselStore((s) => s.setMarkdown);
+  const save = useCarouselStore((s) => s.save);
 
   // Handle tab insertion
   const handleKeyDown = useCallback(
@@ -119,4 +121,4 @@ export const MarkdownInput = () => {
   );
 };
 
-export default MarkdownInput;
+export default memo(MarkdownInput);

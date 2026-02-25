@@ -218,3 +218,160 @@
 - **Minimal slide navigation** (page counter + arrows) — keeps the UI clean; can evolve to thumbnail strip later.
 - **Square 1080×1080 default** — most common LinkedIn carousel format. Size selection (portrait, landscape, A4, custom) planned for a future iteration.
 - **Stay with JavaScript** — less migration overhead, consistent with existing codebase.
+
+## Left Over Stuff
+
+Created 2 todos
+
+Audit v2 completeness vs plan
+
+Read [](file:///c%3A/Users/91987/Versa/docs/v2_plan.md)
+
+Read [](file:///c%3A/Users/91987/Versa/client/vite.config.js)
+
+Read [](file:///c%3A/Users/91987/Versa/client/package.json)
+
+Read [](file:///c%3A/Users/91987/Versa/client/tailwind.config.js)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/shared/utils/versaParser.js)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/App.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/themes/carousel/index.js#1-1), lines 1 to 300
+
+Searched for text `REACT_APP_`, no results
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/themes/carousel/index.js#300-300), lines 300 to 1278
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/store)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/utils)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/store/useCarouselStore.js)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/MarkdownInput.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/utils/slidePaginator.js#1-1), lines 1 to 200
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/SlideCanvas.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/SlideNavigator.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/FontPicker.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/ThemePicker.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/ExportPanel.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/utils/pdfGenerator.js)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/utils/slidePaginator.js#200-200), lines 200 to 236
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/PromptCopyModal.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/SEO.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/Toolbar.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages/CarouselEditor.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages/Home.jsx#1-1), lines 1 to 350
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages/About.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages/Blog.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages/BlogPost.jsx)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages/Home.jsx#350-350), lines 350 to 462
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/shared/utils/fontLoader.js)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/data)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/styles)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/shared)
+
+Searched for regex `TODO|FIXME|HACK` (`**/client/src/**`), 2 results
+
+Searched for regex `SizeSelector|SlidePreview`, no results
+
+Searched for files matching `**/*.test.*`, no matches
+
+Read [](file:///c%3A/Users/91987/Versa/client/index.html)
+
+Read [](file:///c%3A/Users/91987/Versa/client/public/manifest.json)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/shared/utils/themes.js#1-1), lines 1 to 50
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/themes)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v1)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/shared/styles)
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/shared/components)
+
+Searched for regex `removeSlide|reorderSlide`, no results
+
+Read [](file:///c%3A/Users/91987/Versa/docs/v2_plan.md#1-1), lines 1 to 200
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/data/blogPosts.js#1-1), lines 1 to 50
+
+Searched for files matching `**/.env*`, no matches
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/themes/carousel)
+
+Searched for regex `Copy Link|shareable preview`, no results
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/utils/slidePaginator.js#1-1), lines 1 to 20
+
+Read [](file:///c%3A/Users/91987/Versa/client/src/v2/styles/CarouselEditor.css#1-1), lines 1 to 30
+
+Read [](file:///c%3A/Users/91987/AppData/Roaming/Code/User/workspaceStorage/300b4e0b3618a9d6e555935e3167dbc9/GitHub.copilot-chat/chat-session-resources/649ccbc4-fb7b-49fc-9878-cc7ea7d9e0d0/toolu_01W32nNQM9mDWQJXaqWsJpmM__vscode-1772004538045/content.txt)
+
+Completed: *Audit v2 against plan* (1/2)
+
+Here's the full audit against your plan:
+
+---
+
+## v2 Readiness Report
+
+### Fully Complete
+
+| Phase | Notes |
+|-------|-------|
+| **Phase 1** — CRA → Vite | Vite, deps, env vars, Tailwind — all done |
+| **Phase 2** — Parser upgrades | All 9 features + block-first refactor + carousel mode |
+| **Phase 3** — App restructure | Routes correct, v1/v2/shared folders in place |
+| **Phase 5** — Themes | 35 themes (plan asked for 6 + legacy carryovers) |
+| **Phase 6** — Landing page | Hero, CTA, features, GSAP, footer, legacy link |
+| **Bonus** | SEO component, About page, Blog (8 posts), AI Prompt modal, .md export |
+
+### Gaps to Fix Before Release
+
+| # | Gap | Severity | Details |
+|---|-----|----------|---------|
+| 1 | **`SizeSelector` UI missing** | **High** | Store has `slideSize` but no UI control — users are locked to 1080×1080. Plan specified portrait, landscape, A4, custom. |
+| 2 | **PDF font embedding unused** | **Medium** | `fetchFontBytes()` exists in fontLoader.js but pdfGenerator never calls it. Fonts render via rasterized PNG images instead of embedded vector text → larger PDFs, no text selection. |
+| 3 | **`manifest.json` still says "Create React App"** | **High** | manifest.json has `"name": "Create React App Sample"` and `"short_name": "React App"` — CRA leftover visible to users who install as PWA. |
+| 4 | **Duplicate `themes.js`** | **Low** | Same 3,283-line v1 themes file in both src/utils/themes.js and src/shared/utils/themes.js. One should be deleted. |
+| 5 | **`removeSlide()` / `reorderSlides()` not implemented** | **Low** | Plan listed them, but the single-markdown-document architecture makes them less relevant — users just edit the text. Not critical for v1 release. |
+| 6 | **No shared Navbar component** | **Low** | Plan listed `shared/components/Navbar.js` — each page has its own inline nav instead. Fine for now. |
+| 7 | **No tests** | **Low** | Zero test files. Not blocking but worth noting. |
+
+### Verdict
+
+**Core product is fully functional** — the editor, paginator, themes, fonts, PDF/HTML/MD export, responsive layout, SEO, blog, and landing page all work. The three things I'd fix before release:
+
+1. **Fix manifest.json** (5 seconds)
+2. **Add SizeSelector** (the only planned UI component that's missing)
+3. **Wire up PDF font embedding** (improves PDF quality + file size)

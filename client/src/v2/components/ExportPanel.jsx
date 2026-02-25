@@ -1,12 +1,15 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, memo } from "react";
 import useCarouselStore from "../store/useCarouselStore";
 
 /**
  * ExportPanel — Download buttons for PDF and HTML export.
  */
 export const ExportPanel = () => {
-  const { slides, selectedFont, selectedTheme, slideSize, markdown } =
-    useCarouselStore();
+  const slides = useCarouselStore((s) => s.slides);
+  const selectedFont = useCarouselStore((s) => s.selectedFont);
+  const selectedTheme = useCarouselStore((s) => s.selectedTheme);
+  const slideSize = useCarouselStore((s) => s.slideSize);
+  const markdown = useCarouselStore((s) => s.markdown);
   const [exporting, setExporting] = useState(false);
 
   const handleExportPDF = useCallback(async () => {
@@ -128,4 +131,4 @@ export const ExportPanel = () => {
   );
 };
 
-export default ExportPanel;
+export default memo(ExportPanel);

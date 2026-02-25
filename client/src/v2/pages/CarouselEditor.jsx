@@ -1,7 +1,6 @@
-import { useEffect, useCallback, useRef, useState } from "react";
+import { useEffect, useCallback, useRef, useState, useMemo } from "react";
 import useCarouselStore from "../store/useCarouselStore";
 import { paginateSlides } from "../utils/slidePaginator";
-import { fetchGoogleFonts } from "../../shared/utils/fontLoader";
 import MarkdownInput from "../components/MarkdownInput";
 import SlideCanvas from "../components/SlideCanvas";
 import SlideNavigator from "../components/SlideNavigator";
@@ -21,20 +20,20 @@ const MOBILE_BREAKPOINT = 768;
  * On mobile: single panel with edit/view toggle + hamburger dropdown.
  */
 const CarouselEditor = () => {
-  const {
-    markdown,
-    slides,
-    setSlides,
-    selectedFont,
-    selectedTheme,
-    slideSize,
-    saveStatus,
-    save,
-    fonts,
-    setFonts,
-    getWordCount,
-    getCharCount,
-  } = useCarouselStore();
+  const markdown = useCarouselStore((s) => s.markdown);
+  const slides = useCarouselStore((s) => s.slides);
+  const setSlides = useCarouselStore((s) => s.setSlides);
+  const selectedFont = useCarouselStore((s) => s.selectedFont);
+  const selectedTheme = useCarouselStore((s) => s.selectedTheme);
+  const slideSize = useCarouselStore((s) => s.slideSize);
+  const saveStatus = useCarouselStore((s) => s.saveStatus);
+  const save = useCarouselStore((s) => s.save);
+
+  const wordCount = useMemo(() => {
+    const text = markdown.replace(/[#*_~`>|\-\[\]()!]/g, "").trim();
+    return text ? text.split(/\s+/).length : 0;
+  }, [markdown]);
+  const charCount = useMemo(() => markdown.length, [markdown]);
 
   const [previewWidth, setPreviewWidth] = useState(540);
   const [previewHeight, setPreviewHeight] = useState(540);
@@ -57,12 +56,6 @@ const CarouselEditor = () => {
     observer.observe(previewRef.current);
     return () => observer.disconnect();
   }, []);
-
-  // Fetch fonts on mount
-  useEffect(() => {
-    if (fonts.length > 0) return;
-    fetchGoogleFonts().then((list) => setFonts(list));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Re-paginate slides when markdown, theme, font, or size changes
   const repaginate = useCallback(() => {
@@ -254,7 +247,7 @@ const CarouselEditor = () => {
           <MarkdownInput />
           <div className="editor-footer">
             <span className="text-gray-500 text-xs">
-              {getWordCount()} words · {getCharCount()} chars · {slides.length} slide{slides.length !== 1 ? "s" : ""}
+              {wordCount} words · {charCount} chars · {slides.length} slide{slides.length !== 1 ? "s" : ""}
             </span>
             <span className="text-gray-600 text-xs hidden sm:inline">
               Use <kbd className="bg-gray-800 px-1 rounded text-[10px]">---</kbd> for slide breaks

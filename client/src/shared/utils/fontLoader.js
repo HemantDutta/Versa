@@ -25,8 +25,12 @@ export async function fetchGoogleFonts() {
  * Create a @font-face rule and inject it into the document head.
  * @param {object} fontObj — Google Fonts API font object with .family and .files
  */
+const loadedFonts = new Set();
+
 export function loadFontFace(fontObj) {
   if (!fontObj?.family || !fontObj?.files?.regular) return;
+  if (loadedFonts.has(fontObj.family)) return;
+  loadedFonts.add(fontObj.family);
 
   const fontUrl = fontObj.files.regular;
   const fontFaceRule = `@font-face {

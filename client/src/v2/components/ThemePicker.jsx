@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo } from "react";
 import useCarouselStore from "../store/useCarouselStore";
 import { CAROUSEL_THEMES } from "../themes/carousel";
 
@@ -6,7 +6,8 @@ import { CAROUSEL_THEMES } from "../themes/carousel";
  * ThemePicker — Grid of theme cards with live preview colors.
  */
 export const ThemePicker = () => {
-  const { selectedTheme, setSelectedTheme } = useCarouselStore();
+  const selectedTheme = useCarouselStore((s) => s.selectedTheme);
+  const setSelectedTheme = useCarouselStore((s) => s.setSelectedTheme);
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -87,4 +88,4 @@ export const ThemePicker = () => {
   );
 };
 
-export default ThemePicker;
+export default memo(ThemePicker);

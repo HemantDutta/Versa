@@ -1,3 +1,4 @@
+import { memo } from "react";
 import useCarouselStore from "../store/useCarouselStore";
 
 /**
@@ -5,14 +6,12 @@ import useCarouselStore from "../store/useCarouselStore";
  * and an "Add Slide" button.
  */
 export const SlideNavigator = () => {
-  const {
-    slides,
-    activeSlideIndex,
-    setActiveSlide,
-    nextSlide,
-    prevSlide,
-    addSlideBreak,
-  } = useCarouselStore();
+  const slides = useCarouselStore((s) => s.slides);
+  const activeSlideIndex = useCarouselStore((s) => s.activeSlideIndex);
+  const setActiveSlide = useCarouselStore((s) => s.setActiveSlide);
+  const nextSlide = useCarouselStore((s) => s.nextSlide);
+  const prevSlide = useCarouselStore((s) => s.prevSlide);
+  const addSlideBreak = useCarouselStore((s) => s.addSlideBreak);
 
   const total = slides.length || 1;
   const current = activeSlideIndex + 1;
@@ -77,4 +76,4 @@ export const SlideNavigator = () => {
   );
 };
 
-export default SlideNavigator;
+export default memo(SlideNavigator);

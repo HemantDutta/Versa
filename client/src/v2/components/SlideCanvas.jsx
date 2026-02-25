@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo } from "react";
+import { useRef, useEffect, useMemo, memo } from "react";
 import useCarouselStore from "../store/useCarouselStore";
 import { getCarouselThemeCSS } from "../themes/carousel";
 
@@ -9,8 +9,11 @@ import { getCarouselThemeCSS } from "../themes/carousel";
  */
 export const SlideCanvas = ({ containerWidth = 540, containerHeight = 540 }) => {
   const canvasRef = useRef(null);
-  const { slides, activeSlideIndex, slideSize, selectedTheme, selectedFont } =
-    useCarouselStore();
+  const slides = useCarouselStore((s) => s.slides);
+  const activeSlideIndex = useCarouselStore((s) => s.activeSlideIndex);
+  const slideSize = useCarouselStore((s) => s.slideSize);
+  const selectedTheme = useCarouselStore((s) => s.selectedTheme);
+  const selectedFont = useCarouselStore((s) => s.selectedFont);
 
   const slide = slides[activeSlideIndex] || { html: "<p></p>" };
 
@@ -73,4 +76,4 @@ export const SlideCanvas = ({ containerWidth = 540, containerHeight = 540 }) => 
   );
 };
 
-export default SlideCanvas;
+export default memo(SlideCanvas);

@@ -1,20 +1,28 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-// v1 (legacy)
-import { Home as V1Home } from "./v1/pages/Home";
-import { Editor as V1Editor } from "./v1/pages/Editor";
-import { MainLayout } from "./v1/layouts/MainLayout";
+// Route-based code splitting — each page is loaded on demand
+const V2Home = lazy(() => import("./v2/pages/Home"));
+const CarouselEditor = lazy(() => import("./v2/pages/CarouselEditor"));
+const About = lazy(() => import("./v2/pages/About"));
+const Blog = lazy(() => import("./v2/pages/Blog"));
+const BlogPost = lazy(() => import("./v2/pages/BlogPost"));
 
-// v2
-import V2Home from "./v2/pages/Home";
-import CarouselEditor from "./v2/pages/CarouselEditor";
-import About from "./v2/pages/About";
-import Blog from "./v2/pages/Blog";
-import BlogPost from "./v2/pages/BlogPost";
+// v1 (legacy) — also lazy-loaded
+const V1Home = lazy(() => import("./v1/pages/Home").then((m) => ({ default: m.Home })));
+const V1Editor = lazy(() => import("./v1/pages/Editor").then((m) => ({ default: m.Editor })));
+const MainLayout = lazy(() => import("./v1/layouts/MainLayout").then((m) => ({ default: m.MainLayout })));
+
+const Fallback = () => (
+  <div className="flex items-center justify-center h-screen bg-[#0e0e0e]">
+    <div className="text-gray-400 text-sm animate-pulse">Loading…</div>
+  </div>
+);
 
 function App() {
   return (
     <BrowserRouter>
+      <Suspense fallback={<Fallback />}>
       <Routes>
         {/* ── v2 routes (default) ─────────────────────── */}
         <Route path="/" element={<V2Home />} />
@@ -27,6 +35,7 @@ function App() {
         <Route path="/v1" element={<MainLayout><V1Home /></MainLayout>} />
         <Route path="/v1/editor" element={<V1Editor />} />
       </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }

@@ -1,9 +1,11 @@
 import useCarouselStore from "../store/useCarouselStore";
 import { tools } from "../../shared/utils/tools";
-import { useRef, useCallback, useState, useEffect } from "react";
+import { useRef, useCallback, useState, useEffect, memo } from "react";
 
 export const Toolbar = () => {
-  const { setMarkdown, markdown, addSlideBreak } = useCarouselStore();
+  const setMarkdown = useCarouselStore((s) => s.setMarkdown);
+  const markdown = useCarouselStore((s) => s.markdown);
+  const addSlideBreak = useCarouselStore((s) => s.addSlideBreak);
   const fileInputRef = useRef(null);
 
   const insertText = useCallback(
@@ -149,4 +151,4 @@ const HeadingDropdown = ({ onSelect, btnClass }) => {
   );
 };
 
-export default Toolbar;
+export default memo(Toolbar);

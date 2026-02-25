@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback, memo } from "react";
 import useCarouselStore from "../store/useCarouselStore";
 import { fetchGoogleFonts, loadFontFace } from "../../shared/utils/fontLoader";
 
@@ -7,8 +7,10 @@ import { fetchGoogleFonts, loadFontFace } from "../../shared/utils/fontLoader";
  * Lazy loads font preview when a font is hovered.
  */
 export const FontPicker = () => {
-  const { fonts, setFonts, selectedFont, setSelectedFont } =
-    useCarouselStore();
+  const fonts = useCarouselStore((s) => s.fonts);
+  const setFonts = useCarouselStore((s) => s.setFonts);
+  const selectedFont = useCarouselStore((s) => s.selectedFont);
+  const setSelectedFont = useCarouselStore((s) => s.setSelectedFont);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -118,4 +120,4 @@ export const FontPicker = () => {
   );
 };
 
-export default FontPicker;
+export default memo(FontPicker);
