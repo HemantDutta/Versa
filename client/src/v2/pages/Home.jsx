@@ -344,7 +344,7 @@ const Home = () => {
             />
             <WhyItem
               title="Stupidly fast."
-              desc="No server round-trips, no loading spinners. Real-time preview as you type. PDF export takes seconds, not minutes."
+              desc="No server round-trips. Real-time preview as you type. PDF export takes seconds, not minutes."
             />
           </div>
         </div>

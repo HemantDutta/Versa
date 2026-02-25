@@ -344,6 +344,114 @@ const BLOG_POSTS = [
       },
     ],
   },
+
+  /* ─────────────── Post 7 ─────────────── */
+  {
+    slug: "create-course-slides-from-markdown",
+    title: "Create Course Slides & Handouts from Markdown",
+    metaTitle: "Course Slides from Markdown — Export to PDF | Versa",
+    metaDesc:
+      "Turn lecture notes into polished slides and printable handouts using Markdown. 1,600+ fonts, themes, free.",
+    date: "February 25, 2026",
+    readTime: "6 min read",
+    category: "Education",
+    sections: [
+      {
+        paragraphs: [
+          "PowerPoint is overkill for most lectures. You spend more time fiddling with alignment and bullet animations than writing the actual content. If your teaching material is primarily text, code, or structured information, Markdown is a faster, cleaner authoring format — and Versa turns it into presentation-ready slides you can project or print.",
+        ],
+      },
+      {
+        heading: "Why Markdown Works for Educators",
+        paragraphs: [
+          "Markdown is plain text. It opens anywhere, versions easily with Git, and doesn't lock you into proprietary formats. You can write lecture notes in any text editor — VS Code, Obsidian, Notion, or even Notepad — and paste them directly into Versa.",
+          "For STEM subjects, Markdown handles code blocks, tables, and structured lists natively. No more screenshotting code into slides.",
+        ],
+      },
+      {
+        heading: "Structuring a Lecture as Markdown",
+        paragraphs: [
+          "Use # for the lecture title and ## for each topic or section heading. Separate slides with --- (horizontal rule). Each section between rules becomes one slide in the exported PDF.",
+          "Keep slides focused: one concept per slide, 3–5 bullet points maximum. Students should be able to glance at a slide and grasp the key idea in seconds.",
+          "For code-heavy lectures, use fenced code blocks (```) — Versa renders them with proper monospace formatting and theme-appropriate styling. Blockquotes (>) work well for definitions or key theorems you want to visually emphasize.",
+        ],
+      },
+      {
+        heading: "Choosing a Theme for Readability",
+        paragraphs: [
+          "Projection environments need high contrast. Dark Minimal and Ember Dark work well in dimly lit lecture halls. Clean White and Teal Grid are ideal for printed handouts where ink usage matters.",
+          "Pick a legible font — Inter, Nunito Sans, or Source Sans Pro for body text. Fira Code or JetBrains Mono for code-heavy slides. Font size is handled automatically by Versa's themes, so text stays readable at projection scale.",
+        ],
+      },
+      {
+        heading: "Exporting Slides and Handouts",
+        paragraphs: [
+          "Click Export to generate a PDF. Each slide becomes a separate page. Project it directly from any PDF viewer, upload it to your LMS, or print copies as handouts.",
+          "Since Versa is browser-based and has no backend, you can use it on university computers without installing anything. Students can use the same tool to create study guides or project presentations from their own notes.",
+        ],
+      },
+      {
+        heading: "Reuse and Iterate",
+        paragraphs: [
+          "Save your Markdown source files alongside your course materials. Next semester, update the content, re-export, and you have a fresh set of slides without rebuilding from scratch. Version control your lectures the same way you version code — because your source material is just text.",
+        ],
+      },
+    ],
+  },
+
+  /* ─────────────── Post 8 ─────────────── */
+  {
+    slug: "create-product-one-pager-pdf-from-markdown",
+    title: "Create a Product One-Pager PDF from Markdown for Sales Outreach",
+    metaTitle: "Product One-Pager from Markdown — PDF Export | Versa",
+    metaDesc:
+      "Build sales one-pagers and product briefs in Markdown. Export branded PDFs with custom fonts and themes.",
+    date: "February 25, 2026",
+    readTime: "5 min read",
+    category: "Professional",
+    sections: [
+      {
+        paragraphs: [
+          "Sales teams need one-pagers that look professional, stay on brand, and can be updated in minutes — not days. Most teams either rely on a designer (slow) or wrestle with Canva templates that don't quite fit (frustrating). Markdown offers a faster path: write the content, style it with a theme, and export a polished PDF.",
+        ],
+      },
+      {
+        heading: "What Makes a Good One-Pager",
+        paragraphs: [
+          "A product one-pager should answer three questions in under 60 seconds: What is it? Why should I care? What do I do next? Structure your Markdown accordingly: a bold headline, 2–3 value propositions, a short feature list, and a clear call-to-action.",
+          "Use **bold** for metrics and outcomes (\"Reduces onboarding time by 40%\"). Use blockquotes for customer quotes or social proof. Keep paragraphs to 1–2 sentences.",
+        ],
+      },
+      {
+        heading: "Writing the One-Pager in Markdown",
+        paragraphs: [
+          "Start with your product name as an H1 heading and a tagline as a paragraph. Use H2 headings for sections: Problem, Solution, Key Features, Social Proof, and Next Steps.",
+          "Feature lists work well as bullet points. If you have comparison data, use a Markdown table — Versa renders tables with clean borders and themed headers that look great in print.",
+          "For multi-page briefs, use --- to create page breaks. A 2–3 page product brief can replace a full slide deck for early-stage sales conversations.",
+        ],
+      },
+      {
+        heading: "Branding with Themes and Fonts",
+        paragraphs: [
+          "Choose a theme that matches your company's tone. Brand Blue and Corporate Duo are designed for B2B materials. Bold Statement and Gradient Pop work for consumer-facing products.",
+          "Select a font that aligns with your brand guidelines. If your company uses a specific Google Font, search for it in Versa's font picker — with 1,600+ options, it's almost certainly available. Consistent typography across your website, emails, and PDFs builds brand recognition.",
+        ],
+      },
+      {
+        heading: "Export and Distribute",
+        paragraphs: [
+          "Export as PDF and attach directly to sales emails, upload to your CRM, or share via Slack. The PDF is self-contained — fonts and styling are embedded, so it looks identical on any device.",
+          "Since everything runs in the browser, there's no data going to a server. Confidential pricing, unreleased features, and customer data stay on your machine. That's not just convenient — for regulated industries, it's a compliance advantage.",
+        ],
+      },
+      {
+        heading: "Iterating Quickly",
+        paragraphs: [
+          "Sales content changes constantly — new features, updated pricing, fresh case studies. Because your source is Markdown, updates take minutes instead of hours. Edit the text, re-export, and the new version is ready to send. No designer needed, no template wrestling.",
+        ],
+      },
+    ],
+  },
 ];
 
 export default BLOG_POSTS;

@@ -12,7 +12,7 @@ export async function fetchGoogleFonts() {
   }
   try {
     const res = await axios.get(
-      `https://www.googleapis.com/webfonts/v1/webfonts?key=${apiKey}`
+      `https://www.googleapis.com/webfonts/v1/webfonts?key=${apiKey}&sort=popularity`
     );
     return res.data.items || [];
   } catch (err) {
