@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useToast } from "./Toast";
 
 /* ── The prompt users will copy and give to their LLM ────── */
 const VERSA_PROMPT = `You are helping me create content for a LinkedIn carousel. The carousel will be built using a Markdown-based tool called Versa, which converts Markdown into a multi-slide PDF carousel.
@@ -38,6 +39,7 @@ Now, using the rules above, create a LinkedIn carousel in Markdown about the fol
 
 const PromptCopyModal = ({ open, onClose }) => {
   const [copied, setCopied] = useState(false);
+  const toast = useToast();
 
   /* Reset copied state when modal opens */
   useEffect(() => {
@@ -60,6 +62,7 @@ const PromptCopyModal = ({ open, onClose }) => {
     try {
       await navigator.clipboard.writeText(VERSA_PROMPT);
       setCopied(true);
+      toast("Prompt copied to clipboard", "success");
       setTimeout(() => setCopied(false), 2500);
     } catch {
       /* fallback */
@@ -70,6 +73,7 @@ const PromptCopyModal = ({ open, onClose }) => {
       document.execCommand("copy");
       document.body.removeChild(ta);
       setCopied(true);
+      toast("Prompt copied to clipboard", "success");
       setTimeout(() => setCopied(false), 2500);
     }
   };

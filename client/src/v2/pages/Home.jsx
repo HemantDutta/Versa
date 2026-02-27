@@ -15,7 +15,7 @@ const MARQUEE_ITEMS = [
   "LinkedIn",
   "Carousel",
   "1 600+ Fonts",
-  "8 Themes",
+  "35 Themes",
   "Auto-Pagination",
   "100% Private",
   "No Sign-Up",
@@ -65,7 +65,7 @@ const Home = () => {
     <div ref={rootRef} className="v2-home relative min-h-screen bg-[#0d0d0d] text-white overflow-x-hidden font-[Jost]">
       <SEO
         title="Free LinkedIn Carousel Generator"
-        description="Convert Markdown into polished PDF carousels for LinkedIn. 8 themes, 1 600+ Google Fonts, auto-pagination — free, private, open source."
+        description="Convert Markdown into polished PDF carousels for LinkedIn. 35 themes, 1 600+ Google Fonts, auto-pagination — free, private, open source."
         path="/"
         jsonLd={{
           "@context": "https://schema.org",
@@ -76,7 +76,7 @@ const Home = () => {
           operatingSystem: "Web",
           offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
           description:
-            "Free, open-source tool that converts Markdown into PDF carousels for LinkedIn. Runs entirely in the browser.",
+            "Free, open-source tool that converts Markdown into PDF carousels for LinkedIn. 35 themes, 1 600+ fonts, AI prompt helper. Runs entirely in the browser.",
         }}
       />
 
@@ -145,7 +145,7 @@ const Home = () => {
 
             <p data-hero className="text-neutral-300 text-lg md:text-xl max-w-xl leading-relaxed mb-10">
               Write your slides in Markdown. Choose from 1 600+ Google Fonts and
-              8 handcrafted themes. Export a pixel-perfect PDF carousel for
+              35 handcrafted themes. Export a pixel-perfect PDF carousel for
               LinkedIn&nbsp;&mdash;&nbsp;entirely in your browser. No sign-up,
               no servers, no nonsense.
             </p>
@@ -235,7 +235,7 @@ const Home = () => {
       <section className="relative z-10 px-6 py-16 md:px-16 md:py-24" aria-label="Key statistics">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border-2 border-white/10">
           <Stat data-stat value="1 600+" label="Google Fonts" />
-          <Stat data-stat value="8" label="Themes" />
+          <Stat data-stat value="35" label="Themes" />
           <Stat data-stat value="$0" label="Forever Free" />
           <Stat data-stat value="0" label="Data Sent to Servers" />
         </div>
@@ -254,7 +254,7 @@ const Home = () => {
             // Features
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border-2 border-white/10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border-2 border-white/10">
             <FeatureCard
               num="01"
               icon="fa-solid fa-wand-magic-sparkles"
@@ -270,8 +270,8 @@ const Home = () => {
             <FeatureCard
               num="03"
               icon="fa-solid fa-palette"
-              title="8 Handcrafted Themes"
-              desc="From clean white to bold gradients — designed specifically for the LinkedIn carousel format."
+              title="35 Handcrafted Themes"
+              desc="From clean white to neon gradients, dark modes to pastels — 35 themes designed specifically for the LinkedIn carousel format."
             />
             <FeatureCard
               num="04"
@@ -287,9 +287,21 @@ const Home = () => {
             />
             <FeatureCard
               num="06"
+              icon="fa-solid fa-wand-magic-sparkles"
+              title="AI Prompt Helper"
+              desc="One-click copy a fine-tuned prompt for ChatGPT, Claude, or any LLM. It generates Markdown that's ready to paste straight into Versa."
+            />
+            <FeatureCard
+              num="07"
               icon="fa-solid fa-shield-halved"
               title="100% Private"
               desc="Zero servers. Zero tracking. Your browser does all the work. Content stays on your machine, always."
+            />
+            <FeatureCard
+              num="08"
+              icon="fa-solid fa-mobile-screen"
+              title="Mobile Friendly"
+              desc="Full editor experience on any device. Toggle between edit and preview panels, access all tools from a slide-out menu."
             />
           </div>
         </div>
@@ -310,7 +322,7 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 border-2 border-white/10">
             <Step num="01" title="Write" desc="Type or paste your content in Markdown. Use --- to create slide breaks. Versa's live preview updates instantly." />
-            <Step num="02" title="Style" desc="Browse 8 themes and 1 600+ fonts. Mix and match until it feels right. See every change in real-time." />
+            <Step num="02" title="Style" desc="Browse 35 themes and 1 600+ fonts. Mix and match until it feels right. See every change in real-time." />
             <Step num="03" title="Export" desc="One click. High-res PDF. Upload to LinkedIn and watch the engagement roll in." />
           </div>
         </div>

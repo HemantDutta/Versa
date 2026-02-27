@@ -1,5 +1,7 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastProvider } from "./v2/components/Toast";
+import ErrorBoundary from "./v2/components/ErrorBoundary";
 
 // Route-based code splitting — each page is loaded on demand
 const V2Home = lazy(() => import("./v2/pages/Home"));
@@ -12,6 +14,7 @@ const BlogPost = lazy(() => import("./v2/pages/BlogPost"));
 const V1Home = lazy(() => import("./v1/pages/Home").then((m) => ({ default: m.Home })));
 const V1Editor = lazy(() => import("./v1/pages/Editor").then((m) => ({ default: m.Editor })));
 const MainLayout = lazy(() => import("./v1/layouts/MainLayout").then((m) => ({ default: m.MainLayout })));
+const NotFound = lazy(() => import("./v2/pages/NotFound"));
 
 const Fallback = () => (
   <div className="flex items-center justify-center h-screen bg-[#0e0e0e]">
@@ -22,6 +25,8 @@ const Fallback = () => (
 function App() {
   return (
     <BrowserRouter>
+      <ErrorBoundary>
+      <ToastProvider>
       <Suspense fallback={<Fallback />}>
       <Routes>
         {/* ── v2 routes (default) ─────────────────────── */}
@@ -34,8 +39,13 @@ function App() {
         {/* ── v1 legacy routes ────────────────────────── */}
         <Route path="/v1" element={<MainLayout><V1Home /></MainLayout>} />
         <Route path="/v1/editor" element={<V1Editor />} />
+
+        {/* ── 404 catch-all ───────────────────────────── */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
       </Suspense>
+      </ToastProvider>
+      </ErrorBoundary>
     </BrowserRouter>
   );
 }

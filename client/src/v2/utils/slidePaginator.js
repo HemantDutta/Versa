@@ -1,4 +1,5 @@
 import { versaParser } from "../../shared/utils/versaParser";
+import { getCarouselThemeCSS } from "../themes/carousel";
 
 /**
  * Slide Paginator — Takes markdown content and splits it into
@@ -167,7 +168,7 @@ function fitBlocksToSlides(htmlBlocks, container, slideSize, theme) {
   const availableHeight = slideSize.height - padding * 2;
 
   // Import theme CSS for measuring
-  const { carouselThemes } = getCarouselThemeCSS(theme);
+  const themeCSS = getCarouselThemeCSS(theme);
 
   for (let i = 0; i < htmlBlocks.length; i++) {
     const block = htmlBlocks[i];
@@ -176,7 +177,7 @@ function fitBlocksToSlides(htmlBlocks, container, slideSize, theme) {
     const testContent = [...currentBlocks, block].join("");
     container.innerHTML = `
       <div style="padding: ${padding}px; box-sizing: border-box; width: 100%; height: auto;">
-        <style>${carouselThemes}</style>
+        <style>${themeCSS}</style>
         ${testContent}
       </div>
     `;
@@ -198,38 +199,4 @@ function fitBlocksToSlides(htmlBlocks, container, slideSize, theme) {
   }
 
   return slides;
-}
-
-/**
- * Get the CSS for carousel themes (used in measurement).
- */
-function getCarouselThemeCSS(theme) {
-  // Import carousel themes dynamically
-  try {
-    // We'll use a basic set of styles for measurement
-    return {
-      carouselThemes: `
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        h1 { font-size: 48px; margin: 20px 0; font-weight: bold; line-height: 1.2; }
-        h2 { font-size: 36px; margin: 16px 0; font-weight: bold; line-height: 1.3; }
-        h3 { font-size: 28px; margin: 14px 0; font-weight: bold; line-height: 1.3; }
-        h4 { font-size: 24px; margin: 12px 0; font-weight: bold; line-height: 1.4; }
-        h5 { font-size: 20px; margin: 10px 0; font-weight: bold; line-height: 1.4; }
-        h6 { font-size: 18px; margin: 8px 0; font-weight: bold; line-height: 1.4; }
-        p { font-size: 22px; margin: 12px 0; line-height: 1.6; }
-        ul, ol { font-size: 22px; margin: 12px 0; padding-left: 28px; line-height: 1.6; }
-        li { margin: 6px 0; }
-        blockquote { font-size: 22px; margin: 16px 0; padding: 16px 24px; border-left: 4px solid #ccc; }
-        pre { font-size: 16px; margin: 16px 0; padding: 20px; }
-        code { font-size: 16px; }
-        table { width: 100%; margin: 16px 0; border-collapse: collapse; font-size: 20px; }
-        th, td { padding: 10px 14px; border: 1px solid #ddd; }
-        img { max-width: 100%; height: auto; margin: 12px 0; }
-        hr { margin: 20px 0; }
-        .footnotes { font-size: 16px; margin-top: 24px; }
-      `,
-    };
-  } catch {
-    return { carouselThemes: "" };
-  }
 }

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Generate Versa OG Image</title>
+  <style>
+    body { margin: 0; background: #111; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: system-ui, sans-serif; color: #ccc; }
+    canvas { border: 1px solid #333; max-width: 90vw; }
+    p { margin-top: 16px; font-size: 14px; }
+    a { color: #F875AA; }
+  </style>
+</head>
+<body>
+  <canvas id="og" width="1200" height="630"></canvas>
+  <p>Image auto-downloaded as <strong>og-cover.png</strong>. Move it to <code>client/public/</code>.</p>
+
+  <script>
+    const W = 1200, H = 630;
+    const canvas = document.getElementById("og");
+    const ctx = canvas.getContext("2d");
+
+    const PINK = "#F875AA";
+    const BG   = "#0e0e0e";
+    const CARD = "#161616";
+    const BORDER = "#222";
+    const GRAY = "#666";
+    const WHITE = "#eee";
+
+    // ── Background ───────────────────────────────────
+    ctx.fillStyle = BG;
+    ctx.fillRect(0, 0, W, H);
+
+    // Subtle grid dots
+    ctx.fillStyle = "rgba(255,255,255,0.025)";
+    for (let x = 30; x < W; x += 30) {
+      for (let y = 30; y < H; y += 30) {
+        ctx.beginPath();
+        ctx.arc(x, y, 1, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // ── Accent glow (top-right) ──────────────────────
+    const glow = ctx.createRadialGradient(W - 200, 100, 0, W - 200, 100, 350);
+    glow.addColorStop(0, "rgba(248,117,170,0.10)");
+    glow.addColorStop(1, "rgba(248,117,170,0)");
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    // ── Mini editor mockup (right side) ──────────────
+    const ex = 660, ey = 130, ew = 480, eh = 370;
+    const r = 12;
+
+    // Card shadow
+    ctx.shadowColor = "rgba(0,0,0,0.5)";
+    ctx.shadowBlur = 40;
+    ctx.shadowOffsetY = 10;
+
+    // Card bg
+    ctx.fillStyle = CARD;
+    roundRect(ctx, ex, ey, ew, eh, r);
+    ctx.fill();
+
+    // Reset shadow
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
+
+    // Card border
+    ctx.strokeStyle = BORDER;
+    ctx.lineWidth = 1;
+    roundRect(ctx, ex, ey, ew, eh, r);
+    ctx.stroke();
+
+    // Title bar
+    ctx.fillStyle = "#1a1a1a";
+    roundRectTop(ctx, ex, ey, ew, 36, r);
+    ctx.fill();
+
+    // Traffic lights
+    const dots = ["#ff5f57", "#febc2e", "#28c840"];
+    dots.forEach((c, i) => {
+      ctx.fillStyle = c;
+      ctx.beginPath();
+      ctx.arc(ex + 18 + i * 20, ey + 18, 5, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // "CarouselEditor" tab text
+    ctx.fillStyle = GRAY;
+    ctx.font = "11px monospace";
+    ctx.fillText("CarouselEditor.jsx", ex + 90, ey + 22);
+
+    // Fake code lines (left half of card)
+    const codeX = ex + 16;
+    const codeY = ey + 56;
+    const lines = [
+      { color: GRAY,  text: "# Welcome to Versa" },
+      { color: "#888", text: "" },
+      { color: "#888", text: "Create stunning **PDF**" },
+      { color: "#888", text: "carousels for LinkedIn." },
+      { color: "#888", text: "" },
+      { color: PINK,   text: "---" },
+      { color: "#888", text: "" },
+      { color: GRAY,   text: "## How It Works" },
+      { color: "#888", text: "" },
+      { color: "#888", text: "1. Write Markdown" },
+      { color: "#888", text: "2. Choose a theme" },
+      { color: "#888", text: "3. Download as PDF" },
+    ];
+
+    lines.forEach((l, i) => {
+      ctx.fillStyle = l.color;
+      ctx.font = "12px 'Courier New', monospace";
+      ctx.fillText(l.text, codeX, codeY + i * 22);
+    });
+
+    // Divider line in middle of card
+    const divX = ex + ew / 2;
+    ctx.strokeStyle = BORDER;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(divX, ey + 36);
+    ctx.lineTo(divX, ey + eh);
+    ctx.stroke();
+
+    // Fake slide preview (right half of card)
+    const slideX = divX + 20;
+    const slideY = ey + 56;
+    const slideW = ew / 2 - 40;
+    const slideH = slideW; // Square
+
+    // Slide bg
+    ctx.fillStyle = "#fff";
+    roundRect(ctx, slideX, slideY, slideW, slideH, 6);
+    ctx.fill();
+
+    // Slide content
+    ctx.fillStyle = "#222";
+    ctx.font = "bold 16px system-ui, sans-serif";
+    ctx.fillText("Welcome to", slideX + 18, slideY + 40);
+    ctx.fillStyle = PINK;
+    ctx.font = "bold 22px system-ui, sans-serif";
+    ctx.fillText("Versa", slideX + 18, slideY + 68);
+    ctx.fillStyle = "#666";
+    ctx.font = "11px system-ui, sans-serif";
+    ctx.fillText("Create stunning PDF", slideX + 18, slideY + 95);
+    ctx.fillText("carousels for LinkedIn.", slideX + 18, slideY + 112);
+
+    // Slide counter
+    ctx.fillStyle = "#aaa";
+    ctx.font = "11px monospace";
+    ctx.textAlign = "center";
+    ctx.fillText("1 / 4", slideX + slideW / 2, slideY + slideH + 24);
+    ctx.textAlign = "left";
+
+    // ── Left side text ───────────────────────────────
+    // "V" in pink
+    ctx.fillStyle = PINK;
+    ctx.font = "bold 52px system-ui, sans-serif";
+    ctx.fillText("V", 60, 210);
+
+    // "ersa" in white
+    ctx.fillStyle = WHITE;
+    ctx.font = "bold 52px system-ui, sans-serif";
+    ctx.fillText("ersa", 60 + ctx.measureText("V").width - 4, 210);
+
+    // Tagline
+    ctx.fillStyle = "#bbb";
+    ctx.font = "22px system-ui, sans-serif";
+    ctx.fillText("Free LinkedIn Carousel", 60, 260);
+    ctx.fillText("Generator from Markdown", 60, 290);
+
+    // Feature pills
+    const pills = ["35 Themes", "1600+ Fonts", "PDF Export", "100% Private"];
+    let pillX = 60;
+    const pillY = 330;
+    ctx.font = "13px system-ui, sans-serif";
+    pills.forEach((text) => {
+      const tw = ctx.measureText(text).width;
+      const pw = tw + 20;
+
+      ctx.fillStyle = "rgba(248,117,170,0.1)";
+      roundRect(ctx, pillX, pillY, pw, 30, 15);
+      ctx.fill();
+
+      ctx.strokeStyle = "rgba(248,117,170,0.3)";
+      ctx.lineWidth = 1;
+      roundRect(ctx, pillX, pillY, pw, 30, 15);
+      ctx.stroke();
+
+      ctx.fillStyle = PINK;
+      ctx.fillText(text, pillX + 10, pillY + 20);
+
+      pillX += pw + 10;
+    });
+
+    // URL
+    ctx.fillStyle = GRAY;
+    ctx.font = "14px monospace";
+    ctx.fillText("https://versa-hd.netlify.app/", 60, 420);
+
+    // ── Bottom accent bar ────────────────────────────
+    ctx.fillStyle = PINK;
+    ctx.fillRect(0, H - 4, W, 4);
+
+    // ── Download ─────────────────────────────────────
+    const link = document.createElement("a");
+    link.download = "og-cover.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+
+    // ── Helpers ──────────────────────────────────────
+    function roundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+
+    function roundRectTop(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h);
+      ctx.lineTo(x, y + h);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+  </script>
+</body>
+</html>

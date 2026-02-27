@@ -8,7 +8,10 @@ import Toolbar from "../components/Toolbar";
 import FontPicker from "../components/FontPicker";
 import ThemePicker from "../components/ThemePicker";
 import ExportPanel from "../components/ExportPanel";
+import SizeSelector from "../components/SizeSelector";
 import PromptCopyModal from "../components/PromptCopyModal";
+import TemplateGallery from "../components/TemplateGallery";
+import ShortcutsPanel from "../components/ShortcutsPanel";
 import SEO from "../components/SEO";
 import "../styles/CarouselEditor.css";
 
@@ -38,6 +41,8 @@ const CarouselEditor = () => {
   const [previewWidth, setPreviewWidth] = useState(540);
   const [previewHeight, setPreviewHeight] = useState(540);
   const [promptOpen, setPromptOpen] = useState(false);
+  const [templatesOpen, setTemplatesOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [activePanel, setActivePanel] = useState("edit"); // "edit" | "preview"
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const previewRef = useRef(null);
@@ -70,17 +75,20 @@ const CarouselEditor = () => {
     return () => clearTimeout(paginateTimeout.current);
   }, [repaginate]);
 
-  // Keyboard shortcut: Ctrl+S
+  // Keyboard shortcut: "?" toggles shortcuts panel
   useEffect(() => {
     const handler = (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === "s") {
-        e.preventDefault();
-        save();
+      if (e.key === "?" && !e.ctrlKey && !e.metaKey) {
+        const tag = document.activeElement?.tagName;
+        if (tag !== "TEXTAREA" && tag !== "INPUT") {
+          e.preventDefault();
+          setShortcutsOpen((o) => !o);
+        }
       }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [save]);
+  }, []);
 
   // Close mobile menu & reset panels on resize above breakpoint
   useEffect(() => {
@@ -145,6 +153,15 @@ const CarouselEditor = () => {
         <div className="carousel-header-center">
           <FontPicker />
           <ThemePicker />
+          <SizeSelector />
+          <button
+            onClick={() => setTemplatesOpen(true)}
+            className="flex items-center gap-2 px-3 py-2 bg-gray-800 rounded-lg text-sm text-white hover:bg-gray-700 transition-colors"
+            title="Start with a template"
+          >
+            <i className="fa-solid fa-layer-group text-xs text-versa-one" />
+            <span className="hidden sm:inline truncate">Templates</span>
+          </button>
           <button
             onClick={() => setPromptOpen(true)}
             className="flex items-center gap-2 px-3 py-2 bg-gray-800 rounded-lg text-sm text-white hover:bg-gray-700 transition-colors"
@@ -214,10 +231,24 @@ const CarouselEditor = () => {
             <ThemePicker />
           </div>
           <div className="mobile-menu-section">
+            <span className="mobile-menu-label">Size</span>
+            <SizeSelector />
+          </div>
+          <div className="mobile-menu-section">
             <span className="mobile-menu-label">Tools</span>
             <Toolbar />
           </div>
           <div className="mobile-menu-section mobile-menu-actions">
+            <button
+              onClick={() => {
+                setTemplatesOpen(true);
+                setMobileMenuOpen(false);
+              }}
+              className="mobile-action-btn"
+            >
+              <i className="fa-solid fa-layer-group text-versa-one" />
+              Templates
+            </button>
             <button
               onClick={() => {
                 setPromptOpen(true);
@@ -269,6 +300,12 @@ const CarouselEditor = () => {
 
       {/* Prompt Copy Modal */}
       <PromptCopyModal open={promptOpen} onClose={() => setPromptOpen(false)} />
+
+      {/* Template Gallery */}
+      {templatesOpen && <TemplateGallery onClose={() => setTemplatesOpen(false)} />}
+
+      {/* Shortcuts Panel */}
+      <ShortcutsPanel open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import V2Navbar from "../components/V2Navbar";
 import BLOG_POSTS from "../data/blogPosts";
 
 const Blog = () => (
@@ -10,24 +11,7 @@ const Blog = () => (
       path="/blog"
     />
 
-    {/* ── Navbar ─────────────────────────────────── */}
-    <nav className="flex items-center justify-between px-6 py-5 md:px-16 border-b-2 border-white/10">
-      <Link to="/" className="flex items-baseline gap-0">
-        <span className="text-versa-one font-black text-3xl leading-none tracking-tighter">V</span>
-        <span className="font-bold text-xl leading-none tracking-tight">ersa</span>
-      </Link>
-      <div className="flex items-center gap-6 text-[11px] uppercase tracking-[0.25em] font-bold text-neutral-500">
-        <Link to="/" className="hover:text-white transition-colors">Home</Link>
-        <Link to="/about" className="hover:text-white transition-colors">About</Link>
-        <Link to="/blog" className="text-white transition-colors">Blog</Link>
-        <Link
-          to="/create"
-          className="bg-versa-one text-black font-black px-5 py-2.5 hover:bg-white transition-colors"
-        >
-          Open Editor
-        </Link>
-      </div>
-    </nav>
+    <V2Navbar activePage="blog" />
 
     {/* ── Header ─────────────────────────────────── */}
     <header className="px-6 pt-24 pb-12 md:px-16 md:pt-36 md:pb-16 max-w-6xl">

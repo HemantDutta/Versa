@@ -221,128 +221,6 @@
 
 ## Left Over Stuff
 
-Created 2 todos
-
-Audit v2 completeness vs plan
-
-Read [](file:///c%3A/Users/91987/Versa/docs/v2_plan.md)
-
-Read [](file:///c%3A/Users/91987/Versa/client/vite.config.js)
-
-Read [](file:///c%3A/Users/91987/Versa/client/package.json)
-
-Read [](file:///c%3A/Users/91987/Versa/client/tailwind.config.js)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/shared/utils/versaParser.js)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/App.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/themes/carousel/index.js#1-1), lines 1 to 300
-
-Searched for text `REACT_APP_`, no results
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/themes/carousel/index.js#300-300), lines 300 to 1278
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/store)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/utils)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/store/useCarouselStore.js)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/MarkdownInput.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/utils/slidePaginator.js#1-1), lines 1 to 200
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/SlideCanvas.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/SlideNavigator.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/FontPicker.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/ThemePicker.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/ExportPanel.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/utils/pdfGenerator.js)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/utils/slidePaginator.js#200-200), lines 200 to 236
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/PromptCopyModal.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/SEO.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/components/Toolbar.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages/CarouselEditor.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages/Home.jsx#1-1), lines 1 to 350
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages/About.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages/Blog.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages/BlogPost.jsx)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/pages/Home.jsx#350-350), lines 350 to 462
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/shared/utils/fontLoader.js)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/data)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/styles)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/shared)
-
-Searched for regex `TODO|FIXME|HACK` (`**/client/src/**`), 2 results
-
-Searched for regex `SizeSelector|SlidePreview`, no results
-
-Searched for files matching `**/*.test.*`, no matches
-
-Read [](file:///c%3A/Users/91987/Versa/client/index.html)
-
-Read [](file:///c%3A/Users/91987/Versa/client/public/manifest.json)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/shared/utils/themes.js#1-1), lines 1 to 50
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/themes)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v1)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/shared/styles)
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/shared/components)
-
-Searched for regex `removeSlide|reorderSlide`, no results
-
-Read [](file:///c%3A/Users/91987/Versa/docs/v2_plan.md#1-1), lines 1 to 200
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/data/blogPosts.js#1-1), lines 1 to 50
-
-Searched for files matching `**/.env*`, no matches
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/themes/carousel)
-
-Searched for regex `Copy Link|shareable preview`, no results
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/utils/slidePaginator.js#1-1), lines 1 to 20
-
-Read [](file:///c%3A/Users/91987/Versa/client/src/v2/styles/CarouselEditor.css#1-1), lines 1 to 30
-
-Read [](file:///c%3A/Users/91987/AppData/Roaming/Code/User/workspaceStorage/300b4e0b3618a9d6e555935e3167dbc9/GitHub.copilot-chat/chat-session-resources/649ccbc4-fb7b-49fc-9878-cc7ea7d9e0d0/toolu_01W32nNQM9mDWQJXaqWsJpmM__vscode-1772004538045/content.txt)
-
-Completed: *Audit v2 against plan* (1/2)
-
-Here's the full audit against your plan:
-
----
-
 ## v2 Readiness Report
 
 ### Fully Complete
@@ -375,3 +253,25 @@ Here's the full audit against your plan:
 1. **Fix manifest.json** (5 seconds)
 2. **Add SizeSelector** (the only planned UI component that's missing)
 3. **Wire up PDF font embedding** (improves PDF quality + file size)
+
+## Good Stuff to add
+
+### Must-Have
+1. **Toast notification system** — Right now, save/export/copy actions have minimal feedback. A lightweight toast (success, error, info) would cover export completion, copy confirmation, save errors, etc.
+2. **404 page** — Any mistyped URL currently shows a blank screen. A branded 404 with a link back home takes minutes and prevents confusion.
+3. **Error boundary** — If the markdown parser, PDF generator, or a theme throws, the whole app crashes to white. A React error boundary with a "something went wrong" fallback + retry button is essential.
+4. **Export loading state** — PDF generation can take a few seconds on large decks. The export button needs a spinner/disabled state so users don't click it repeatedly.
+
+### High Impact
+5. **Starter templates** — New users hitting the editor see a blank textarea. Offer 3–4 one-click templates (intro carousel, listicle, how-to, storytelling) that pre-fill the markdown so users see instant results and learn the syntax.
+6. **Keyboard shortcuts panel** — You have Ctrl+S, but users don't know about `---` for slide breaks or the toolbar shortcuts. A `?` shortcut that opens a shortcuts cheatsheet overlay would reduce friction.
+7. **PNG export (per-slide)** — Some users want individual slide images for Instagram or Twitter, not just a PDF. The `html-to-image` library you already have supports this with minimal extra code.
+8. **Slide aspect ratio picker** — Currently locked to square. LinkedIn supports 1:1, 4:5, and 16:9. Adding a size toggle would cover more use cases.
+
+### Nice-to-Have
+9. **Undo/Redo buttons** — The textarea supports browser undo, but explicit buttons (especially on mobile where Ctrl+Z isn't available) would help.
+10. **PWA manifest + service worker** — Since there's zero backend, the app can work fully offline. A basic service worker for asset caching would make it installable and resilient.
+11. **Import from file** — Let users drag-and-drop or upload a `.md` file to populate the editor instead of only typing/pasting.
+12. **OG preview image** — The social share cards currently have no image. A static branded screenshot would make shared links look polished on LinkedIn/Twitter.
+
+I'd recommend tackling **1–4** first since they're about preventing bad experiences, then **5–7** since they directly drive engagement.

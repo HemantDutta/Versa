@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 
 const SITE_NAME = "Versa";
-const SITE_URL = "https://versacarousel.vercel.app"; // update when domain changes
+const SITE_URL = import.meta.env.VITE_SITE_URL || "https://versacarousel.vercel.app";
 const DEFAULT_IMAGE = `${SITE_URL}/og-cover.png`;
 
 /**
