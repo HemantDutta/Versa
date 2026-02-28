@@ -1,4 +1,4 @@
-﻿/**
+/**
  * LinkedIn Carousel Themes
  * Each theme provides CSS scoped to .versa-slide and preview metadata.
  */

@@ -1,4 +1,4 @@
-﻿import { PDFDocument } from "pdf-lib";
+import { PDFDocument } from "pdf-lib";
 import { toCanvas } from "html-to-image";
 import { getCarouselThemeCSS } from "../themes/carousel";
 
@@ -7,7 +7,7 @@ import { getCarouselThemeCSS } from "../themes/carousel";
  *
  * Strategy:
  * 1. Render each slide in a real DOM container (offscreen)
- * 2. Use html2canvas to capture each slide as a canvas
+ * 2. Use html-to-image to capture each slide as a canvas
  * 3. Embed each canvas as a PNG page in a pdf-lib PDFDocument
  * 4. Download the resulting PDF
  */
@@ -46,7 +46,7 @@ export async function generatePDF({ slides, fontObj, themeName, slideSize }) {
   `;
   document.body.appendChild(renderContainer);
 
-  // Base styles that html2canvas renders reliably
+  // Base styles for slide rendering
   const baseCSS = `
     .versa-slide * { box-sizing: border-box; }
     .versa-slide del, .versa-slide s {

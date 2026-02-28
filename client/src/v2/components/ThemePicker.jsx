@@ -52,7 +52,7 @@ export const ThemePicker = () => {
                 className={`flex flex-col items-center gap-1.5 p-2 rounded-lg border transition-all ${
                   selectedTheme === theme.name
                     ? "border-versa-one bg-gray-800"
-                    : "border-gray-700 hover:border-gray-500 bg-gray-850"
+                    : "border-gray-700 hover:border-gray-500 bg-gray-800/50"
                 }`}
               >
                 {/* Color preview swatch */}

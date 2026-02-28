@@ -1,30 +1,25 @@
 import { useState, useMemo, useEffect, useRef, useCallback, memo } from "react";
 import useCarouselStore from "../store/useCarouselStore";
-import { fetchGoogleFonts, loadFontFace } from "../../shared/utils/fontLoader";
+import { loadFontFace } from "../../shared/utils/fontLoader";
 
 /**
  * FontPicker — Searchable dropdown listing all Google Fonts.
- * Lazy loads font preview when a font is hovered.
+ * Fonts are loaded into global store on first mount — shared across the app.
  */
 export const FontPicker = () => {
   const fonts = useCarouselStore((s) => s.fonts);
-  const setFonts = useCarouselStore((s) => s.setFonts);
+  const fontsLoading = useCarouselStore((s) => s.fontsLoading);
+  const loadFonts = useCarouselStore((s) => s.loadFonts);
   const selectedFont = useCarouselStore((s) => s.selectedFont);
   const setSelectedFont = useCarouselStore((s) => s.setSelectedFont);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Fetch fonts on first open
+  // Trigger centralised font load on mount (no-ops if already loaded)
   useEffect(() => {
-    if (fonts.length > 0) return;
-    setLoading(true);
-    fetchGoogleFonts().then((list) => {
-      setFonts(list);
-      setLoading(false);
-    });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    loadFonts();
+  }, [loadFonts]);
 
   // Close on outside click
   useEffect(() => {
@@ -88,12 +83,12 @@ export const FontPicker = () => {
 
           {/* Font list */}
           <div className="max-h-60 overflow-y-auto versa-scrollbar">
-            {loading && (
+            {fontsLoading && (
               <div className="p-4 text-center text-gray-400 text-sm">
                 Loading fonts...
               </div>
             )}
-            {!loading && filtered.length === 0 && (
+            {!fontsLoading && filtered.length === 0 && (
               <div className="p-4 text-center text-gray-400 text-sm">
                 No fonts found
               </div>

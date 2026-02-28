@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { fetchGoogleFonts, loadFontFace } from "../../shared/utils/fontLoader";
 
 const DEFAULT_MARKDOWN = `# Welcome to Versa v2
 
@@ -72,6 +73,7 @@ const useCarouselStore = create((set, get) => ({
 
   // ── Font ──────────────────────────────────────────────
   fonts: [],
+  fontsLoading: false,
   selectedFont: stored?.selectedFont || null,
 
   // ── Theme ─────────────────────────────────────────────
@@ -125,6 +127,21 @@ const useCarouselStore = create((set, get) => ({
   },
 
   setFonts: (fonts) => set({ fonts }),
+
+  /**
+   * Load fonts from the Google Fonts API (cached — safe to call many times).
+   * Also re-injects the @font-face for the currently selected font.
+   */
+  loadFonts: async () => {
+    const state = get();
+    if (state.fonts.length > 0) return; // already loaded
+    set({ fontsLoading: true });
+    const list = await fetchGoogleFonts();
+    set({ fonts: list, fontsLoading: false });
+    // Re-inject the selected font face (e.g. after a page reload)
+    const sel = get().selectedFont;
+    if (sel) loadFontFace(sel);
+  },
 
   setSelectedFont: (font) => {
     set({ selectedFont: font, saveStatus: "unsaved" });

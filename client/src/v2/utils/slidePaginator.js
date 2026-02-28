@@ -1,5 +1,6 @@
 import { versaParser } from "../../shared/utils/versaParser";
 import { getCarouselThemeCSS } from "../themes/carousel";
+import { sanitizeHTML } from "./sanitize";
 
 /**
  * Slide Paginator — Takes markdown content and splits it into
@@ -81,7 +82,10 @@ export function paginateSlides(markdown, theme, slideSize, fontFamily) {
     allSlides.push(...fittedSlides);
   }
 
-  return allSlides.length > 0 ? allSlides : [{ html: "<p></p>" }];
+  // Sanitize all slide HTML before returning to prevent XSS
+  const sanitized = (allSlides.length > 0 ? allSlides : [{ html: "<p></p>" }])
+    .map((s) => ({ ...s, html: sanitizeHTML(s.html) }));
+  return sanitized;
 }
 
 /**
