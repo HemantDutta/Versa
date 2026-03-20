@@ -1,12 +1,11 @@
-import axios from "axios";
 import {useEffect, useRef, useState} from "react";
 import '../styles/Editor.css';
 import {Select} from "../components/Select";
-import {versaParser} from "../utils/versaParser";
-import {themeColors, themes} from "../utils/themes";
-import {tools} from "../utils/tools";
+import {versaParser} from "../../shared/utils/versaParser";
+import {themeColors, themes} from "../../shared/utils/themes";
+import {tools} from "../../shared/utils/tools";
 import {Toolbar} from "../components/Toolbar";
-import {generateHTML} from "../utils/generateHTML";
+import {generateHTML} from "../../shared/utils/generateHTML";
 import {useNavigate} from "react-router-dom";
 import {TourPopup} from "../components/TourPopup";
 
@@ -109,9 +108,10 @@ export const Editor = () => {
     //Fetch Google Fonts
     function fetchGoogleFonts() {
         try {
-            axios.get(`https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_FONT_API}`)
-                .then((res) => {
-                    setFonts(res.data.items);
+            fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_FONT_API}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    setFonts(data.items);
                 })
                 .catch(err => {
                     console.log("The following error occurred while fetching fonts: " + err);
@@ -797,7 +797,7 @@ export const Editor = () => {
                     <header className="relative p-3 flex gap-x-5 items-center justify-between no-print">
                         <div className="left flex items-center gap-x-5">
                             <span className="brand user-select-none cursor-pointer text-white font-bold text-4xl" onClick={() => {
-                                navigator("/")
+                                navigator("/v1")
                             }}>Versa</span>
                             <div className="tools flex items-center gap-x-1 flex-wrap">
                                 <Toolbar insertText={insertText} uploadPopupToggle={uploadPopupToggle}/>

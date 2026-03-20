@@ -1,0 +1,398 @@
+/* CarouselEditor.css — v2 editor layout styles */
+
+.carousel-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #0a0a0a;
+  color: #e0e0e0;
+  overflow: hidden;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+
+.carousel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border-bottom: 1px solid #1e1e1e;
+  background: #111111;
+  gap: 12px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.carousel-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.carousel-logo {
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+}
+
+.carousel-header-center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+}
+
+.carousel-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.save-indicator {
+  min-width: 52px;
+  text-align: right;
+}
+
+/* ── Body — Split Panels ─────────────────────────────────── */
+
+.carousel-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.carousel-editor-panel {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  min-width: 320px;
+  border-right: 1px solid #1e1e1e;
+  overflow: hidden;
+}
+
+.carousel-editor-panel .toolbar {
+  flex-shrink: 0;
+  background: #111111;
+}
+
+.carousel-editor-panel .markdown-input {
+  flex: 1;
+  overflow: hidden;
+}
+
+.carousel-editor-panel .markdown-input textarea {
+  width: 100%;
+  height: 100%;
+  background: #0a0a0a;
+  color: #d4d4d4;
+  border: none;
+  padding: 20px;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.7;
+  resize: none;
+  outline: none;
+  tab-size: 4;
+}
+
+.carousel-editor-panel .markdown-input textarea::placeholder {
+  color: #555;
+}
+
+.editor-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 16px;
+  border-top: 1px solid #1e1e1e;
+  background: #111111;
+  flex-shrink: 0;
+}
+
+.editor-footer kbd {
+  font-family: monospace;
+}
+
+/* ── Preview Panel ─────────────────────────────────────── */
+
+.carousel-preview-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #111111;
+  overflow: hidden;
+  gap: 12px;
+  min-height: 0;
+}
+
+.slide-canvas-wrapper {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.slide-navigator {
+  flex-shrink: 0;
+}
+
+.slide-canvas-scaler {
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────── */
+
+.versa-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.versa-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.versa-scrollbar::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+.versa-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ── Mobile Controls (hidden on desktop) ──────────────── */
+
+.mobile-controls {
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.panel-toggle-btn:hover {
+  background: #2a2a2a;
+}
+
+/* Hamburger button */
+.hamburger-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: none;
+  border: 1px solid #333;
+  border-radius: 6px;
+  cursor: pointer;
+  gap: 5px;
+  transition: background 0.2s;
+}
+
+.hamburger-btn:hover {
+  background: #1e1e1e;
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: #e0e0e0;
+  border-radius: 1px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.hamburger-btn.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Desktop export wrapper (hides on mobile) */
+.desktop-export {
+  display: flex;
+  align-items: center;
+}
+
+/* Desktop toolbar (hides on mobile) */
+.desktop-toolbar {
+  flex-shrink: 0;
+  background: #111111;
+}
+
+/* ── Mobile Dropdown Menu ─────────────────────────────── */
+
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #111111;
+  border-bottom: 1px solid #1e1e1e;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  z-index: 50;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.mobile-menu.active {
+  max-height: 500px;
+  padding: 12px 16px;
+  overflow-y: auto;
+}
+
+.mobile-menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 0;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.mobile-menu-section:last-child {
+  border-bottom: none;
+}
+
+.mobile-menu-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #777;
+  font-weight: 600;
+}
+
+.mobile-menu-actions {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mobile-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.mobile-action-btn:hover {
+  background: #2a2a2a;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  /* Header: make it relative so mobile-menu positions below */
+  .carousel-header {
+    position: relative;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  /* Hide desktop-only elements */
+  .carousel-header-center {
+    display: none;
+  }
+
+  .desktop-export {
+    display: none;
+  }
+
+  /* Hide desktop toolbar — it's in the mobile menu */
+  .desktop-toolbar {
+    display: none;
+  }
+
+  /* Show mobile controls */
+  .mobile-controls {
+    display: flex;
+  }
+
+  /* Show mobile menu container */
+  .mobile-menu {
+    display: block;
+  }
+
+  /* Body: stack panels */
+  .carousel-body {
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* Both panels fill 100% */
+  .carousel-editor-panel,
+  .carousel-preview-panel {
+    width: 100%;
+    min-width: auto;
+    border-right: none;
+  }
+
+  /* Active panel takes all space */
+  .carousel-editor-panel.panel-active,
+  .carousel-preview-panel.panel-active {
+    display: flex;
+    flex: 1;
+  }
+
+  /* Hidden panel */
+  .carousel-editor-panel.panel-hidden,
+  .carousel-preview-panel.panel-hidden {
+    display: none;
+  }
+
+  .carousel-preview-panel {
+    padding: 12px;
+  }
+
+  /* Compact footer on mobile */
+  .editor-footer {
+    padding: 6px 12px;
+  }
+
+  /* Navigator: smaller gaps, wrapped */
+  .slide-navigator {
+    gap: 6px;
+    padding: 8px 4px;
+  }
+}
+
+/* ── Tailwind color extension ─────────────────────────── */
+/* versa-one = the brand accent color used throughout the app */

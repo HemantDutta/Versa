@@ -3,16 +3,20 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
+    <link rel="icon" href="/favicon.png" />
     <meta name="viewport" content="height=device-height,
                       width=device-width, initial-scale=1.0,
                       minimum-scale=1.0, maximum-scale=1.0,
                       user-scalable=no">
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Versa: Markdown To PDF Generator" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <meta name="theme-color" content="#0a0a0a" />
 
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- SEO meta injected per-page by react-helmet-async -->
+    <title>Versa — Free LinkedIn Carousel Generator from Markdown</title>
+    <meta name="description" content="Create stunning LinkedIn PDF carousels from Markdown. 35 themes, 1 600+ Google Fonts, auto-pagination — 100% free, no sign-up, runs entirely in your browser." />
+
+    <link rel="apple-touch-icon" href="/logo192.png" />
+
+    <link rel="manifest" href="/manifest.json" />
 
     <!--  Fonts  -->
     <!--  Jost  -->
@@ -32,7 +36,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!--  StyleSheet  -->
-    <link rel="stylesheet" href="VersaStyles.css">
+    <link rel="stylesheet" href="/VersaStyles.css">
 
     <title>Versa</title>
 </head>
@@ -40,7 +44,10 @@
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-
+    <script type="module" src="/src/index.jsx"></script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6347d9e5f92b4d21935b3c462c84a5bb"}'></script>
+    <!-- End Cloudflare Web Analytics -->
 </body>
 
 </html>

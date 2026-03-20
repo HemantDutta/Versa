@@ -15,6 +15,14 @@ function escapeHtml(str) {
     .replace(/>/g, "&gt;");
 }
 
+function sanitizeUrl(url) {
+  const trimmed = url.trim();
+  if (/^\s*javascript\s*:/i.test(trimmed)) return "";
+  if (/^\s*data\s*:/i.test(trimmed) && !/^\s*data:image\//i.test(trimmed)) return "";
+  if (/^\s*vbscript\s*:/i.test(trimmed)) return "";
+  return trimmed;
+}
+
 function processInline(text, theme) {
   // Restore escaped characters at the end
   const escapeMap = [];
@@ -27,13 +35,22 @@ function processInline(text, theme) {
 
   // Images (before links) — ![alt](url)
   if (theme === "Cyber Purple") {
-    text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<div class="img-wrapper"><img src="$2" alt="$1"/></div>');
+    text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => {
+      const safe = sanitizeUrl(url);
+      return safe ? `<div class="img-wrapper"><img src="${safe}" alt="${escapeHtml(alt)}"/></div>` : '';
+    });
   } else {
-    text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1"/>');
+    text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => {
+      const safe = sanitizeUrl(url);
+      return safe ? `<img src="${safe}" alt="${escapeHtml(alt)}"/>` : '';
+    });
   }
 
-  // Links — [text](url)
-  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" rel="noreferrer" target="_blank">$1</a>');
+  // Links — [text](url) — sanitize javascript: URIs
+  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => {
+    const safe = sanitizeUrl(url);
+    return safe ? `<a href="${safe}" rel="noreferrer" target="_blank">${label}</a>` : label;
+  });
 
   // Footnote references — [^id]
   text = text.replace(/\[\^([^\]]+)\]/g, '<sup class="footnote-ref"><a href="#fn-$1" id="fnref-$1">$1</a></sup>');

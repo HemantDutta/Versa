@@ -1,0 +1,5 @@
+# internal planning docs
+/docs
+
+# Vite dep optimization cache
+.vite/
