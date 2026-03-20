@@ -1,6 +1,7 @@
 import useCarouselStore from "../store/useCarouselStore";
 import { tools } from "../../shared/utils/tools";
-import { useRef, useCallback, useState, useEffect, memo } from "react";
+import { useRef, useCallback, useState, memo } from "react";
+import { useOnClickOutside } from "../hooks/useOnClickOutside";
 
 export const Toolbar = () => {
   const setMarkdown = useCarouselStore((s) => s.setMarkdown);
@@ -31,6 +32,7 @@ export const Toolbar = () => {
             setMarkdown(markdown + "\n\n" + reader.result);
           }
         };
+        reader.onerror = () => console.warn("Failed to read uploaded file");
         reader.readAsText(file);
       }
       // Reset so the same file can be uploaded again
@@ -106,14 +108,7 @@ const HeadingDropdown = ({ onSelect, btnClass }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [open]);
+  useOnClickOutside(ref, () => setOpen(false), open);
 
   const headings = [
     { level: 1, label: "Heading 1", size: "text-xl font-extrabold" },
@@ -130,6 +125,8 @@ const HeadingDropdown = ({ onSelect, btnClass }) => {
         title="Heading"
         onClick={() => setOpen(!open)}
         className={`${btnClass} ${open ? "bg-gray-700" : ""}`}
+        aria-haspopup="true"
+        aria-expanded={open}
       >
         H
         <i className="fa-solid fa-chevron-down text-[8px] ml-0.5 text-gray-400" />

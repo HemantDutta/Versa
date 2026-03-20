@@ -16,6 +16,7 @@ export const SlideCanvas = ({ containerWidth = 540, containerHeight = 540 }) => 
   const selectedFont = useCarouselStore((s) => s.selectedFont);
 
   const slide = slides[activeSlideIndex] || { html: "<p></p>" };
+  const isCover = slide?.isCover;
 
   // Calculate scale so the fixed-size slide fits within the panel
   // Constrain by both width and height so the slide is never clipped
@@ -59,7 +60,7 @@ export const SlideCanvas = ({ containerWidth = 540, containerHeight = 540 }) => 
         }}
       >
         <div
-          className="slide-canvas versa-slide"
+          className={`slide-canvas ${isCover ? "" : "versa-slide"}`}
           style={{
             width: slideSize.width,
             height: slideSize.height,
@@ -67,7 +68,7 @@ export const SlideCanvas = ({ containerWidth = 540, containerHeight = 540 }) => 
             transformOrigin: "top left",
             overflow: "hidden",
             boxSizing: "border-box",
-            ...fontStyle,
+            ...(isCover ? {} : fontStyle),
           }}
           dangerouslySetInnerHTML={{ __html: slide.html }}
         />

@@ -54,6 +54,7 @@ function saveToStorage(state) {
       selectedFont: state.selectedFont,
       selectedTheme: state.selectedTheme,
       slideSize: state.slideSize,
+      coverImage: state.coverImage,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch (e) {
@@ -81,6 +82,9 @@ const useCarouselStore = create((set, get) => ({
 
   // ── Slide dimensions (px) ─────────────────────────────
   slideSize: stored?.slideSize || { width: 1080, height: 1080, label: "Square (1:1)" },
+
+  // ── Cover image (data URL or null) ────────────────────
+  coverImage: stored?.coverImage || null,
 
   // ── Save status ───────────────────────────────────────
   saveStatus: "saved", // "saved" | "unsaved" | "saving"
@@ -155,6 +159,14 @@ const useCarouselStore = create((set, get) => ({
     set({ slideSize: size, saveStatus: "unsaved" });
   },
 
+  setCoverImage: (dataUrl) => {
+    set({ coverImage: dataUrl, saveStatus: "unsaved" });
+  },
+
+  removeCoverImage: () => {
+    set({ coverImage: null, saveStatus: "unsaved" });
+  },
+
   // ── Persistence ───────────────────────────────────────
 
   save: () => {
@@ -174,6 +186,7 @@ const useCarouselStore = create((set, get) => ({
         selectedFont: data.selectedFont || null,
         selectedTheme: data.selectedTheme || "Clean White",
         slideSize: data.slideSize || { width: 1080, height: 1080, label: "Square (1:1)" },
+        coverImage: data.coverImage || null,
         saveStatus: "saved",
         lastSavedMarkdown: data.markdown || DEFAULT_MARKDOWN,
       });

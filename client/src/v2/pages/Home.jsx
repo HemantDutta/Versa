@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 import gsap from "gsap";
 import SEO from "../components/SEO";
 
@@ -436,7 +436,7 @@ const Home = () => {
 
 /* ── Sub-components ────────────────────────────────────────── */
 
-const FeatureCard = ({ num, icon, title, desc }) => (
+const FeatureCard = memo(({ num, icon, title, desc }) => (
   <article className="feature-card bg-[#0d0d0d] p-8 md:p-10 hover:bg-[#141414] transition-colors group relative overflow-hidden">
     {/* large background number */}
     <span className="absolute top-3 right-4 text-[5rem] font-black leading-none text-white/[0.03] select-none pointer-events-none">{num}</span>
@@ -446,28 +446,28 @@ const FeatureCard = ({ num, icon, title, desc }) => (
     </h3>
     <p className="text-neutral-300 text-sm leading-relaxed">{desc}</p>
   </article>
-);
+));
 
-const Step = ({ num, title, desc }) => (
+const Step = memo(({ num, title, desc }) => (
   <div className="bg-[#0d0d0d] p-8 md:p-10 relative overflow-hidden">
     <span className="text-versa-one font-black text-5xl md:text-6xl block mb-4">{num}</span>
     <h3 className="font-black text-lg uppercase tracking-wide mb-3">{title}</h3>
     <p className="text-neutral-300 text-sm leading-relaxed">{desc}</p>
   </div>
-);
+));
 
-const Stat = ({ value, label, ...rest }) => (
+const Stat = memo(({ value, label, ...rest }) => (
   <div className="bg-[#0d0d0d] py-10 px-8 text-center" {...rest}>
     <span className="block text-4xl md:text-5xl font-black tracking-tight text-versa-one">{value}</span>
     <span className="block mt-2 text-[11px] font-black uppercase tracking-[0.25em] text-neutral-400">{label}</span>
   </div>
-);
+));
 
-const WhyItem = ({ title, desc }) => (
+const WhyItem = memo(({ title, desc }) => (
   <div className="border-l-2 border-versa-one/40 pl-6">
     <h3 className="font-black text-xl md:text-2xl tracking-tight mb-2">{title}</h3>
     <p className="text-neutral-300 text-sm md:text-base leading-relaxed">{desc}</p>
   </div>
-);
+));
 
 export default Home;

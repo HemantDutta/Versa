@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect, memo } from "react";
+import { useState, useRef, memo } from "react";
 import useCarouselStore from "../store/useCarouselStore";
+import { useOnClickOutside } from "../hooks/useOnClickOutside";
 
 const PRESETS = [
   { width: 1080, height: 1080, label: "Square (1:1)", aspect: "1 / 1" },
@@ -18,14 +19,7 @@ export const SizeSelector = () => {
   const ref = useRef(null);
 
   // Close on outside click
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [open]);
+  useOnClickOutside(ref, () => setOpen(false), open);
 
   const currentLabel = slideSize.label || "Square (1:1)";
 
@@ -37,6 +31,8 @@ export const SizeSelector = () => {
           open ? "bg-gray-700" : ""
         }`}
         title="Slide aspect ratio"
+        aria-haspopup="listbox"
+        aria-expanded={open}
       >
         <i className="fa-solid fa-expand text-xs text-versa-one" />
         <span className="hidden sm:inline truncate max-w-[100px]">{currentLabel}</span>

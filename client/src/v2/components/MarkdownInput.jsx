@@ -91,6 +91,7 @@ export const MarkdownInput = () => {
             setMarkdown(markdown + "\n\n" + reader.result);
           }
         };
+        reader.onerror = () => console.warn("Failed to read dropped file");
         reader.readAsText(file);
       }
     },

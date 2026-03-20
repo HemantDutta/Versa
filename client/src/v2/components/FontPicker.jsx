@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect, useRef, useCallback, memo } from "react";
 import useCarouselStore from "../store/useCarouselStore";
 import { loadFontFace } from "../../shared/utils/fontLoader";
+import { useOnClickOutside } from "../hooks/useOnClickOutside";
 
 /**
  * FontPicker — Searchable dropdown listing all Google Fonts.
@@ -22,16 +23,7 @@ export const FontPicker = () => {
   }, [loadFonts]);
 
   // Close on outside click
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [open]);
+  useOnClickOutside(dropdownRef, () => setOpen(false), open);
 
   // Filtered font list (cap at 100 for performance)
   const filtered = useMemo(() => {
@@ -57,6 +49,8 @@ export const FontPicker = () => {
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2 px-3 py-2 bg-gray-800 rounded-lg text-sm text-white hover:bg-gray-700 transition-colors max-w-[200px]"
+        aria-haspopup="listbox"
+        aria-expanded={open}
       >
         <i className="fa-solid fa-font text-xs text-gray-400" />
         <span className="truncate">{displayName}</span>
@@ -82,7 +76,7 @@ export const FontPicker = () => {
           </div>
 
           {/* Font list */}
-          <div className="max-h-60 overflow-y-auto versa-scrollbar">
+          <div className="max-h-60 overflow-y-auto versa-scrollbar" role="listbox">
             {fontsLoading && (
               <div className="p-4 text-center text-gray-400 text-sm">
                 Loading fonts...
@@ -96,6 +90,8 @@ export const FontPicker = () => {
             {filtered.map((font) => (
               <button
                 key={font.family}
+                role="option"
+                aria-selected={selectedFont?.family === font.family}
                 onClick={() => handleSelect(font)}
                 onMouseEnter={() => loadFontFace(font)}
                 className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-800 transition-colors ${

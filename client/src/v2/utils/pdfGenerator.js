@@ -75,6 +75,18 @@ export async function generatePDF({ slides, fontObj, themeName, slideSize }) {
     for (let i = 0; i < slides.length; i++) {
       const slide = slides[i];
 
+      // Cover image slide — render directly via canvas (avoids data URL
+      // size issues with html-to-image's SVG serialization)
+      if (slide.isCover && slide.coverDataUrl) {
+        const coverCanvas = await renderCoverToCanvas(slide.coverDataUrl, width * 2, height * 2);
+        const coverPngUrl = coverCanvas.toDataURL("image/png");
+        const coverBytes = dataUrlToArrayBuffer(coverPngUrl);
+        const coverImg = await pdfDoc.embedPng(coverBytes);
+        const page = pdfDoc.addPage([width, height]);
+        page.drawImage(coverImg, { x: 0, y: 0, width, height });
+        continue;
+      }
+
       // Create slide element
       const slideEl = document.createElement("div");
       slideEl.className = "versa-slide";
@@ -181,6 +193,31 @@ async function waitForCaptureStability() {
 
   await new Promise((resolve) => requestAnimationFrame(resolve));
   await new Promise((resolve) => requestAnimationFrame(resolve));
+}
+
+/**
+ * Render a cover image data URL onto an off-screen canvas with "cover" fit.
+ */
+function renderCoverToCanvas(dataUrl, canvasWidth, canvasHeight) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      const ctx = canvas.getContext("2d");
+      // Object-fit: cover — scale to fill, center-crop excess
+      const scale = Math.max(canvasWidth / img.width, canvasHeight / img.height);
+      const drawW = img.width * scale;
+      const drawH = img.height * scale;
+      const x = (canvasWidth - drawW) / 2;
+      const y = (canvasHeight - drawH) / 2;
+      ctx.drawImage(img, x, y, drawW, drawH);
+      resolve(canvas);
+    };
+    img.onerror = reject;
+    img.src = dataUrl;
+  });
 }
 
 export default generatePDF;

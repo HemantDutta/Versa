@@ -91,7 +91,10 @@ export const ExportPanel = () => {
   </style>
 </head>
 <body>
-  ${slides.map((s, i) => `<div class="slide versa-slide" id="slide-${i + 1}">${s.html}</div>`).join("\n  ")}
+  ${slides.map((s, i) => {
+      if (s.isCover) return `<div class="slide" id="slide-${i + 1}" style="padding:0">${s.html}</div>`;
+      return `<div class="slide versa-slide" id="slide-${i + 1}">${s.html}</div>`;
+    }).join("\n  ")}
 </body>
 </html>`;
 

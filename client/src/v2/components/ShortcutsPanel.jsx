@@ -1,4 +1,5 @@
 import { useEffect, useCallback, memo } from "react";
+import { useFocusTrap } from "../hooks/useFocusTrap";
 
 const shortcuts = [
   {
@@ -40,6 +41,8 @@ const shortcuts = [
  * syntax cheatsheet. Toggled by pressing "?".
  */
 export const ShortcutsPanel = ({ open, onClose }) => {
+  const trapRef = useFocusTrap(open);
+
   // Close on Escape
   const handleKey = useCallback(
     (e) => {
@@ -59,9 +62,12 @@ export const ShortcutsPanel = ({ open, onClose }) => {
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Keyboard Shortcuts"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="relative w-full max-w-lg bg-[#141414] border border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+      <div ref={trapRef} className="relative w-full max-w-lg bg-[#141414] border border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-3 border-b border-gray-800">
           <div className="flex items-center gap-3">

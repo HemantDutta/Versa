@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect, memo } from "react";
+import { useState, useRef, memo } from "react";
 import useCarouselStore from "../store/useCarouselStore";
 import { CAROUSEL_THEMES } from "../themes/carousel";
+import { useOnClickOutside } from "../hooks/useOnClickOutside";
 
 /**
  * ThemePicker — Grid of theme cards with live preview colors.
@@ -12,20 +13,15 @@ export const ThemePicker = () => {
   const ref = useRef(null);
 
   // Close on outside click
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [open]);
+  useOnClickOutside(ref, () => setOpen(false), open);
 
   return (
     <div className="theme-picker relative" ref={ref}>
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2 px-3 py-2 bg-gray-800 rounded-lg text-sm text-white hover:bg-gray-700 transition-colors"
+        aria-haspopup="listbox"
+        aria-expanded={open}
       >
         <i className="fa-solid fa-palette text-xs text-gray-400" />
         <span className="truncate max-w-[120px]">{selectedTheme}</span>
@@ -41,10 +37,12 @@ export const ThemePicker = () => {
           <p className="text-xs text-gray-400 mb-2 font-semibold uppercase tracking-wider">
             Choose a Theme
           </p>
-          <div className="grid grid-cols-2 gap-2 max-h-72 overflow-y-auto versa-scrollbar">
+          <div className="grid grid-cols-2 gap-2 max-h-72 overflow-y-auto versa-scrollbar" role="listbox">
             {CAROUSEL_THEMES.map((theme) => (
               <button
                 key={theme.name}
+                role="option"
+                aria-selected={selectedTheme === theme.name}
                 onClick={() => {
                   setSelectedTheme(theme.name);
                   setOpen(false);

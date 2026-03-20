@@ -64,6 +64,13 @@ export async function generatePNGs({ slides, fontObj, themeName, slideSize, onPr
     for (let i = 0; i < slides.length; i++) {
       onProgress?.(i + 1, slides.length);
 
+      // Cover image slide — render directly via canvas
+      if (slides[i].isCover && slides[i].coverDataUrl) {
+        const coverCanvas = await renderCoverToCanvas(slides[i].coverDataUrl, width * 2, height * 2);
+        dataUrls.push(coverCanvas.toDataURL("image/png"));
+        continue;
+      }
+
       const slideEl = document.createElement("div");
       slideEl.className = "versa-slide";
       slideEl.style.cssText = `
@@ -146,6 +153,30 @@ async function waitForCaptureStability() {
   }
   await new Promise((r) => requestAnimationFrame(r));
   await new Promise((r) => requestAnimationFrame(r));
+}
+
+/**
+ * Render a cover image data URL onto an off-screen canvas with "cover" fit.
+ */
+function renderCoverToCanvas(dataUrl, canvasWidth, canvasHeight) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      const ctx = canvas.getContext("2d");
+      const scale = Math.max(canvasWidth / img.width, canvasHeight / img.height);
+      const drawW = img.width * scale;
+      const drawH = img.height * scale;
+      const x = (canvasWidth - drawW) / 2;
+      const y = (canvasHeight - drawH) / 2;
+      ctx.drawImage(img, x, y, drawW, drawH);
+      resolve(canvas);
+    };
+    img.onerror = reject;
+    img.src = dataUrl;
+  });
 }
 
 export default generatePNGs;

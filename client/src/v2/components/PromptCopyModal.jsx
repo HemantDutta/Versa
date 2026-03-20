@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useFocusTrap } from "../hooks/useFocusTrap";
 import { useToast } from "./Toast";
 
 /* ── The prompt users will copy and give to their LLM ────── */
@@ -40,6 +41,7 @@ Now, using the rules above, create a LinkedIn carousel in Markdown about the fol
 const PromptCopyModal = ({ open, onClose }) => {
   const [copied, setCopied] = useState(false);
   const toast = useToast();
+  const trapRef = useFocusTrap(open);
 
   /* Reset copied state when modal opens */
   useEffect(() => {
@@ -86,6 +88,10 @@ const PromptCopyModal = ({ open, onClose }) => {
     >
       {/* modal card */}
       <div
+        ref={trapRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="AI-Assisted Carousel Prompt"
         className="relative w-[90vw] max-w-lg bg-[#141414] border-2 border-white/10 rounded-xl p-6 md:p-8 text-white font-[Jost] shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >

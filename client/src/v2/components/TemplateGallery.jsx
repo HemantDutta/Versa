@@ -1,4 +1,5 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
+import { useFocusTrap } from "../hooks/useFocusTrap";
 import templates from "../data/templates";
 import useCarouselStore from "../store/useCarouselStore";
 import { useToast } from "./Toast";
@@ -11,6 +12,16 @@ import { useToast } from "./Toast";
 export const TemplateGallery = ({ onClose }) => {
   const setMarkdown = useCarouselStore((s) => s.setMarkdown);
   const toast = useToast();
+  const trapRef = useFocusTrap(true);
+
+  // Close on Escape
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose]);
 
   const handlePick = useCallback(
     (tmpl) => {
@@ -22,8 +33,17 @@ export const TemplateGallery = ({ onClose }) => {
   );
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="relative w-full max-w-2xl bg-[#141414] border border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <div
+        ref={trapRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Template Gallery"
+        className="relative w-full max-w-2xl bg-[#141414] border border-gray-800 rounded-2xl shadow-2xl overflow-hidden"
+      >
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-3">
           <div>

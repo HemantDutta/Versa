@@ -38,6 +38,8 @@ export const SlideNavigator = () => {
             <button
               key={i}
               onClick={() => setActiveSlide(i)}
+              aria-current={i === activeSlideIndex ? "true" : undefined}
+              aria-label={`Slide ${i + 1} of ${total}`}
               className={`w-2.5 h-2.5 rounded-full transition-all ${
                 i === activeSlideIndex
                   ? "bg-white scale-125"

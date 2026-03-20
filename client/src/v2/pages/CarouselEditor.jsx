@@ -12,6 +12,7 @@ import SizeSelector from "../components/SizeSelector";
 import PromptCopyModal from "../components/PromptCopyModal";
 import TemplateGallery from "../components/TemplateGallery";
 import ShortcutsPanel from "../components/ShortcutsPanel";
+import CoverImagePicker from "../components/CoverImagePicker";
 import SEO from "../components/SEO";
 import "../styles/CarouselEditor.css";
 
@@ -29,6 +30,7 @@ const CarouselEditor = () => {
   const selectedFont = useCarouselStore((s) => s.selectedFont);
   const selectedTheme = useCarouselStore((s) => s.selectedTheme);
   const slideSize = useCarouselStore((s) => s.slideSize);
+  const coverImage = useCarouselStore((s) => s.coverImage);
   const saveStatus = useCarouselStore((s) => s.saveStatus);
   const save = useCarouselStore((s) => s.save);
 
@@ -62,12 +64,19 @@ const CarouselEditor = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Re-paginate slides when markdown, theme, font, or size changes
+  // Re-paginate slides when markdown, theme, font, size, or cover changes
   const repaginate = useCallback(() => {
     const fontFamily = selectedFont?.family || null;
     const newSlides = paginateSlides(markdown, selectedTheme, slideSize, fontFamily);
+    if (coverImage) {
+      newSlides.unshift({
+        html: `<img src="${coverImage}" style="width:100%;height:100%;object-fit:cover;display:block" />`,
+        isCover: true,
+        coverDataUrl: coverImage,
+      });
+    }
     setSlides(newSlides);
-  }, [markdown, selectedTheme, selectedFont, slideSize, setSlides]);
+  }, [markdown, selectedTheme, selectedFont, slideSize, setSlides, coverImage]);
 
   useEffect(() => {
     clearTimeout(paginateTimeout.current);
@@ -209,6 +218,7 @@ const CarouselEditor = () => {
               className={`hamburger-btn ${mobileMenuOpen ? "active" : ""}`}
               onClick={() => setMobileMenuOpen((o) => !o)}
               aria-label="Menu"
+              aria-expanded={mobileMenuOpen}
             >
               <span />
               <span />
@@ -259,6 +269,8 @@ const CarouselEditor = () => {
               <i className="fa-solid fa-wand-magic-sparkles text-versa-one" />
               AI Prompt
             </button>
+          </div>
+          <div className="mobile-menu-section mobile-menu-actions">
             <ExportPanel />
           </div>
         </div>
@@ -295,6 +307,7 @@ const CarouselEditor = () => {
         >
           <SlideCanvas containerWidth={previewWidth} containerHeight={previewHeight} />
           <SlideNavigator />
+          <CoverImagePicker />
         </div>
       </div>
 

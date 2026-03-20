@@ -1,4 +1,3 @@
-import axios from "axios";
 import {useEffect, useRef, useState} from "react";
 import '../styles/Editor.css';
 import {Select} from "../components/Select";
@@ -109,9 +108,10 @@ export const Editor = () => {
     //Fetch Google Fonts
     function fetchGoogleFonts() {
         try {
-            axios.get(`https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_FONT_API}`)
-                .then((res) => {
-                    setFonts(res.data.items);
+            fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_FONT_API}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    setFonts(data.items);
                 })
                 .catch(err => {
                     console.log("The following error occurred while fetching fonts: " + err);
