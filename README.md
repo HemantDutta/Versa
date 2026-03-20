@@ -1,24 +1,81 @@
 # Versa ✨
-[Check it out!](https://versa-hd.netlify.app/)
 
-![Home Page Screenshot](https://github.com/HemantDutta/Versa/blob/5442a33356c7598e43ee36143e9d2b89885b009f/git_static/Screenshot%202024-08-25%20195023.png)
-![Editor Page Screenshot](https://github.com/HemantDutta/Versa/blob/763d83e2270cd88a08bb3ba0d27ab3b4d898be67/git_static/Screenshot%202024-08-25%20195042.png)
+**Create stunning LinkedIn PDF carousels from Markdown — 100% free, no sign-up, runs entirely in your browser.**
 
-Welcome to **Versa**, the ultimate markdown editor and document creator. With **Versa**, you can easily convert your markdown into beautifully styled documents using HTML/CSS or PDF formats, all with a range of fonts and themes to choose from.
+[Live Site →](https://versa-hd.netlify.app/)
+
+<!-- TODO: Add updated screenshots -->
+![Home Page Screenshot]()
+![Editor Page Screenshot]()
 
 ## 🎉 Features
 
-- **1600+ Fonts**: Endless customization with a growing library of fonts to give your documents a unique touch.
-- **25+ Themes**: Choose from a variety of pre-designed themes to style your documents instantly.
-- **Auto-Save**: Your work is automatically saved in your browser's local storage, so you never lose your progress.
-- **Markdown to HTML & PDF**: Seamlessly convert your markdown into beautiful HTML/CSS or PDF files.
-- **User-Friendly Toolbar**: Easily add tables, images, links, and more with our intuitive toolbar—perfect for users who aren't familiar with Markdown.
-- **Word & Character Count**: Stay on top of your writing with real-time stats for word and character count.
-- **Status Indicator**: Keep track of your document's save status to ensure nothing gets lost.
+- **35+ Themes** — Professional carousel designs built for LinkedIn
+- **1600+ Google Fonts** — Powered by the Google Fonts API
+- **Auto-Pagination** — Content flows naturally across slides, or use `---` for manual breaks
+- **Cover Image** — Add a custom cover image as the first slide
+- **Multi-Format Export** — Download as PDF, PNG (per-slide), HTML, or Markdown
+- **Starter Templates** — Jump-start your carousel with pre-built templates
+- **AI Prompt Copy** — Generate an AI-ready prompt for carousel content
+- **Keyboard Shortcuts** — Fast editing with a shortcuts panel
+- **Slide Size Picker** — Square (1:1), Portrait (4:5), Story (9:16)
+- **Auto-Save** — Saved to browser localStorage automatically
+- **Markdown Toolbar** — Add headings, bold, italic, links, images, tables, code blocks, and more
+- **Word & Character Count** — Real-time writing stats
+- **No Backend** — Everything runs client-side in your browser
+- **Privacy-First Analytics** — Cookieless Cloudflare Web Analytics
 
-## 🛠 Contributing
+## 🛠 Tech Stack
 
-We welcome contributions from everyone! Here’s how you can get involved:
+- **React 18** + React Router 7
+- **Vite** — Build tool
+- **Zustand** — State management
+- **Tailwind CSS** — Styling
+- **pdf-lib** — PDF generation
+- **html-to-image** — Slide rasterization
+- **DOMPurify** — XSS sanitization
+- **GSAP** — Animations
+- **react-helmet-async** — SEO
+
+## 🚀 Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/HemantDutta/Versa.git
+cd Versa/client
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env
+# Add your Google Fonts API key to .env
+
+# Start development server
+npm run dev
+```
+
+The app will open at `http://localhost:3000`.
+
+## 📁 Project Structure
+
+```
+client/
+├── src/
+│   ├── v2/                  # Current version
+│   │   ├── pages/           # Home, CarouselEditor, About, Blog, NotFound
+│   │   ├── components/      # UI components (FontPicker, ThemePicker, ExportPanel, etc.)
+│   │   ├── store/           # Zustand store (useCarouselStore)
+│   │   ├── utils/           # PDF/PNG generators, sanitizer, slide paginator
+│   │   ├── themes/          # 35+ carousel theme definitions
+│   │   ├── hooks/           # Custom hooks (useOnClickOutside, useFocusTrap)
+│   │   └── styles/          # Component CSS
+│   ├── v1/                  # Legacy version (preserved at /v1 route)
+│   └── shared/              # Shared utilities (font loader, parser)
+└── public/                  # Static assets
+```
+
+## 🤝 Contributing
 
 1. **Fork the repository** and create your branch:
     ```bash
@@ -37,8 +94,6 @@ We welcome contributions from everyone! Here’s how you can get involved:
 
 4. **Open a pull request**.
 
-### 🤝 How to Contribute
-
-- **Report Bugs**: If you find a bug, please report it [here](https://github.com/HemantDutta/versa/issues).
-- **Feature Requests**: Have an idea for a new feature? Let us know [here](https://github.com/HemantDutta/versa/issues).
-- **Pull Requests**: We love to see your code improvements. Feel free to fork, improve, and submit a PR.
+- **Report Bugs**: [Open an issue](https://github.com/HemantDutta/Versa/issues)
+- **Feature Requests**: [Open an issue](https://github.com/HemantDutta/Versa/issues)
+- **Pull Requests**: Fork, improve, and submit a PR
