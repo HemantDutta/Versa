@@ -5,8 +5,8 @@
 [Live Site →](https://versa-hd.netlify.app/)
 
 <!-- TODO: Add updated screenshots -->
-![Home Page Screenshot]()
-![Editor Page Screenshot]()
+![Home Page Screenshot](https://github.com/HemantDutta/Versa/blob/main/git_static/vs_home.png?raw=true)
+![Editor Page Screenshot](https://github.com/HemantDutta/Versa/blob/main/git_static/vs_editor.png?raw=true)
 
 ## 🎉 Features
 
