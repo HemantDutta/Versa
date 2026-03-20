@@ -169,7 +169,6 @@ function fitBlocksToSlides(htmlBlocks, container, slideSize, theme) {
   const slides = [];
   let currentBlocks = [];
   const padding = 60; // px padding inside each slide
-  const availableHeight = slideSize.height - padding * 2;
 
   // Import theme CSS for measuring
   const themeCSS = getCarouselThemeCSS(theme);

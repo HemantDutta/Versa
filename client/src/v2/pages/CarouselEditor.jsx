@@ -69,11 +69,15 @@ const CarouselEditor = () => {
     const fontFamily = selectedFont?.family || null;
     const newSlides = paginateSlides(markdown, selectedTheme, slideSize, fontFamily);
     if (coverImage) {
-      newSlides.unshift({
-        html: `<img src="${coverImage}" style="width:100%;height:100%;object-fit:cover;display:block" />`,
-        isCover: true,
-        coverDataUrl: coverImage,
-      });
+      // Validate data URL format to prevent XSS from tampered localStorage
+      const isValidDataUrl = /^data:image\/[a-z+]+;base64,[A-Za-z0-9+/=]+$/.test(coverImage);
+      if (isValidDataUrl) {
+        newSlides.unshift({
+          html: `<img src="${coverImage}" style="width:100%;height:100%;object-fit:cover;display:block" />`,
+          isCover: true,
+          coverDataUrl: coverImage,
+        });
+      }
     }
     setSlides(newSlides);
   }, [markdown, selectedTheme, selectedFont, slideSize, setSlides, coverImage]);

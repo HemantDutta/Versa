@@ -106,7 +106,7 @@ export const ExportPanel = () => {
     a.click();
     URL.revokeObjectURL(url);
     toast("HTML file downloaded", "success");
-  }, [markdown, slides, selectedFont, slideSize, toast]);
+  }, [markdown, slides, selectedFont, selectedTheme, slideSize, toast]);
 
   const handleExportMarkdown = useCallback(() => {
     const blob = new Blob([markdown], { type: "text/markdown" });

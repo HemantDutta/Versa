@@ -24,7 +24,6 @@ const PURIFY_CONFIG = {
     "blockquote", "pre", "div", "section",
     // footnotes / misc
     "input", // task-list checkboxes
-    "style", // theme CSS injected inside slides
   ],
   ALLOWED_ATTR: [
     "id", "class", "style",
@@ -33,12 +32,22 @@ const PURIFY_CONFIG = {
     "type", "checked", "disabled",
     "colspan", "rowspan",
   ],
-  // Block dangerous URI schemes in href/src
+  // Block dangerous URI schemes — data: is allowed only for img[src] via hook below
   ALLOWED_URI_REGEXP:
-    /^(?:(?:https?|mailto|tel|data):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
-  // Keep <style> content (theme CSS) intact
+    /^(?:(?:https?|mailto|tel):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
   FORCE_BODY: true,
 };
+
+// Allow data: URIs only on <img src>, not on <a href> or other attributes
+DOMPurify.addHook("uponSanitizeAttribute", (node, data) => {
+  if (
+    node.tagName === "IMG" &&
+    data.attrName === "src" &&
+    /^data:image\//i.test(data.attrValue)
+  ) {
+    data.forceKeepAttr = true;
+  }
+});
 
 /**
  * Sanitize HTML produced by the Markdown parser.
